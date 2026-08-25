@@ -1,0 +1,40 @@
+/* UCI Hub — Podcast highlight (453×376 frame @ 1440px) */
+
+.case-study-uci-podcast {
+  --pod-ref-w: 453;
+  --pod-inset: calc(24 * 100cqw / var(--pod-ref-w));
+
+  container-type: inline-size;
+  container-name: uci-podcast;
+  position: relative;
+  overflow: hidden;
+}
+
+.case-study-uci-podcast__parallax-layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+
+.case-study-uci-podcast__image-wrap {
+  width: calc(100cqw - 2 * var(--pod-inset));
+  flex-shrink: 0;
+}
+
+.case-study-uci-podcast__image-wrap > span {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.case-study-uci-podcast__image {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  max-width: none !important;
+  filter: var(--shadow-case-study-media);
+}

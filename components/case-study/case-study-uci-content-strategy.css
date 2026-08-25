@@ -1,0 +1,62 @@
+/* UCI Conceptualization — content strategy screens (453×376 frame @ 1440px) */
+
+.case-study-uci-content-strategy {
+  --cs-ref-w: 453;
+  --cs-inset: calc(24 * 100cqw / var(--cs-ref-w));
+  --cs-img-w: calc(190 * 100cqw / var(--cs-ref-w));
+  --cs-stack-gap: calc(20 * 100cqw / var(--cs-ref-w));
+  --cs-actualidad-visible-h: calc(220 * 100cqw / var(--cs-ref-w));
+
+  container-type: inline-size;
+  container-name: uci-content-strategy;
+  position: relative;
+  overflow: hidden;
+}
+
+.case-study-uci-content-strategy__homepage {
+  position: absolute;
+  top: var(--cs-inset);
+  right: var(--cs-inset);
+  width: var(--cs-img-w);
+}
+
+.case-study-uci-content-strategy__left {
+  position: absolute;
+  left: var(--cs-inset);
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: var(--cs-img-w);
+}
+
+.case-study-uci-content-strategy__detalle {
+  width: var(--cs-img-w);
+  margin-bottom: var(--cs-stack-gap);
+}
+
+.case-study-uci-content-strategy__actualidad {
+  width: var(--cs-img-w);
+  height: var(--cs-actualidad-visible-h);
+  overflow: hidden;
+}
+
+.case-study-uci-content-strategy__homepage > span,
+.case-study-uci-content-strategy__detalle > span,
+.case-study-uci-content-strategy__actualidad > span {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.case-study-uci-content-strategy__image {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  max-width: none !important;
+  filter: var(--shadow-case-study-media);
+}
+
+.case-study-uci-content-strategy__actualidad .case-study-uci-content-strategy__image {
+  vertical-align: top;
+}

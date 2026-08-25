@@ -1,0 +1,56 @@
+/* UCI Conceptualization — business cross-selling screens (453×376 frame @ 1440px) */
+
+.case-study-uci-cross-selling {
+  --xs-ref-w: 453;
+  --xs-inset: calc(24 * 100cqw / var(--xs-ref-w));
+  --xs-img-w: calc(190 * 100cqw / var(--xs-ref-w));
+
+  container-type: inline-size;
+  container-name: uci-cross-selling;
+  position: relative;
+  overflow: hidden;
+}
+
+.case-study-uci-cross-selling__parallax-layer {
+  position: absolute;
+  left: var(--xs-inset);
+  width: var(--xs-img-w);
+  display: flex;
+  align-items: center;
+  will-change: transform;
+}
+
+.case-study-uci-cross-selling__actualidad-wrap {
+  width: 100%;
+}
+
+.case-study-uci-cross-selling__actualidad-wrap > span {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.case-study-uci-cross-selling__detalle {
+  position: absolute;
+  right: var(--xs-inset);
+  bottom: var(--xs-inset);
+  width: var(--xs-img-w);
+}
+
+.case-study-uci-cross-selling__detalle > span {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.case-study-uci-cross-selling__image {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  max-width: none !important;
+  filter: var(--shadow-case-study-media);
+}
+
+.case-study-uci-cross-selling__detalle .case-study-uci-cross-selling__image {
+  vertical-align: bottom;
+}

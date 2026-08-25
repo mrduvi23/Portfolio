@@ -1,0 +1,42 @@
+.case-study-uci-sketch {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 922 / 498;
+  overflow: hidden;
+  border: 1px solid var(--color-card-inset-border);
+  background: var(--color-primitives-grey-10);
+}
+
+.case-study-uci-sketch__parallax-layer {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.case-study-uci-sketch__layer {
+  position: absolute;
+  overflow: hidden;
+}
+
+.case-study-uci-sketch__layer--back {
+  left: 3.471%;
+  top: 29.317%;
+  width: 61.822%;
+  height: 64.257%;
+  z-index: 1;
+  box-shadow: 0 2px 60px 0 rgb(65 65 65 / 4%);
+}
+
+.case-study-uci-sketch__layer--front {
+  left: 34.707%;
+  top: 6.426%;
+  width: 61.822%;
+  height: 64.056%;
+  z-index: 2;
+  box-shadow: 0 2px 60px 16px rgb(65 65 65 / 4%);
+}
+
+.case-study-uci-sketch__image {
+  object-fit: cover;
+  object-position: top;
+}

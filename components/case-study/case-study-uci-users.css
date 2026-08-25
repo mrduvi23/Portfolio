@@ -1,0 +1,123 @@
+/* UCI Users — 2×2 persona grid (Figma frame 354:3343) */
+
+.uci-users-board {
+  --uci-users-gap: 64px;
+  --uci-users-pad: 24px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--uci-users-gap);
+  width: 100%;
+  padding: var(--uci-users-pad);
+  border: 1px solid var(--color-card-inset-border);
+  background: var(--color-primitives-grey-10);
+  box-sizing: border-box;
+}
+
+@media (min-width: 764px) {
+  .uci-users-board {
+    --uci-users-pad: 32px;
+  }
+}
+
+.uci-users-board__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.uci-users-board__badge {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 9999px;
+}
+
+.uci-users-board__initials {
+  font-family: var(--font-sans);
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--color-primitives-white);
+  text-align: center;
+}
+
+.uci-users-board__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  text-align: center;
+}
+
+.uci-users-board__intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.uci-users-board__title {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", ui-serif, serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #e4002b;
+}
+
+.uci-users-board__description {
+  margin: 0;
+  max-width: 397px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--color-heading);
+}
+
+.uci-users-board__description-highlight {
+  font-family: inherit;
+  font-weight: 700;
+  color: #910048;
+}
+
+.uci-users-board__content-types {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.uci-users-board__content-types-label {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", ui-serif, serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #00635b;
+}
+
+.uci-users-board__content-types-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 358px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--color-heading);
+}
+
+.uci-users-board__content-types-list li + li {
+  margin-top: 0;
+}

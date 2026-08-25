@@ -1,0 +1,40 @@
+/* UCI Metrics — proportional scale from 1440px design (453px column → 376px frame) */
+
+.case-study-uci-metrics {
+  --uci-metrics-ref-w: 453px;
+  --uci-metrics-frame-h: 376px;
+  --uci-metrics-inset: 40px;
+  --uci-metrics-scale: 1;
+
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--color-card-inset-border);
+  background: var(--color-primitives-grey-10);
+  height: min(
+    var(--uci-metrics-frame-h),
+    calc(var(--uci-metrics-frame-h) * 100cqw / var(--uci-metrics-ref-w))
+  );
+}
+
+.case-study-uci-metrics__image-wrap {
+  position: absolute;
+  top: var(--uci-metrics-inset, 40px);
+  left: var(--uci-metrics-inset, 40px);
+}
+
+/* Metrics1: flush to the right so the frame crops cleanly on tablet widths */
+@media (min-width: 562px) and (max-width: 763px) {
+  .case-study-uci-metrics--metrics1 .case-study-uci-metrics__image-wrap {
+    left: auto;
+    right: 0;
+  }
+}
+
+.case-study-uci-metrics__image {
+  display: block;
+  width: auto;
+  max-width: none;
+  filter: var(--shadow-case-study-media);
+}

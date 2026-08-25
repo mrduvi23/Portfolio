@@ -1,0 +1,17 @@
+/** Punta Figma `Arrow 2` — coords absolutas del export */
+export const DS_AXIS_ARROW_HEAD_PATH =
+  "M316.707 8.07107C317.098 7.68054 317.098 7.04738 316.707 6.65685L310.343 0.292893C309.953 -0.097631 309.319 -0.097631 308.929 0.292893C308.538 0.683418 308.538 1.31658 308.929 1.70711L314.586 7.36396L308.929 13.0208C308.538 13.4113 308.538 14.0445 308.929 14.435C309.319 14.8256 309.953 14.8256 310.343 14.435L316.707 8.07107Z";
+
+export const DS_AXIS_ARROW_TIP_X = 316.707;
+export const DS_AXIS_ARROW_CENTER_Y = 7.36396;
+export const DS_AXIS_ARROW_ATTACH_X = 314.586;
+export const DS_AXIS_HEAD_INSET =
+  DS_AXIS_ARROW_TIP_X - DS_AXIS_ARROW_ATTACH_X;
+
+export const DS_AXIS_STROKE = "var(--color-primitives-grey-80)";
+export const DS_AXIS_SHAFT_WIDTH = 2;
+export const DS_AXIS_SHAFT_HALF = DS_AXIS_SHAFT_WIDTH / 2;
+/** Punta vertical alineada al borde superior de «D.S. Implementation» */
+export const DS_AXIS_Y_TIP = 0;
+export const DS_AXIS_Y_SHAFT = 320;
+export const DS_AXIS_ORIGIN_Y = DS_AXIS_Y_SHAFT;

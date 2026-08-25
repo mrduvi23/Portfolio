@@ -1,0 +1,19 @@
+/** Paths from `public/icons/PlayIcon24px.svg` */
+const PLAY_PATH =
+  "M5.25 7.44635C5.25002 5.33489 7.53098 4.01118 9.36426 5.05865L17.333 9.61236C19.1805 10.6681 19.1805 13.332 17.333 14.3878L9.36426 18.9415C7.53101 19.9889 5.25008 18.6652 5.25 16.5538V7.44635ZM6.75 16.5538C6.75008 17.5135 7.78683 18.1149 8.62012 17.6387L16.5889 13.085C17.4286 12.6052 17.4286 11.395 16.5889 10.9151L8.62012 6.36139C7.7868 5.88521 6.75002 6.48658 6.75 7.44635V16.5538Z";
+
+export function PlayIcon24() {
+  return (
+    <svg
+      width={24}
+      height={24}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="shrink-0"
+      aria-hidden
+    >
+      <path d={PLAY_PATH} fill="currentColor" />
+    </svg>
+  );
+}

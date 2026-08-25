@@ -1,0 +1,31 @@
+/* Zone Research — moodboard (922×396 @ >=1440) */
+
+.case-study-placeholder-frame.case-study-zone-moodboard {
+  aspect-ratio: 922 / 396;
+}
+
+.case-study-zone-moodboard {
+  position: relative;
+  overflow: hidden;
+}
+
+.case-study-zone-moodboard__image-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+.case-study-zone-moodboard__image-wrap > span {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+}
+
+.case-study-zone-moodboard__image {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: cover;
+  object-position: center;
+}

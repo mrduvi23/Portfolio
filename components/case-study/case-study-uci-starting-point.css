@@ -1,0 +1,61 @@
+/* UCI Current Website — StartingPoint frame */
+
+.case-study-uci-starting-point {
+  --uci-starting-point-inset-top: 32px;
+  --uci-starting-point-inset-x: 24px;
+  --uci-starting-point-image-w: 555px;
+
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--color-card-inset-border);
+  background: var(--color-primitives-grey-10);
+  height: clamp(
+    240px,
+    calc(240px + (100vw - 320px) * 156 / 444),
+    396px
+  );
+}
+
+@media (min-width: 764px) {
+  .case-study-uci-starting-point {
+    --uci-starting-point-inset-top: 40px;
+    height: 396px;
+  }
+}
+
+.case-study-uci-starting-point__parallax-layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  will-change: transform;
+}
+
+.case-study-uci-starting-point__image-wrap {
+  position: absolute;
+  top: var(--uci-starting-point-inset-top);
+  left: var(--uci-starting-point-inset-x);
+  right: var(--uci-starting-point-inset-x);
+  width: auto;
+}
+
+.case-study-uci-starting-point__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  filter: var(--shadow-case-study-media);
+}
+
+@media (min-width: 764px) {
+  .case-study-uci-starting-point__image-wrap {
+    left: 0;
+    right: 0;
+    width: var(--uci-starting-point-image-w);
+    margin-inline: auto;
+  }
+
+  .case-study-uci-starting-point__image {
+    width: var(--uci-starting-point-image-w);
+  }
+}

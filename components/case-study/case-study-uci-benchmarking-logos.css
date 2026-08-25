@@ -1,0 +1,83 @@
+/* UCI Benchmarking — sites analyzed logos (Figma frame 354:3391) */
+
+.uci-benchmarking-logos {
+  --uci-logos-title-gap: 32px;
+  --uci-logos-row-gap: 40px;
+  --uci-logos-col-gap: 24px;
+  --uci-logos-max-width: 164px;
+  --uci-logos-slot-height: 98px;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--uci-logos-title-gap);
+  width: 100%;
+  padding: 32px 24px 40px;
+  border: 1px solid var(--color-card-inset-border);
+  background: var(--color-primitives-grey-10);
+  box-sizing: border-box;
+}
+
+@media (min-width: 562px) {
+  .uci-benchmarking-logos {
+    --uci-logos-col-gap: 32px;
+    padding-inline: 32px;
+  }
+}
+
+@media (min-width: 764px) {
+  .uci-benchmarking-logos {
+    --uci-logos-row-gap: 52px;
+    --uci-logos-col-gap: 48px;
+  }
+}
+
+.uci-benchmarking-logos__title {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", ui-serif, serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: #e4002b;
+}
+
+.uci-benchmarking-logos__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--uci-logos-row-gap) var(--uci-logos-col-gap);
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+}
+
+@media (min-width: 764px) {
+  .uci-benchmarking-logos__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.uci-benchmarking-logos__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: var(--uci-logos-max-width);
+  min-height: 24px;
+}
+
+.uci-benchmarking-logos__logo--sanitas {
+  max-width: 82px;
+  min-height: var(--uci-logos-slot-height);
+}
+
+.uci-benchmarking-logos__image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: var(--uci-logos-slot-height);
+  object-fit: contain;
+}
+
+.uci-benchmarking-logos__logo--sanitas .uci-benchmarking-logos__image {
+  max-height: var(--uci-logos-slot-height);
+}

@@ -1,0 +1,355 @@
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+/**
+ * Breakpoint map used by layout:
+ * - bp-xs:    0–763px
+ * - bp-sm:    764–1024px
+ * - bp-md:    1025–1279px
+ * - bp-lg:    1280–1439px
+ * - bp-xl:    1440px+
+ *
+ * Grid rules:
+ * - <764px: 2 columns, 16px gutter, 16px side padding
+ * - >=764px: 12 columns, 16px gutter, 24px side padding
+ * - >=1440px: frame is fixed/centered by max-width 1440px
+ */
+
+/* Figma file “New portfolio” — Colors/Primitives */
+:root {
+  --color-primitives-white: oklch(0.993 0 0);
+  --color-primitives-grey-10: oklch(0.982 0 0);
+  --color-primitives-grey-20: oklch(0.961 0 0);
+  --color-primitives-grey-30: oklch(0.94 0 0);
+  --color-primitives-grey-40: oklch(0.918 0 0);
+  --color-primitives-grey-50: oklch(0.894 0 0);
+  --color-primitives-grey-60: oklch(0.865 0 0);
+  --color-primitives-grey-70: oklch(0.818 0 0);
+  --color-primitives-grey-80: oklch(0.649 0 0);
+  --color-primitives-grey-90: oklch(0.606 0 0);
+  --color-primitives-grey-100: oklch(0.503 0 0);
+  --color-primitives-black: oklch(0.375 0 0);
+  /** Deeper than black — MDS ecosystem graphic background (same hue family as accent) */
+  --color-primitives-black-deep: oklch(0.24 0.012 274);
+  /** ITX brand blue — shared across case study graphics */
+  --color-blue-itx: oklch(0.555 0.247 274.302);
+  --color-blue-itx-60: oklch(0.555 0.247 274.302 / 60%);
+
+  /** Warning / orange scale — hue 55 */
+  --color-warning-10: oklch(0.991 0.009 55);
+  --color-warning-20: oklch(0.983 0.017 55);
+  --color-warning-30: oklch(0.967 0.042 55);
+  --color-warning-40: oklch(0.95 0.063 55);
+  --color-warning-50: oklch(0.928 0.084 55);
+  --color-warning-60: oklch(0.9 0.105 55);
+  --color-warning-70: oklch(0.861 0.128 55);
+  --color-warning-80: oklch(0.804 0.156 55);
+  --color-warning-90: oklch(0.67 0.185 55);
+  --color-warning-100: oklch(0.626 0.187 55);
+  --color-warning-110: oklch(0.505 0.15 55);
+  --color-warning-120: oklch(0.377 0.099 55);
+
+  /* Semantic tokens (UI) */
+  --color-bg: var(--color-primitives-white);
+  --color-heading: var(--color-primitives-black);
+  --color-body: var(--color-primitives-grey-80);
+  --color-text-muted: color-mix(
+    in oklch,
+    var(--color-primitives-black) 80%,
+    transparent
+  );
+  --color-border: var(--color-primitives-grey-20);
+  /** Inset 1px stroke on project card images: #000 at 5% opacity */
+  --color-card-inset-border: color-mix(in srgb, #000000 5%, transparent);
+  /** Case study media screenshots — Figma drop shadow (X 2, Y 4, blur 16, #000 4%) */
+  --shadow-case-study-media: drop-shadow(2px 4px 16px rgba(0, 0, 0, 0.04));
+
+  --cursor-dot: #bfbfbf;
+  --cursor-ring-stroke: #191919;
+  --cursor-ring-fill: color-mix(in srgb, #fdfdfd 5%, transparent);
+}
+
+@theme {
+  --font-sans: var(--font-satoshi), ui-sans-serif, system-ui, sans-serif;
+  --page-max: 1440px;
+  --page-pad-x: 24px;
+  --page-pad-x-sm: 16px;
+  --page-gutter: 16px;
+
+  --color-warning-10: oklch(0.991 0.009 55);
+  --color-warning-20: oklch(0.983 0.017 55);
+  --color-warning-30: oklch(0.967 0.042 55);
+  --color-warning-40: oklch(0.95 0.063 55);
+  --color-warning-50: oklch(0.928 0.084 55);
+  --color-warning-60: oklch(0.9 0.105 55);
+  --color-warning-70: oklch(0.861 0.128 55);
+  --color-warning-80: oklch(0.804 0.156 55);
+  --color-warning-90: oklch(0.67 0.185 55);
+  --color-warning-100: oklch(0.626 0.187 55);
+  --color-warning-110: oklch(0.505 0.15 55);
+  --color-warning-120: oklch(0.377 0.099 55);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-heading);
+  font-family: var(--font-sans);
+}
+
+/* Custom cursor (see CustomCursor.tsx) — desktop fine pointer only */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
+/* Blend the whole cursor layer with page content (images, text, etc.) */
+.custom-cursor {
+  visibility: hidden;
+  mix-blend-mode: difference;
+  isolation: auto;
+}
+
+.custom-cursor[data-visible="true"],
+html[data-loader-active] .custom-cursor {
+  visibility: visible;
+}
+
+/* Hide page chrome until SessionLoader mounts (see LoaderGateScript) */
+html[data-loader-pending] body {
+  overflow: hidden;
+}
+
+html[data-loader-pending] .site-header,
+html[data-loader-pending] .site-main {
+  visibility: hidden;
+}
+
+/* Intro loader — block page interaction; no text selection */
+html[data-loader-active] body {
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html[data-loader-active] .site-header,
+html[data-loader-active] .site-main,
+html[data-route-transition] .site-header,
+html[data-route-transition] .site-main {
+  pointer-events: none;
+}
+
+html[data-route-transition] .page-transition-content {
+  will-change: transform;
+}
+
+.session-loader {
+  pointer-events: auto;
+}
+
+.session-loader,
+.session-loader * {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.custom-cursor__dot,
+.custom-cursor__ring {
+  position: absolute;
+  border-radius: 9999px;
+  margin-left: 0;
+  margin-top: 0;
+  translate: -50% -50%;
+}
+
+.custom-cursor__dot {
+  background-color: var(--cursor-dot);
+}
+
+.custom-cursor__ring {
+  border: 1px solid var(--cursor-ring-stroke);
+  background-color: var(--cursor-ring-fill);
+}
+
+/* Fixed nav — hide/show on scroll (see useNavbarScrollVisibility) */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  width: 100%;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.4s cubic-bezier(0.44, 0, 0.56, 1);
+  will-change: transform;
+}
+
+.site-header[data-scroll-state="visible"] {
+  transform: translate3d(0, 0, 0);
+  transition-delay: 0s;
+  pointer-events: auto;
+}
+
+.site-header[data-scroll-state="hidden"] {
+  transform: translate3d(0, -100%, 0);
+  transition-delay: 0.2s;
+  pointer-events: none;
+}
+
+.page-shell {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--page-pad-x-sm);
+  padding-right: var(--page-pad-x-sm);
+}
+
+@media (min-width: 764px) and (max-width: 1024px) {
+  .page-shell {
+    padding-left: var(--page-pad-x);
+    padding-right: var(--page-pad-x);
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1279px) {
+  .page-shell {
+    padding-left: var(--page-pad-x);
+    padding-right: var(--page-pad-x);
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1439px) {
+  .page-shell {
+    padding-left: var(--page-pad-x);
+    padding-right: var(--page-pad-x);
+  }
+}
+
+@media (min-width: 1440px) {
+  .page-shell {
+    padding-left: var(--page-pad-x);
+    padding-right: var(--page-pad-x);
+  }
+}
+
+.page-grid-12 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--page-gutter);
+}
+
+@media (min-width: 764px) and (max-width: 1024px) {
+  .page-grid-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--page-gutter);
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1279px) {
+  .page-grid-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--page-gutter);
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1439px) {
+  .page-grid-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--page-gutter);
+  }
+}
+
+@media (min-width: 1440px) {
+  .page-grid-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--page-gutter);
+  }
+}
+
+/* Typography scale — Figma type table (Satoshi) */
+.type-h1 {
+  font-size: 32px;
+  line-height: 36px;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+}
+
+.type-h2 {
+  font-size: 29px;
+  line-height: 36px;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+}
+
+.type-h3 {
+  font-size: 26px;
+  line-height: 32px;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+}
+
+.type-h4 {
+  font-size: 23px;
+  line-height: 28px;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+
+.type-h5 {
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+
+.type-quote {
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: 0;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.type-label {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+
+.type-label-caps {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.type-body {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  font-weight: 400;
+  color: var(--color-body);
+}
+
+/** Body scale, medium — project card titles only */
+.type-body-medium {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+
+.type-caption {
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0;
+  font-weight: 400;
+  color: var(--color-body);
+}

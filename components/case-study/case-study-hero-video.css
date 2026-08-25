@@ -1,0 +1,57 @@
+.case-study-hero-video {
+  position: relative;
+  height: 400px;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--color-card-inset-border);
+}
+
+.case-study-hero-video__media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.case-study-hero-video__controls {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  z-index: 2;
+  display: flex;
+  gap: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.case-study-hero-video:hover .case-study-hero-video__controls,
+.case-study-hero-video:focus-within .case-study-hero-video__controls {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.case-study-hero-video__control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+  margin: 0;
+  border: 0;
+  border-radius: 9999px;
+  background: color-mix(in oklch, var(--color-primitives-grey-90) 40%, transparent);
+  color: var(--color-primitives-white);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.case-study-hero-video__control:hover {
+  background: color-mix(in oklch, var(--color-primitives-grey-90) 60%, transparent);
+}
+
+.case-study-hero-video__control:focus-visible {
+  outline: 2px solid var(--color-primitives-white);
+  outline-offset: 2px;
+}

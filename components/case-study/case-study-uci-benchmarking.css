@@ -1,0 +1,77 @@
+/* UCI Benchmarking — variable grid (Figma frame 354:3388) */
+
+.uci-benchmarking-grid {
+  --uci-benchmark-gap: 40px;
+  --uci-benchmark-item-gap: 12px;
+  --uci-benchmark-min-col: 220px;
+
+  container-type: inline-size;
+  container-name: uci-benchmark;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--uci-benchmark-min-col), 1fr));
+  gap: var(--uci-benchmark-gap);
+  width: 100%;
+  padding: 32px 24px;
+  border: 1px solid var(--color-card-inset-border);
+  background: var(--color-primitives-grey-10);
+  box-sizing: border-box;
+}
+
+@media (min-width: 562px) {
+  .uci-benchmarking-grid {
+    padding: 40px 32px;
+  }
+}
+
+.uci-benchmarking-grid__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--uci-benchmark-item-gap);
+  min-width: 0;
+}
+
+.uci-benchmarking-grid__title {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", ui-serif, serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #e4002b;
+  overflow-wrap: break-word;
+}
+
+.uci-benchmarking-grid__description {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #00635b;
+  overflow-wrap: break-word;
+}
+
+/* Title last-line alignment when three columns fit */
+@supports (grid-template-rows: subgrid) {
+  @container uci-benchmark (min-width: 740px) {
+    .uci-benchmarking-grid {
+      grid-template-rows: repeat(4, auto);
+      row-gap: var(--uci-benchmark-item-gap);
+      column-gap: var(--uci-benchmark-gap);
+    }
+
+    .uci-benchmarking-grid__item {
+      display: grid;
+      grid-row: span 2;
+      grid-template-rows: subgrid;
+      gap: var(--uci-benchmark-item-gap);
+    }
+
+    .uci-benchmarking-grid__item:nth-child(n + 4) {
+      margin-top: calc(var(--uci-benchmark-gap) - var(--uci-benchmark-item-gap));
+    }
+
+    .uci-benchmarking-grid__title {
+      align-self: end;
+    }
+  }
+}

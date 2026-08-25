@@ -1,0 +1,313 @@
+/* UCI Information Architecture board — Figma 408:3235 (922×436 @ 1440) */
+
+.uci-ia-board {
+  --ia-border: var(--color-heading);
+  --ia-yellow: #fdffb6;
+  --ia-pink: #ffc6ff;
+  --ia-purple: #bdb2ff;
+  --ia-cyan: #9bf6ff;
+  --ia-coral: #ffadad;
+  --ia-blue: #a0c4ff;
+  --ia-green: #caffbf;
+  --ia-gradient: linear-gradient(90deg, #caffbf 0%, #a0c4ff 66%);
+  --ia-gap: 40px;
+  --ia-pad-x: 32px;
+
+  position: relative;
+  width: 100%;
+  border: 1px solid var(--color-card-inset-border);
+  background: var(--color-primitives-grey-10);
+  box-sizing: border-box;
+  overflow: hidden;
+  container-type: inline-size;
+  container-name: uci-ia-board;
+}
+
+/*
+ * Prefer a single horizontal row. Wrap only when versions no longer fit.
+ * Early group (v01–v03) stays top-aligned; the group is vertically centered with v04.
+ */
+.uci-ia-board__grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ia-gap);
+  padding: 32px var(--ia-pad-x);
+  box-sizing: border-box;
+}
+
+.uci-ia-board__early {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--ia-gap);
+  width: max-content;
+  max-width: 100%;
+}
+
+.uci-ia-board__version {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: max-content;
+  max-width: 100%;
+  color: var(--color-heading);
+}
+
+.uci-ia-board__version-main {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: max-content;
+  max-width: 100%;
+}
+
+.uci-ia-board__version-title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+
+.uci-ia-board__version--featured .uci-ia-board__version-title {
+  font-size: 18px;
+}
+
+.uci-ia-board__hub {
+  width: max-content;
+  max-width: 100%;
+}
+
+.uci-ia-board__hub .uci-ia-board__chip {
+  width: auto;
+  justify-content: center;
+}
+
+.uci-ia-board__items {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.uci-ia-board__items--indented {
+  padding-left: 12px;
+}
+
+.uci-ia-board__item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+.uci-ia-board__item:has(.uci-ia-board__chip--tall) {
+  align-items: stretch;
+}
+
+.uci-ia-board__chip {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  padding: 5px 12px;
+  border: 0.5px solid var(--ia-border);
+  background: #fff;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  text-align: center;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.uci-ia-board__version--featured .uci-ia-board__chip {
+  padding: 7px 18px;
+  font-size: 12px;
+  border-width: 0.75px;
+}
+
+.uci-ia-board__chip--tall {
+  align-self: stretch;
+  height: auto;
+  min-height: 0;
+}
+
+.uci-ia-board__version--featured .uci-ia-board__chip--tall {
+  min-height: 0;
+}
+
+.uci-ia-board__chip-line {
+  display: block;
+}
+
+.uci-ia-board__chip--gradient {
+  background-image: var(--ia-gradient);
+}
+
+.uci-ia-board__chip--yellow {
+  background: var(--ia-yellow);
+}
+
+.uci-ia-board__chip--pink {
+  background: var(--ia-pink);
+}
+
+.uci-ia-board__chip--purple {
+  background: var(--ia-purple);
+}
+
+.uci-ia-board__chip--cyan {
+  background: var(--ia-cyan);
+}
+
+.uci-ia-board__chip--coral {
+  background: var(--ia-coral);
+}
+
+.uci-ia-board__chip--blue {
+  background: var(--ia-blue);
+}
+
+.uci-ia-board__chip--green {
+  background: var(--ia-green);
+}
+
+.uci-ia-board__chip--white {
+  background: #fff;
+}
+
+.uci-ia-board__children {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.uci-ia-board__version--featured .uci-ia-board__children {
+  font-size: 12px;
+}
+
+.uci-ia-board__child {
+  display: block;
+}
+
+.uci-ia-board__contextual {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: var(--color-heading);
+}
+
+.uci-ia-board__version--featured .uci-ia-board__contextual {
+  font-size: 12px;
+}
+
+.uci-ia-board__contextual-label {
+  margin: 0;
+  font-weight: 700;
+}
+
+.uci-ia-board__contextual-list {
+  margin: 0;
+  padding-left: 1.25em;
+  font-weight: 400;
+}
+
+.uci-ia-board__contextual-list li {
+  margin: 0;
+}
+
+/* Scale typography toward Figma when the board is wide enough for one row */
+@container uci-ia-board (min-width: 860px) {
+  .uci-ia-board__grid {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  .uci-ia-board__version {
+    gap: 2.329cqw;
+  }
+
+  .uci-ia-board__version--featured {
+    gap: 2.15cqw;
+  }
+
+  .uci-ia-board__version-main {
+    gap: 1.434cqw;
+  }
+
+  .uci-ia-board__version--featured .uci-ia-board__version-main {
+    gap: 2.37cqw;
+  }
+
+  .uci-ia-board__version-title {
+    font-size: 1.434cqw;
+  }
+
+  .uci-ia-board__version--featured .uci-ia-board__version-title {
+    font-size: 1.971cqw;
+  }
+
+  .uci-ia-board__items {
+    gap: 0.629cqw;
+  }
+
+  .uci-ia-board__version--featured .uci-ia-board__items {
+    gap: 0.948cqw;
+  }
+
+  .uci-ia-board__items--indented {
+    padding-left: 1.311cqw;
+  }
+
+  .uci-ia-board__version--featured .uci-ia-board__items--indented {
+    padding-left: 1.974cqw;
+  }
+
+  .uci-ia-board__item {
+    gap: 0.695cqw;
+  }
+
+  .uci-ia-board__version--featured .uci-ia-board__item {
+    gap: 1.046cqw;
+  }
+
+  .uci-ia-board__chip {
+    padding: 0.538cqw 1.254cqw;
+    font-size: 0.806cqw;
+    border-width: 0.05cqw;
+  }
+
+  .uci-ia-board__version--featured .uci-ia-board__chip {
+    padding: 0.806cqw 1.971cqw;
+    font-size: 0.985cqw;
+    border-width: 0.079cqw;
+  }
+
+  .uci-ia-board__children,
+  .uci-ia-board__contextual {
+    font-size: 0.806cqw;
+  }
+
+  .uci-ia-board__version--featured .uci-ia-board__children {
+    font-size: 0.985cqw;
+  }
+
+  .uci-ia-board__version--featured .uci-ia-board__contextual {
+    font-size: 1.254cqw;
+  }
+}

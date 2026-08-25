@@ -1,0 +1,106 @@
+.inspiration-gallery-card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--color-card-inset-border);
+  text-decoration: none;
+  color: inherit;
+  --inspiration-cover-bezier: cubic-bezier(0.59, 0.25, 0.12, 1.17);
+  --inspiration-cover-duration: 400ms;
+  --inspiration-label-delay: 600ms;
+}
+
+.inspiration-gallery-card__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.inspiration-gallery-card__content-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+.inspiration-gallery-card__label {
+  position: absolute;
+  left: 20px;
+  bottom: 32px;
+  z-index: 1;
+  margin: 0;
+  color: var(--color-primitives-white);
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    transform var(--inspiration-cover-duration) var(--inspiration-cover-bezier),
+    opacity 200ms ease;
+  pointer-events: none;
+  user-select: none;
+}
+
+.inspiration-gallery-card__label.type-body {
+  color: var(--color-primitives-white);
+}
+
+.inspiration-gallery-card:hover .inspiration-gallery-card__label {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: var(--inspiration-label-delay), var(--inspiration-label-delay);
+}
+
+.inspiration-gallery-card__cover {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transform: translateY(0);
+  transition: transform var(--inspiration-cover-duration) var(--inspiration-cover-bezier);
+  will-change: transform;
+}
+
+.inspiration-gallery-card:hover .inspiration-gallery-card__cover,
+.inspiration-gallery-card--revealed .inspiration-gallery-card__cover {
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+.inspiration-gallery-card__video-slice {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+}
+
+.inspiration-gallery-card__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+.inspiration-gallery-card__mark {
+  position: relative;
+  z-index: 1;
+  color: var(--color-primitives-black);
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inspiration-gallery-card__cover,
+  .inspiration-gallery-card__label {
+    transition: none;
+  }
+
+  .inspiration-gallery-card:hover .inspiration-gallery-card__label {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

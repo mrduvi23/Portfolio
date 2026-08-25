@@ -1,0 +1,317 @@
+/* UCI Kickoff — FigJam board (Figma 254:25601, 922×610) */
+
+.uci-kickoff-board {
+  container-type: inline-size;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  aspect-ratio: 922 / 610;
+  overflow: hidden;
+  border: 1px solid var(--color-card-inset-border);
+  background: var(--color-primitives-grey-10);
+  padding: 2.603cqw; /* 24 / 922 */
+  box-sizing: border-box;
+}
+
+.uci-kickoff-board__list {
+  margin: 0;
+  padding-left: 1.518cqw;
+  color: var(--color-heading);
+  font-size: clamp(11px, 1.518cqw, 14px);
+  line-height: 1.56;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+.uci-kickoff-board__list--spaced {
+  margin-top: 2.821cqw;
+}
+
+.uci-kickoff-board__list li {
+  margin-bottom: 0;
+}
+
+.uci-kickoff-board__list ul {
+  margin: 0;
+  padding-left: 1.518cqw;
+}
+
+.uci-kickoff-board__list em {
+  font-style: italic;
+}
+
+.uci-kickoff-board__personas {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1.301cqw;
+  margin-top: 1.735cqw;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.uci-kickoff-board__persona {
+  flex: 0 0 24.403cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.542cqw;
+  text-align: center;
+  color: var(--color-heading);
+}
+
+.uci-kickoff-board__persona-dot {
+  width: 4.935cqw;
+  height: 4.935cqw;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.uci-kickoff-board__persona-dot--minor {
+  width: 3.688cqw;
+  height: 3.688cqw;
+}
+
+.uci-kickoff-board__persona-dot--red {
+  background: #ff7262;
+}
+
+.uci-kickoff-board__persona-dot--blue {
+  background: #5b94f5;
+}
+
+.uci-kickoff-board__persona-dot--green {
+  background: #66c78c;
+}
+
+.uci-kickoff-board__persona-dot--yellow {
+  background: #ffc700;
+}
+
+.uci-kickoff-board__persona-title {
+  margin: 0;
+  font-size: clamp(11px, 1.518cqw, 14px);
+  line-height: 1.56;
+  letter-spacing: 0.04em;
+  font-weight: 400;
+}
+
+.uci-kickoff-board__persona-subtitle {
+  margin: 0;
+  font-size: clamp(9px, 1.085cqw, 10px);
+  line-height: 1.56;
+  letter-spacing: 0.04em;
+  font-weight: 400;
+}
+
+.uci-kickoff-board__bottom {
+  margin-top: 2.603cqw;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.651cqw;
+  pointer-events: none;
+}
+
+.uci-kickoff-board__titles,
+.uci-kickoff-board__columns {
+  display: grid;
+  grid-template-columns: minmax(0, 63.991fr) minmax(0, 36.009fr);
+  column-gap: 3.905cqw;
+  align-items: start;
+}
+
+.uci-kickoff-board__title {
+  margin: 0;
+  font-size: clamp(10px, 1.301cqw, 12px);
+  line-height: 2.017;
+  letter-spacing: 0.04em;
+}
+
+.uci-kickoff-board__column {
+  font-size: clamp(10px, 1.301cqw, 12px);
+  line-height: 2.017;
+  letter-spacing: 0.04em;
+  color: var(--color-heading);
+  min-width: 0;
+}
+
+.uci-kickoff-board__column ul {
+  margin: 0;
+  padding-left: 1.301cqw;
+}
+
+.uci-kickoff-board__column li {
+  margin-bottom: 0;
+}
+
+.uci-kickoff-board__accent {
+  color: #ff0000;
+  font-weight: 700;
+}
+
+.uci-kickoff-board__cursor {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.uci-kickoff-board__cursor--comunicacion {
+  left: 45.877%;
+  top: 11.967%;
+  animation: uci-kickoff-comunicacion-wander 20s ease-in-out infinite;
+  animation-delay: -4s;
+}
+
+.uci-kickoff-board__cursor--redbility {
+  left: 74.837%;
+  top: 64.262%;
+  animation: uci-kickoff-redbility-wander 24s ease-in-out infinite;
+}
+
+/* Comunicación: personas + preguntas superiores */
+@keyframes uci-kickoff-comunicacion-wander {
+  0%,
+  12% {
+    transform: translate(0, 0);
+  }
+
+  24%,
+  36% {
+    transform: translate(-14cqw, 7cqw);
+  }
+
+  48%,
+  60% {
+    transform: translate(12cqw, 5cqw);
+  }
+
+  72%,
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Redbility: Other → News → audiencia → Other */
+@keyframes uci-kickoff-redbility-wander {
+  0%,
+  10% {
+    transform: translate(0, 0);
+  }
+
+  22%,
+  34% {
+    transform: translate(-36cqw, -4cqw);
+  }
+
+  46%,
+  58% {
+    transform: translate(-52cqw, -28cqw);
+  }
+
+  70%,
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uci-kickoff-board__cursor--comunicacion,
+  .uci-kickoff-board__cursor--redbility {
+    animation: none;
+  }
+}
+
+.uci-kickoff-board__pointer {
+  display: block;
+  width: clamp(12px, 1.735cqw, 21px);
+  min-width: 12px;
+  min-height: 12px;
+  height: auto;
+}
+
+.uci-kickoff-board__cursor-label {
+  margin-left: clamp(12px, 1.735cqw, 16px);
+  padding: 0 0.434cqw;
+  border-radius: 1px;
+  font-size: clamp(9px, 1.193cqw, 11px);
+  line-height: 1.545;
+  letter-spacing: 0.01em;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 16%);
+}
+
+/* 765–800px viewport: separate columns, lower block */
+@media (min-width: 765px) and (max-width: 800px) {
+  .uci-kickoff-board__bottom {
+    margin-top: 4.5cqw;
+  }
+
+  .uci-kickoff-board__titles,
+  .uci-kickoff-board__columns {
+    grid-template-columns: minmax(0, 54fr) minmax(0, 38fr);
+    column-gap: 8%;
+  }
+
+  .uci-kickoff-board__column--other {
+    padding-left: 2.5cqw;
+  }
+
+  .uci-kickoff-board__cursor--redbility {
+    left: 78%;
+  }
+}
+
+/* <640px: clip ~“UCI Social Media”, personas in two rows */
+@media (max-width: 639px) {
+  .uci-kickoff-board {
+    aspect-ratio: auto;
+    /* ~870/922 of board width — clip reference: “UCI Social Media” */
+    height: clamp(380px, 94.36cqw, 500px);
+    overflow: hidden;
+  }
+
+  .uci-kickoff-board__personas {
+    flex-wrap: wrap;
+    row-gap: 2.5cqw;
+  }
+
+  .uci-kickoff-board__persona {
+    flex: 0 0 calc(50% - 0.651cqw);
+  }
+
+  .uci-kickoff-board__bottom {
+    margin-top: 3.5cqw;
+  }
+
+  .uci-kickoff-board__titles,
+  .uci-kickoff-board__columns {
+    grid-template-columns: minmax(0, 52fr) minmax(0, 40fr);
+    column-gap: 8%;
+  }
+
+  .uci-kickoff-board__column--other {
+    padding-left: 2cqw;
+  }
+
+  .uci-kickoff-board__cursor--comunicacion {
+    left: 42%;
+    top: 14%;
+  }
+
+  .uci-kickoff-board__cursor--redbility {
+    left: 76%;
+    top: 62%;
+  }
+}
+
+@media (max-width: 449px) {
+  .uci-kickoff-board {
+    height: clamp(420px, 102cqw, 540px);
+  }
+}

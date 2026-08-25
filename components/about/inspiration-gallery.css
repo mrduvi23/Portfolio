@@ -1,0 +1,20 @@
+.inspiration-gallery {
+  position: relative;
+}
+
+.inspiration-gallery__master-video {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.inspiration-gallery__grid {
+  position: relative;
+}
+
+.inspiration-gallery__cell {
+  position: relative;
+}

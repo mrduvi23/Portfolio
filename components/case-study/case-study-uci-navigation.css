@@ -1,0 +1,68 @@
+/* UCI Benchmark — navigation collage (922×438 frame @ 1440px) */
+
+.case-study-placeholder-frame.case-study-uci-navigation {
+  aspect-ratio: 922 / 438;
+}
+
+.case-study-uci-navigation {
+  --nav-ref-w: 922;
+  --nav-gap: calc(20 * 100cqw / var(--nav-ref-w));
+  --nav-rotate: -30deg;
+
+  container-type: inline-size;
+  container-name: uci-navigation;
+  position: relative;
+  overflow: hidden;
+}
+
+.case-study-uci-navigation__parallax-layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+
+.case-study-uci-navigation__composition {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--nav-gap);
+  transform: rotate(var(--nav-rotate));
+  flex-shrink: 0;
+}
+
+.case-study-uci-navigation__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nav-gap);
+}
+
+.case-study-uci-navigation__group--left {
+  align-items: flex-end;
+}
+
+.case-study-uci-navigation__group--right {
+  align-items: flex-start;
+}
+
+.case-study-uci-navigation__image-wrap {
+  width: calc(var(--nav-img-w) * 100cqw / var(--nav-ref-w));
+  flex-shrink: 0;
+}
+
+.case-study-uci-navigation__image-wrap > span {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.case-study-uci-navigation__image {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  max-width: none !important;
+  filter: var(--shadow-case-study-media);
+}

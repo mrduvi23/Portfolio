@@ -1,0 +1,224 @@
+/* UCI Content typology — horizontal scroll (Figma frame, 1440px ref) */
+
+.uci-content-tipology-media {
+  --uci-ct-ref-w: 922;
+  --uci-ct-image-h-design: 462;
+  --uci-ct-image-min-h: 300;
+  --uci-ct-aspect-w: 3178;
+  --uci-ct-aspect-h: 1712;
+  --uci-ct-scrollbar-collapsed: 4px;
+  --uci-ct-scrollbar-expanded: 8px;
+  --uci-ct-inset: clamp(24px, calc(32 * 100cqw / var(--uci-ct-ref-w)), 32px);
+  --uci-ct-image-h: clamp(
+    calc(var(--uci-ct-image-min-h) * 1px),
+    calc(var(--uci-ct-image-h-design) * 100cqw / var(--uci-ct-ref-w)),
+    calc(var(--uci-ct-image-h-design) * 1px)
+  );
+  --uci-ct-image-w: calc(
+    var(--uci-ct-image-h) * var(--uci-ct-aspect-w) / var(--uci-ct-aspect-h)
+  );
+
+  container-type: inline-size;
+  container-name: uci-content-tipology;
+  display: flex;
+  flex-direction: column;
+  gap: var(--uci-ct-inset);
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--color-card-inset-border);
+  background: var(--color-primitives-grey-10);
+  box-sizing: border-box;
+  padding: var(--uci-ct-inset) 0 var(--uci-ct-inset);
+}
+
+.uci-content-tipology-media:has(
+  .uci-content-tipology-media__scrollbar[data-visible="true"]
+) {
+  padding-bottom: 0;
+}
+
+.uci-content-tipology-media__scroller {
+  display: block;
+  flex: none;
+  width: 100%;
+  height: var(--uci-ct-image-h);
+  padding-inline: var(--uci-ct-inset);
+  box-sizing: border-box;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.uci-content-tipology-media__scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.uci-content-tipology-media__scroller.is-dragging {
+  cursor: grabbing;
+}
+
+.uci-content-tipology-media__track {
+  display: block;
+  width: max-content;
+  height: var(--uci-ct-image-h);
+}
+
+.uci-content-tipology-media__track > span {
+  display: block !important;
+  width: var(--uci-ct-image-w) !important;
+  height: var(--uci-ct-image-h) !important;
+  max-width: none !important;
+}
+
+.uci-content-tipology-media__image {
+  display: block;
+  width: var(--uci-ct-image-w) !important;
+  height: var(--uci-ct-image-h) !important;
+  max-width: none !important;
+  min-width: var(--uci-ct-image-w) !important;
+}
+
+.uci-content-tipology-media__scrollbar {
+  flex: none;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  height: var(--uci-ct-scrollbar-collapsed);
+  padding-inline: var(--uci-ct-inset);
+  box-sizing: border-box;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease;
+}
+
+.uci-content-tipology-media__scrollbar[data-visible="false"] {
+  display: none;
+}
+
+.uci-content-tipology-media__scrollbar[data-visible="true"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.uci-content-tipology-media__scrollbar-rail {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: var(--uci-ct-scrollbar-collapsed);
+  gap: 0;
+  transition:
+    height 160ms cubic-bezier(0.2, 0, 0, 1),
+    gap 160ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.uci-content-tipology-media__scrollbar:hover .uci-content-tipology-media__scrollbar-rail,
+.uci-content-tipology-media__scrollbar:focus-within
+  .uci-content-tipology-media__scrollbar-rail,
+.uci-content-tipology-media__scrollbar-rail.is-dragging {
+  height: var(--uci-ct-scrollbar-expanded);
+  gap: 4px;
+}
+
+.uci-content-tipology-media__scrollbar-arrow {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-primitives-grey-80);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    width 160ms cubic-bezier(0.2, 0, 0, 1),
+    height 160ms cubic-bezier(0.2, 0, 0, 1),
+    opacity 160ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.uci-content-tipology-media__scrollbar:hover .uci-content-tipology-media__scrollbar-arrow,
+.uci-content-tipology-media__scrollbar:focus-within
+  .uci-content-tipology-media__scrollbar-arrow,
+.uci-content-tipology-media__scrollbar-rail.is-dragging
+  .uci-content-tipology-media__scrollbar-arrow {
+  width: 7px;
+  height: var(--uci-ct-scrollbar-expanded);
+  opacity: 1;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.uci-content-tipology-media__scrollbar-arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.uci-content-tipology-media__scrollbar-arrow-icon {
+  display: block;
+  flex: none;
+}
+
+.uci-content-tipology-media__scrollbar-track {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border-radius: 9999px;
+  touch-action: none;
+}
+
+.uci-content-tipology-media__scrollbar:not(:hover):not(:focus-within)
+  .uci-content-tipology-media__scrollbar-track:not(.is-dragging) {
+  cursor: default;
+}
+
+.uci-content-tipology-media__scrollbar:hover .uci-content-tipology-media__scrollbar-track,
+.uci-content-tipology-media__scrollbar:focus-within
+  .uci-content-tipology-media__scrollbar-track,
+.uci-content-tipology-media__scrollbar-track.is-dragging {
+  cursor: pointer;
+}
+
+.uci-content-tipology-media__scrollbar-thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--color-primitives-grey-80);
+  will-change: transform;
+}
+
+.uci-content-tipology-media__scrollbar:not(:hover):not(:focus-within)
+  .uci-content-tipology-media__scrollbar-thumb {
+  cursor: default;
+}
+
+.uci-content-tipology-media__scrollbar:hover .uci-content-tipology-media__scrollbar-thumb,
+.uci-content-tipology-media__scrollbar:focus-within
+  .uci-content-tipology-media__scrollbar-thumb {
+  cursor: grab;
+}
+
+.uci-content-tipology-media__scrollbar-track.is-dragging
+  .uci-content-tipology-media__scrollbar-thumb {
+  cursor: grabbing;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uci-content-tipology-media__scrollbar-rail,
+  .uci-content-tipology-media__scrollbar-arrow,
+  .uci-content-tipology-media__scrollbar {
+    transition: none;
+  }
+}

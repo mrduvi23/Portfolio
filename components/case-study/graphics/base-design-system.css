@@ -1,0 +1,296 @@
+/* Third strategy — base design system graphic */
+
+.base-ds-frame {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-block: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  --bds-ring: 180px;
+  /* Hueco entre torres adyacentes en la órbita (8 × 45°) */
+  --bds-tower-gap: 12px;
+  /* < 1280px */
+  --bds-core: 94px;
+  --bds-compo-gap: 10px;
+  --bds-label-size: 10px;
+  --bds-label-lh: 14px;
+
+  /* Torres (mismas medidas que white-label) */
+  --wl-outer-ring: 160px;
+  --wl-grey: 118px;
+  --wl-white: 64px;
+  --wl-compon-gap: 3px;
+  --wl-patterns-gap: 1px;
+  --wl-label-size: 10px;
+  --wl-label-lh: 14px;
+
+  --bds-orbit-radius: max(
+    calc(var(--bds-ring) / 2 + 20px + var(--wl-outer-ring) / 2),
+    calc((var(--wl-outer-ring) + var(--bds-tower-gap)) / (2 * sin(22.5deg)))
+  );
+  --bds-stage: calc(2 * (var(--bds-orbit-radius) + var(--wl-outer-ring) / 2));
+  min-height: calc(var(--bds-stage) + 80px);
+}
+
+@media (min-width: 1280px) {
+  .base-ds-frame {
+    --bds-core: 98px;
+    --bds-compo-gap: 7px;
+    --bds-label-size: 12px;
+    --bds-label-lh: 16px;
+    --bds-tower-gap: 14px;
+
+    --wl-outer-ring: 180px;
+    --wl-grey: 132px;
+    --wl-white: 80px;
+    --wl-compon-gap: 1px;
+    --wl-patterns-gap: 0px;
+    --wl-label-size: 12px;
+    --wl-label-lh: 16px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .base-ds-frame {
+    --bds-tower-gap: 16px;
+    --wl-outer-ring: 200px;
+    --wl-grey: 140px;
+    --wl-compon-gap: 2px;
+    --wl-patterns-gap: 2px;
+  }
+}
+
+.base-ds-graphic {
+  --bds-reveal-duration: 0.4s;
+  --bds-reveal-stagger: 0.2s;
+  --bds-reveal-ease: cubic-bezier(0.59, 0.25, 0.12, 1.17);
+  --bds-spin-duration: 48s;
+  --bds-orbit-rotation: 0deg;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.base-ds-graphic__scroll-layer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.base-ds-graphic--active .base-ds-graphic__scroll-layer {
+  will-change: transform;
+}
+
+.base-ds-graphic__stage {
+  position: relative;
+  width: var(--bds-stage);
+  height: var(--bds-stage);
+  max-width: 100%;
+  flex-shrink: 0;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.base-ds-graphic__stage--dragging {
+  cursor: grabbing;
+  touch-action: none;
+  user-select: none;
+}
+
+.base-ds-graphic__tower-slot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--wl-outer-ring);
+  height: var(--wl-outer-ring);
+  margin-left: calc(var(--wl-outer-ring) / -2);
+  margin-top: calc(var(--wl-outer-ring) / -2);
+  transform: rotate(var(--bds-tower-angle)) translateY(calc(-1 * var(--bds-orbit-radius)));
+  transform-origin: center center;
+}
+
+/** Anillo Patterns — rota con la órbita; dashes animados en coords locales */
+.base-ds-graphic__patterns-ring {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.base-ds-graphic__patterns-ring .white-label-graphic__outer-ring-border {
+  color: var(--color-primitives-white);
+}
+
+.base-ds-graphic__towers-orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 0;
+  pointer-events: none;
+  transform-origin: 0 0;
+}
+
+.base-ds-graphic--spin .base-ds-graphic__towers-orbit {
+  transform: rotate(var(--bds-orbit-rotation));
+}
+
+.base-ds-graphic__tower-upright {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform: rotate(calc(-1 * var(--bds-tower-angle) - var(--bds-orbit-rotation)));
+  transform-origin: center center;
+  pointer-events: auto;
+}
+
+/** Dashes en sentido contrario al resto de gráficos — más perceptible en órbita */
+.base-ds-graphic--spin .animated-dashed-border__path:not(.animated-dashed-border__path--rect) {
+  animation-direction: reverse;
+}
+
+.base-ds-graphic__hub {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: var(--bds-ring);
+  height: var(--bds-ring);
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.base-ds-graphic__ring-reveal {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.base-ds-graphic__ring {
+  color: var(--color-blue-itx);
+}
+
+.base-ds-graphic__core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: calc(-50% + var(--mds-hover-x, 0px)) calc(-50% + var(--mds-hover-y, 0px));
+  width: var(--bds-core);
+  height: var(--bds-core);
+  border-radius: 50%;
+  background: var(--color-blue-itx);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.base-ds-graphic .mds-ecosystem__hover-fill {
+  transition: translate 0.45s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.base-ds-graphic__label {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--bds-label-size);
+  line-height: var(--bds-label-lh);
+  letter-spacing: 0;
+  font-weight: 400;
+  text-align: center;
+  pointer-events: none;
+}
+
+.base-ds-graphic__label-base {
+  color: var(--color-primitives-white);
+  text-transform: uppercase;
+}
+
+.base-ds-graphic__label-compo {
+  position: absolute;
+  left: 50%;
+  top: calc(50% - var(--bds-core) / 2 - var(--bds-compo-gap));
+  translate: -50% -100%;
+  color: var(--color-primitives-white);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/** Entrada escalonada */
+.base-ds-graphic .base-ds-graphic__reveal,
+.base-ds-graphic .white-label-graphic__reveal {
+  opacity: 0;
+}
+
+.base-ds-graphic--in-view .base-ds-graphic__reveal,
+.base-ds-graphic--in-view .white-label-graphic__reveal {
+  animation-name: base-ds-reveal;
+  animation-duration: var(--bds-reveal-duration);
+  animation-timing-function: var(--bds-reveal-ease);
+  animation-fill-mode: both;
+  animation-iteration-count: 1;
+}
+
+.base-ds-graphic--in-view .base-ds-graphic__reveal.base-ds-graphic__reveal--delay-0,
+.base-ds-graphic--in-view .white-label-graphic__reveal.white-label-graphic__reveal--delay-0 {
+  animation-delay: 0s;
+}
+
+.base-ds-graphic--in-view .base-ds-graphic__reveal.base-ds-graphic__reveal--delay-200,
+.base-ds-graphic--in-view .white-label-graphic__reveal.white-label-graphic__reveal--delay-200 {
+  animation-delay: calc(1 * var(--bds-reveal-stagger));
+}
+
+.base-ds-graphic--in-view .base-ds-graphic__reveal.base-ds-graphic__reveal--delay-400,
+.base-ds-graphic--in-view .white-label-graphic__reveal.white-label-graphic__reveal--delay-400 {
+  animation-delay: calc(2 * var(--bds-reveal-stagger));
+}
+
+.base-ds-graphic--in-view .base-ds-graphic__reveal.base-ds-graphic__reveal--delay-600,
+.base-ds-graphic--in-view .white-label-graphic__reveal.white-label-graphic__reveal--delay-600 {
+  animation-delay: calc(3 * var(--bds-reveal-stagger));
+}
+
+.base-ds-graphic--in-view .base-ds-graphic__reveal.base-ds-graphic__reveal--delay-800,
+.base-ds-graphic--in-view .white-label-graphic__reveal.white-label-graphic__reveal--delay-800 {
+  animation-delay: calc(4 * var(--bds-reveal-stagger));
+}
+
+@keyframes base-ds-reveal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .base-ds-graphic--spin .base-ds-graphic__towers-orbit {
+    transform: none;
+  }
+
+  .base-ds-graphic__tower-upright {
+    transform: rotate(calc(-1 * var(--bds-tower-angle)));
+  }
+
+  .base-ds-graphic__scroll-layer {
+    transform: none !important;
+  }
+
+  .base-ds-graphic--in-view .base-ds-graphic__reveal,
+  .base-ds-graphic--in-view .white-label-graphic__reveal {
+    opacity: 1;
+    animation: none;
+  }
+
+  .base-ds-graphic .mds-ecosystem__hover-fill {
+    transition: none;
+  }
+
+  .base-ds-graphic__stage {
+    cursor: default;
+  }
+}

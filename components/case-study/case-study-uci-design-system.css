@@ -1,0 +1,32 @@
+/* UCI Conceptualization — design system screenshot (453×376 frame @ 1440px) */
+
+.case-study-uci-design-system {
+  --ds-ref-w: 453;
+  --ds-inset: calc(24 * 100cqw / var(--ds-ref-w));
+
+  container-type: inline-size;
+  container-name: uci-design-system;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.case-study-uci-design-system__image-wrap {
+  width: calc(100cqw - 2 * var(--ds-inset));
+  flex-shrink: 0;
+}
+
+.case-study-uci-design-system__image-wrap > span {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.case-study-uci-design-system__image {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  max-width: none !important;
+  filter: var(--shadow-case-study-media);
+}

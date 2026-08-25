@@ -1,0 +1,89 @@
+/* ds-brands — Analysis: Typography + Components */
+
+.ds-brands-audit-media {
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  background: var(--color-primitives-grey-10);
+  border: 1px solid var(--color-card-inset-border);
+}
+
+.ds-brands-audit-media__layer {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.ds-brands-audit-media__typography {
+  position: absolute;
+  left: var(--audit-typo-left);
+  top: var(--audit-typo-top);
+  z-index: 1;
+  height: var(--audit-typo-h);
+  width: auto;
+  max-width: none;
+}
+
+.ds-brands-audit-media__components {
+  position: absolute;
+  right: var(--audit-comp-right);
+  top: var(--audit-comp-top);
+  z-index: 2;
+  height: var(--audit-comp-h);
+  width: auto;
+  max-width: none;
+}
+
+/*
+ * <764px — escala fluida entre 375px y 763px
+ * (valores fijos en los extremos; interpolación lineal en viewport)
+ */
+@media (max-width: 763px) {
+  .ds-brands-audit-media {
+    --audit-frame-h: clamp(
+      248px,
+      calc(248px + (100vw - 375px) * 185 / 388),
+      433px
+    );
+    --audit-typo-h: clamp(
+      235px,
+      calc(235px + (100vw - 375px) * 273 / 388),
+      508px
+    );
+    --audit-comp-h: clamp(
+      194px,
+      calc(194px + (100vw - 375px) * 199 / 388),
+      393px
+    );
+    --audit-typo-left: 12px;
+    --audit-typo-top: 24px;
+    --audit-comp-right: 12px;
+    --audit-comp-top: clamp(
+      64px,
+      calc(64px + (100vw - 375px) * 16 / 388),
+      80px
+    );
+    height: var(--audit-frame-h);
+  }
+}
+
+/* 764px – 1279px */
+@media (min-width: 764px) {
+  .ds-brands-audit-media {
+    height: 378px;
+    --audit-typo-h: 365px;
+    --audit-comp-h: 307px;
+    --audit-typo-left: 24px;
+    --audit-typo-top: 32px;
+    --audit-comp-right: 24px;
+    --audit-comp-top: 72px;
+  }
+}
+
+/* ≥1280px */
+@media (min-width: 1280px) {
+  .ds-brands-audit-media {
+    --audit-typo-h: 440px;
+    --audit-comp-h: 370px;
+  }
+}

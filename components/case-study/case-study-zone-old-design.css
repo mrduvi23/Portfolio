@@ -1,0 +1,48 @@
+/* Infrared Problem — legacy Zone design screenshot (922×491 @ >=1440) */
+
+.case-study-placeholder-frame.case-study-zone-old-design {
+  aspect-ratio: 922 / 491.201;
+}
+
+.case-study-zone-old-design {
+  --zone-ref-w: 922;
+  --zone-inset-x: calc(64 * 100cqw / var(--zone-ref-w));
+  --zone-inset-y: calc(52 * 100cqw / var(--zone-ref-w));
+
+  container-type: inline-size;
+  container-name: zone-old-design;
+  position: relative;
+  overflow: hidden;
+}
+
+.case-study-zone-old-design__parallax-layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  will-change: transform;
+}
+
+.case-study-zone-old-design__image-wrap {
+  position: absolute;
+  top: var(--zone-inset-y);
+  right: var(--zone-inset-x);
+  bottom: var(--zone-inset-y);
+  left: var(--zone-inset-x);
+}
+
+.case-study-zone-old-design__image-wrap > span {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+}
+
+.case-study-zone-old-design__image {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: contain;
+  object-position: center;
+  filter: var(--shadow-case-study-media);
+}

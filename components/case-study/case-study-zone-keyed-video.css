@@ -1,0 +1,111 @@
+/* Zone keyed clips — square phone recordings (720×720 after chromakey) */
+
+.case-study-placeholder-frame.case-study-zone-keyed--square {
+  aspect-ratio: 1 / 1;
+}
+
+.case-study-zone-keyed {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-primitives-grey-10);
+}
+
+.case-study-zone-keyed__media {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.case-study-zone-keyed__source {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.case-study-zone-keyed__controls {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  display: flex;
+  gap: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+@media (min-width: 764px) {
+  .case-study-zone-keyed__controls {
+    top: 24px;
+    right: 24px;
+    gap: 16px;
+  }
+}
+
+.case-study-zone-keyed:hover .case-study-zone-keyed__controls,
+.case-study-zone-keyed:focus-within .case-study-zone-keyed__controls,
+.case-study-zone-keyed.is-controls-visible .case-study-zone-keyed__controls {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.case-study-zone-keyed__control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+  margin: 0;
+  border: 0;
+  border-radius: 9999px;
+  background: color-mix(in oklch, var(--color-primitives-grey-90) 40%, transparent);
+  color: var(--color-primitives-white);
+  cursor: pointer;
+  transition-property: background-color, transform;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+.case-study-zone-keyed__control:hover {
+  background: color-mix(in oklch, var(--color-primitives-grey-90) 60%, transparent);
+}
+
+.case-study-zone-keyed__control:active {
+  transform: scale(0.96);
+}
+
+.case-study-zone-keyed__control:focus-visible {
+  outline: 2px solid var(--color-primitives-white);
+  outline-offset: 2px;
+}
+
+.case-study-zone-keyed-pair {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 100%;
+}
+
+.case-study-zone-keyed-pair__mobile-caption {
+  margin: 0;
+  color: var(--color-body);
+}
+
+@media (min-width: 764px) {
+  .case-study-zone-keyed-pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .case-study-zone-keyed-pair__mobile-caption {
+    display: none;
+  }
+}

@@ -1,0 +1,53 @@
+/* UCI Hub — usage pattern screenshots (Endesa · Santander · MAPFRE) */
+
+.case-study-uci-usage-patterns {
+  --uci-up-ref-w: 453;
+  --uci-up-top: 24;
+  --uci-up-image-w: 159;
+  --uci-up-gap: 16;
+
+  container-type: inline-size;
+  container-name: uci-usage-patterns;
+  overflow: hidden;
+}
+
+.case-study-uci-usage-patterns__row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  gap: calc(var(--uci-up-gap) * 100cqw / var(--uci-up-ref-w));
+}
+
+.case-study-uci-usage-patterns__image {
+  display: block;
+  flex: none;
+  width: calc(var(--uci-up-image-w) * 100cqw / var(--uci-up-ref-w));
+  height: auto;
+  max-width: none;
+  filter: var(--shadow-case-study-media);
+}
+
+.case-study-uci-usage-patterns__image--santander {
+  align-self: flex-start;
+  margin-top: calc(var(--uci-up-top) * 100cqw / var(--uci-up-ref-w));
+}
+
+.case-study-uci-usage-patterns__row > span {
+  display: block !important;
+  flex: none;
+  width: calc(var(--uci-up-image-w) * 100cqw / var(--uci-up-ref-w)) !important;
+  max-width: none !important;
+  align-self: flex-end;
+}
+
+.case-study-uci-usage-patterns__row > span:has(.case-study-uci-usage-patterns__image--santander) {
+  align-self: flex-start;
+  margin-top: calc(var(--uci-up-top) * 100cqw / var(--uci-up-ref-w));
+}
+
+.case-study-uci-usage-patterns__row > span .case-study-uci-usage-patterns__image {
+  width: 100% !important;
+  height: auto !important;
+}

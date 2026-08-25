@@ -1,0 +1,499 @@
+/* MDS ecosystem graphic — built step by step */
+
+.mds-ecosystem-frame {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  --mds-compo-externo: 560px;
+  --mds-graphic-padding-y: 40px;
+  height: calc(var(--mds-compo-externo) + 2 * var(--mds-graphic-padding-y));
+}
+
+.mds-ecosystem {
+  --mds-reveal-duration: 0.4s;
+  --mds-reveal-stagger: 0.2s;
+  --mds-reveal-ease: cubic-bezier(0.59, 0.25, 0.12, 1.17);
+  --mds-orbit-duration: 48s;
+  --mds-orbit-rotation: 0deg;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  padding-block: var(--mds-graphic-padding-y);
+  overflow: hidden;
+  background: var(--color-primitives-black-deep);
+
+  /* < 1024px */
+  --mds-core-comp: 156px;
+  --mds-foundation: 82px;
+  --mds-patterns: 116px;
+  --mds-brand-comp: 68px;
+  --mds-core-patterns-gap: 20px;
+  --mds-orbit-radius: calc(
+    var(--mds-core-comp) / 2 + var(--mds-core-patterns-gap) + var(--mds-patterns) / 2
+  );
+  --mds-compo-interno: 480px;
+  --mds-label-core-gap: 5px;
+  --mds-compo-label-offset: calc(
+    (var(--mds-compo-externo) + var(--mds-compo-interno)) / 4
+  );
+}
+
+@media (min-width: 1024px) {
+  .mds-ecosystem-frame {
+    --mds-compo-externo: 560px;
+  }
+
+  .mds-ecosystem {
+    --mds-core-comp: 156px;
+    --mds-foundation: 82px;
+    --mds-core-patterns-gap: 20px;
+    --mds-compo-interno: 480px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .mds-ecosystem-frame {
+    --mds-compo-externo: 600px;
+  }
+
+  .mds-ecosystem {
+    --mds-core-comp: 188px;
+    --mds-foundation: 96px;
+    --mds-core-patterns-gap: 20px;
+    --mds-compo-interno: 500px;
+    --mds-label-core-gap: 8px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .mds-ecosystem-frame {
+    --mds-compo-externo: 640px;
+  }
+
+  .mds-ecosystem {
+    --mds-core-comp: 200px;
+    --mds-foundation: 100px;
+    --mds-core-patterns-gap: 27px;
+    --mds-compo-interno: 540px;
+    --mds-label-core-gap: 4px;
+  }
+}
+
+.mds-ecosystem__stage {
+  position: relative;
+  width: var(--mds-compo-externo);
+  height: var(--mds-compo-externo);
+  max-width: 100%;
+  flex-shrink: 0;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.mds-ecosystem__stage--dragging {
+  cursor: grabbing;
+  touch-action: none;
+  user-select: none;
+}
+
+.mds-ecosystem__scroll-layer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.mds-ecosystem--active .mds-ecosystem__scroll-layer {
+  will-change: transform;
+}
+
+.mds-ecosystem-orbit-spin:not(.mds-ecosystem--active) .mds-ecosystem__compo-exp-interno,
+.mds-ecosystem-orbit-spin:not(.mds-ecosystem--active) .mds-ecosystem__patterns-rotate {
+  animation-play-state: paused;
+}
+
+@keyframes mds-ecosystem-ring-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.mds-ecosystem__ring {
+  box-sizing: border-box;
+  border-radius: 50%;
+  background: transparent;
+  pointer-events: none;
+}
+
+/** Figma stroke: dash 2, gap 2, butt cap */
+.mds-ecosystem__ring--dashed {
+  border: 1px dashed;
+}
+
+.mds-ecosystem__ring--solid {
+  border: 1px solid;
+}
+
+.mds-ecosystem__compo-exp-externo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: var(--mds-compo-externo);
+  height: var(--mds-compo-externo);
+  border-color: var(--color-blue-itx);
+  z-index: 0;
+}
+
+.mds-ecosystem__compo-interno-wrap {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: var(--mds-compo-interno);
+  height: var(--mds-compo-interno);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.mds-ecosystem__compo-exp-interno {
+  position: absolute;
+  inset: 0;
+  border-color: var(--color-blue-itx);
+  transform-origin: center center;
+}
+
+.mds-ecosystem-orbit-spin .mds-ecosystem__compo-exp-interno {
+  animation: mds-ecosystem-ring-spin var(--mds-orbit-duration) linear infinite;
+}
+
+.mds-ecosystem__compo-experience {
+  position: absolute;
+  left: 50%;
+  top: calc(50% - var(--mds-compo-label-offset));
+  translate: -50% -50%;
+  margin: 0;
+  z-index: 2;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--color-primitives-white);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.mds-ecosystem__hub {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.mds-ecosystem__core-comp {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: var(--mds-core-comp);
+  height: var(--mds-core-comp);
+  border-radius: 50%;
+  opacity: 0.16;
+  background: radial-gradient(
+    circle at center,
+    var(--color-blue-itx) 0%,
+    var(--color-blue-itx-60) 100%
+  );
+  z-index: 0;
+}
+
+/** Contenedor de las 8 unidades alrededor del core comp */
+.mds-ecosystem__patterns-orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  pointer-events: none;
+  transform-origin: 0 0;
+}
+
+.mds-ecosystem-orbit-spin .mds-ecosystem__patterns-orbit {
+  transform: rotate(var(--mds-orbit-rotation));
+}
+
+/**
+ * Unidad patterns + brand comp — se desplaza en órbita manteniendo orientación radial
+ * (el lado interior de la unidad apunta al centro del hub)
+ */
+.mds-ecosystem__patterns-unit {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--mds-patterns);
+  height: var(--mds-patterns);
+  margin-left: calc(var(--mds-patterns) / -2);
+  margin-top: calc(var(--mds-patterns) / -2);
+  transform: rotate(var(--mds-unit-angle)) translateY(calc(-1 * var(--mds-orbit-radius)));
+  transform-origin: center center;
+}
+
+/** Texto siempre horizontal: contrarresta la rotación de la unidad en órbita */
+.mds-ecosystem__unit-labels {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  transform: rotate(calc(-1 * var(--mds-unit-angle)));
+  transform-origin: center center;
+  pointer-events: none;
+}
+
+.mds-ecosystem-orbit-spin .mds-ecosystem__unit-labels {
+  transform: rotate(calc(-1 * var(--mds-unit-angle) - var(--mds-orbit-rotation)));
+}
+
+/**
+ * Entrada escalonada — la órbita sigue girando durante el fade-in.
+ * Usamos longhands (no `animation` shorthand) para no pisar animation-delay.
+ */
+.mds-ecosystem__reveal {
+  opacity: 0;
+}
+
+.mds-ecosystem--in-view .mds-ecosystem__reveal {
+  animation-name: mds-ecosystem-reveal;
+  animation-duration: var(--mds-reveal-duration);
+  animation-timing-function: var(--mds-reveal-ease);
+  animation-fill-mode: both;
+  animation-iteration-count: 1;
+}
+
+.mds-ecosystem--in-view .mds-ecosystem__core-comp.mds-ecosystem__reveal {
+  animation-name: mds-ecosystem-reveal-core;
+}
+
+.mds-ecosystem--in-view .mds-ecosystem__reveal.mds-ecosystem__reveal--delay-0 {
+  animation-delay: 0s;
+}
+
+.mds-ecosystem--in-view .mds-ecosystem__reveal.mds-ecosystem__reveal--delay-200 {
+  animation-delay: calc(1 * var(--mds-reveal-stagger));
+}
+
+.mds-ecosystem--in-view .mds-ecosystem__reveal.mds-ecosystem__reveal--delay-400 {
+  animation-delay: calc(2 * var(--mds-reveal-stagger));
+}
+
+.mds-ecosystem--in-view .mds-ecosystem__reveal.mds-ecosystem__reveal--delay-600 {
+  animation-delay: calc(3 * var(--mds-reveal-stagger));
+}
+
+.mds-ecosystem--in-view .mds-ecosystem__reveal.mds-ecosystem__reveal--delay-800 {
+  animation-delay: calc(4 * var(--mds-reveal-stagger));
+}
+
+.mds-ecosystem--in-view .mds-ecosystem__reveal.mds-ecosystem__reveal--delay-1000 {
+  animation-delay: calc(5 * var(--mds-reveal-stagger));
+}
+
+@keyframes mds-ecosystem-reveal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mds-ecosystem-reveal-core {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.16;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mds-ecosystem-orbit-spin .mds-ecosystem__patterns-orbit {
+    transform: none;
+  }
+
+  .mds-ecosystem-orbit-spin .mds-ecosystem__compo-exp-interno {
+    animation: none;
+  }
+
+  .mds-ecosystem-orbit-spin .mds-ecosystem__patterns-rotate {
+    animation: none;
+  }
+
+  .mds-ecosystem-orbit-spin .mds-ecosystem__unit-labels {
+    transform: rotate(calc(-1 * var(--mds-unit-angle)));
+  }
+
+  .mds-ecosystem__scroll-layer {
+    transform: none !important;
+  }
+
+  .mds-ecosystem__stage {
+    cursor: default;
+  }
+
+  .mds-ecosystem__hover-fill {
+    transition: none;
+  }
+
+  .mds-ecosystem--in-view .mds-ecosystem__reveal {
+    opacity: 1;
+    animation: none;
+  }
+
+  .mds-ecosystem--in-view .mds-ecosystem__core-comp.mds-ecosystem__reveal {
+    opacity: 0.16;
+  }
+}
+
+.mds-ecosystem__unit-label {
+  position: absolute;
+  left: 50%;
+  margin: 0;
+  font-family: var(--font-sans);
+  letter-spacing: 0;
+  font-weight: 400;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--color-primitives-white);
+}
+
+.mds-ecosystem__label-brand {
+  top: 50%;
+  translate: -50% -50%;
+  font-size: 9px;
+  line-height: 12px;
+  color: var(--color-primitives-black);
+}
+
+/**
+ * Entre brand comp y el anillo dashed (lado exterior),
+ * 3px fuera del círculo pequeño
+ */
+.mds-ecosystem__label-patterns {
+  top: calc(50% - var(--mds-brand-comp) / 2 - 3px);
+  translate: -50% -100%;
+  font-size: 10px;
+  line-height: 14px;
+}
+
+.mds-ecosystem__patterns-reveal {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.mds-ecosystem__patterns-rotate {
+  position: absolute;
+  inset: 0;
+  transform-origin: center center;
+  pointer-events: none;
+}
+
+.mds-ecosystem-orbit-spin .mds-ecosystem__patterns-rotate {
+  animation: mds-ecosystem-ring-spin var(--mds-orbit-duration) linear infinite reverse;
+}
+
+.mds-ecosystem__patterns {
+  width: 100%;
+  height: 100%;
+  border-color: var(--color-primitives-grey-60);
+}
+
+.mds-ecosystem__brand-comp {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: calc(-50% + var(--mds-hover-x, 0px)) calc(-50% + var(--mds-hover-y, 0px));
+  width: var(--mds-brand-comp);
+  height: var(--mds-brand-comp);
+  border-radius: 50%;
+  border-color: var(--color-primitives-grey-30);
+  background: var(--color-primitives-grey-30);
+  z-index: 1;
+}
+
+.mds-ecosystem__hover-fill {
+  --mds-hover-x: 0px;
+  --mds-hover-y: 0px;
+  pointer-events: auto;
+  transition: translate 0.45s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.mds-ecosystem__foundation {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: calc(-50% + var(--mds-hover-x, 0px)) calc(-50% + var(--mds-hover-y, 0px));
+  z-index: 3;
+  width: var(--mds-foundation);
+  height: var(--mds-foundation);
+  border-radius: 50%;
+  background: var(--color-blue-itx);
+}
+
+.mds-ecosystem__hub-label {
+  position: absolute;
+  left: 50%;
+  margin: 0;
+  z-index: 4;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  line-height: 14px;
+  letter-spacing: 0;
+  font-weight: 400;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--color-primitives-white);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+@media (min-width: 1280px) {
+  .mds-ecosystem__hub-label {
+    font-size: 12px;
+    line-height: 16px;
+  }
+}
+
+.mds-ecosystem__label-foundations {
+  top: 50%;
+  translate: -50% -50%;
+}
+
+/** Encima del círculo Foundations — gap según breakpoint */
+.mds-ecosystem__label-core {
+  top: calc(50% - var(--mds-foundation) / 2);
+  translate: -50% calc(-100% - var(--mds-label-core-gap));
+}
+
+.mds-ecosystem__label-core-full {
+  display: none;
+}
+
+.mds-ecosystem__label-core-short {
+  display: inline;
+}
+
+@media (min-width: 1440px) {
+  .mds-ecosystem__label-core-full {
+    display: inline;
+  }
+
+  .mds-ecosystem__label-core-short {
+    display: none;
+  }
+}

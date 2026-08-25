@@ -1,0 +1,164 @@
+/* Decisión final — "Primer gráfico + Cuarto gráfico" reducidos y sin etiquetas */
+
+.final-decision-combo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  width: 100%;
+  padding-block: 40px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 764px) {
+  .final-decision-combo {
+    flex-direction: row;
+  }
+}
+
+/* Sin palabras: se ocultan todas las etiquetas de ambos gráficos */
+.final-decision-combo p {
+  display: none !important;
+}
+
+.final-decision-combo__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.final-decision-combo__plus-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.final-decision-combo__plus {
+  display: inline-block;
+  flex-shrink: 0;
+  font-family: var(--font-sans);
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 400;
+  color: var(--color-primitives-white);
+  user-select: none;
+  will-change: transform;
+}
+
+/* --- Primer gráfico (MDS ecosystem) reducido --- */
+.final-decision-combo__item--mds {
+  width: 180px;
+  --mds-compo-externo: 180px;
+}
+
+.final-decision-combo__item--mds .mds-ecosystem {
+  --mds-core-comp: 52px;
+  --mds-foundation: 28px;
+  --mds-patterns: 40px;
+  --mds-brand-comp: 22px;
+  --mds-core-patterns-gap: 7px;
+  --mds-compo-interno: 162px;
+  height: auto;
+  padding-block: 0;
+  overflow: visible;
+  background: transparent;
+}
+
+.final-decision-combo__item--mds .mds-ecosystem__stage {
+  cursor: default;
+}
+
+/* --- Cuarto gráfico (compo experience only) reducido --- */
+.final-decision-combo__item--compo {
+  width: calc(4 * 38px + 3 * 4px);
+}
+
+.final-decision-combo__item--compo .compo-only-graphic {
+  --wl-outer-ring: 38px;
+  --wl-grey: 28px;
+  --wl-white: 15px;
+  --wl-cell-gap: 4px;
+  --wl-row-gap: 5px;
+  --wl-compon-gap: 2px;
+  --wl-patterns-gap: 1px;
+  --compo-only-accent-gap: 8px;
+  --wl-accent-gap: 8px;
+  --wl-grid-width: calc(4 * var(--wl-outer-ring) + 3 * var(--wl-cell-gap));
+}
+
+/* --- ≥1024px: gráficos más grandes para aprovechar el espacio --- */
+@media (min-width: 1024px) {
+  .final-decision-combo__plus {
+    font-size: 28px;
+  }
+
+  .final-decision-combo__item--mds {
+    width: 240px;
+    --mds-compo-externo: 240px;
+  }
+
+  .final-decision-combo__item--mds .mds-ecosystem {
+    --mds-core-comp: 70px;
+    --mds-foundation: 37px;
+    --mds-patterns: 53px;
+    --mds-brand-comp: 29px;
+    --mds-core-patterns-gap: 9px;
+    --mds-compo-interno: 216px;
+  }
+
+  .final-decision-combo__item--compo {
+    width: calc(4 * 50px + 3 * 5px);
+  }
+
+  .final-decision-combo__item--compo .compo-only-graphic {
+    --wl-outer-ring: 50px;
+    --wl-grey: 37px;
+    --wl-white: 20px;
+    --wl-cell-gap: 5px;
+    --wl-row-gap: 7px;
+    --wl-compon-gap: 2px;
+    --wl-patterns-gap: 1px;
+    --compo-only-accent-gap: 11px;
+    --wl-accent-gap: 11px;
+  }
+}
+
+/* --- ≥1280px: un paso más grandes --- */
+@media (min-width: 1280px) {
+  .final-decision-combo__plus {
+    font-size: 32px;
+  }
+
+  .final-decision-combo__item--mds {
+    width: 300px;
+    --mds-compo-externo: 300px;
+  }
+
+  .final-decision-combo__item--mds .mds-ecosystem {
+    --mds-core-comp: 87px;
+    --mds-foundation: 47px;
+    --mds-patterns: 67px;
+    --mds-brand-comp: 37px;
+    --mds-core-patterns-gap: 12px;
+    --mds-compo-interno: 270px;
+  }
+
+  .final-decision-combo__item--compo {
+    width: calc(4 * 64px + 3 * 6px);
+  }
+
+  .final-decision-combo__item--compo .compo-only-graphic {
+    --wl-outer-ring: 64px;
+    --wl-grey: 47px;
+    --wl-white: 25px;
+    --wl-cell-gap: 6px;
+    --wl-row-gap: 9px;
+    --wl-compon-gap: 2px;
+    --wl-patterns-gap: 1px;
+    --compo-only-accent-gap: 14px;
+    --wl-accent-gap: 14px;
+  }
+}

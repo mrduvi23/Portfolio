@@ -1,0 +1,34 @@
+/* UCI Hub — Endesa search bar screenshot (453×376 frame @ 1440px) */
+
+.case-study-uci-endesa-buscador {
+  --eb-ref-w: 453;
+  --eb-inset: calc(24 * 100cqw / var(--eb-ref-w));
+  --eb-content-w: calc(100cqw - 2 * var(--eb-inset));
+
+  container-type: inline-size;
+  container-name: uci-endesa-buscador;
+  position: relative;
+  overflow: hidden;
+}
+
+.case-study-uci-endesa-buscador__image-wrap {
+  position: absolute;
+  top: var(--eb-inset);
+  left: var(--eb-inset);
+  width: var(--eb-content-w);
+  bottom: 0;
+}
+
+.case-study-uci-endesa-buscador__image-wrap > span {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.case-study-uci-endesa-buscador__image {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  max-width: none !important;
+  filter: var(--shadow-case-study-media);
+}

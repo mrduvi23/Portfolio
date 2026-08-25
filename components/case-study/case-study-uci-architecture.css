@@ -1,0 +1,41 @@
+/* UCI Architecture — frame height follows the image at any width */
+
+.case-study-uci-architecture {
+  position: relative;
+  width: 100%;
+  min-height: 200px;
+  overflow: hidden;
+  border: 1px solid var(--color-card-inset-border);
+  background: var(--color-primitives-grey-10);
+}
+
+.case-study-uci-architecture > span {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+}
+
+.case-study-uci-architecture__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 200px;
+  object-fit: contain;
+  object-position: center;
+}
+
+@media (max-width: 511px) {
+  .case-study-uci-architecture {
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .case-study-uci-architecture__image {
+    width: 100%;
+    height: auto;
+    min-height: unset;
+    max-width: none;
+    object-fit: unset;
+    object-position: unset;
+  }
+}
