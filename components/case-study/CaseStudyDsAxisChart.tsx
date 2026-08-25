@@ -21,23 +21,26 @@ export function CaseStudyDsAxisChart() {
           <div className="case-study-ds-axis__plot-area">
             <DsAxisArrows />
             <div className="case-study-ds-axis__plot">
-              {BRANDS.map((brand) => (
+              {BRANDS.map((brand) => {
+                const onXAxis = "onXAxis" in brand && brand.onXAxis;
+                return (
                 <p
                   key={brand.label}
                   className={
-                    "onXAxis" in brand && brand.onXAxis
+                    onXAxis
                       ? "case-study-ds-axis__brand case-study-ds-axis__brand--on-x-axis"
                       : "case-study-ds-axis__brand"
                   }
                   style={
-                    "onXAxis" in brand && brand.onXAxis
+                    onXAxis || !("y" in brand)
                       ? { left: brand.x }
                       : { left: brand.x, top: brand.y }
                   }
                 >
                   {brand.label}
                 </p>
-              ))}
+                );
+              })}
             </div>
             <div className="case-study-ds-axis__y-label-row">
               <span className="case-study-ds-axis__y-line-spacer" aria-hidden />

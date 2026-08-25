@@ -145,20 +145,6 @@ function CaseStudyMediaPairWithCaptions({
   );
 }
 
-function isMediaPairWithCaptions(
-  block: CaseStudyBlock,
-  next?: CaseStudyBlock,
-): next is Extract<CaseStudyBlock, { type: "twoColumns" }> {
-  return block.type === "media" && block.layout === "pair" && next?.type === "twoColumns";
-}
-
-function isParagraphWithExternalLink(
-  block: CaseStudyBlock,
-  next?: CaseStudyBlock,
-): next is Extract<CaseStudyBlock, { type: "externalLink" }> {
-  return block.type === "paragraph" && next?.type === "externalLink";
-}
-
 function CaseStudySectionBlocks({ blocks }: { blocks: CaseStudyBlock[] }) {
   const rendered: React.ReactNode[] = [];
 
@@ -166,7 +152,11 @@ function CaseStudySectionBlocks({ blocks }: { blocks: CaseStudyBlock[] }) {
     const block = blocks[index];
     const next = blocks[index + 1];
 
-    if (isMediaPairWithCaptions(block, next)) {
+    if (
+      block.type === "media" &&
+      block.layout === "pair" &&
+      next?.type === "twoColumns"
+    ) {
       rendered.push(
         <CaseStudyMediaPairWithCaptions
           key={`media-pair-captions-${index}`}
@@ -178,7 +168,7 @@ function CaseStudySectionBlocks({ blocks }: { blocks: CaseStudyBlock[] }) {
       continue;
     }
 
-    if (isParagraphWithExternalLink(block, next)) {
+    if (block.type === "paragraph" && next?.type === "externalLink") {
       rendered.push(
         <div key={`paragraph-link-${index}`} className="flex flex-col gap-6">
           <CaseStudyParagraph text={block.text} desktopSuffix={block.desktopSuffix} />

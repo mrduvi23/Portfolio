@@ -21,7 +21,6 @@ import { SiteFooter } from "@/components/SiteFooter";
 const photoSrc = {
   projectCoat: assets.projectCoat,
   projectPhones: assets.projectPhones,
-  projectWind: assets.projectWind,
   projectMitte: assets.projectMitte,
   projectUciPhoto: assets.projectUciPhoto,
 } as const;
