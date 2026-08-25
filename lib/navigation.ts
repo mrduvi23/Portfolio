@@ -1,4 +1,9 @@
-export function isModifiedPointerEvent(event: MouseEvent): boolean {
+type ModifierKeys = Pick<
+  MouseEvent,
+  "metaKey" | "ctrlKey" | "shiftKey" | "altKey"
+>;
+
+export function isModifiedPointerEvent(event: ModifierKeys): boolean {
   return event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
 }
 

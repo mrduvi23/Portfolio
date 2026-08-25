@@ -1,13 +1,7 @@
-/**
- * Temporary image URLs from Figma MCP (expire after ~7 days).
- * Export from Figma to /public and swap these for stable paths.
- * Source frame: WORK_Desktop (node 3:125).
- */
+/** Stable local paths under /public — no remote/temporary URLs. */
 export const assets = {
   projectCoat: "/home/first-card.png",
   projectPhones: "/home/second-card.png",
-  projectWind:
-    "https://www.figma.com/api/mcp/asset/94a9999e-8fb6-4858-bd28-0604f85ec35d",
   projectMitte: "/work/Portada Mitte.png",
   projectUciPhoto: "/work/uci/PortadaUCI.png",
   uciHeroVideo: "/work/uci/UciPortada.mp4",
@@ -57,6 +51,5 @@ export const assets = {
   dsBrandsSample: "/work/ds-brands/DS_Sample.png",
   dsBrandsTypography: "/work/ds-brands/Typography.png",
   dsBrandsComponents: "/work/ds-brands/Components.png",
-  menuIcon:
-    "https://www.figma.com/api/mcp/asset/eaf55202-7de3-49ee-bf0c-fff5557aa5bc",
+  menuIcon: "/icons/IconMenu.svg",
 } as const;

@@ -72,7 +72,10 @@ export function InspirationGallery({ children }: { children: ReactNode }) {
 
     const attachStream = () => {
       try {
-        setStream(video.captureStream());
+        const media = video as HTMLVideoElement & {
+          captureStream(): MediaStream;
+        };
+        setStream(media.captureStream());
       } catch {
         setStream(null);
       }
