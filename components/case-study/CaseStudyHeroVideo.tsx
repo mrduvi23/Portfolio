@@ -4,6 +4,7 @@ import "@/components/case-study/case-study-hero-video.css";
 import { PauseIcon24 } from "@/components/icons/PauseIcon24";
 import { PlayIcon24 } from "@/components/icons/PlayIcon24";
 import { ReplayIcon24 } from "@/components/icons/ReplayIcon24";
+import { useLazyMediaLoad } from "@/hooks/useLazyMediaLoad";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 type CaseStudyHeroVideoProps = {
@@ -13,8 +14,10 @@ type CaseStudyHeroVideoProps = {
 };
 
 export function CaseStudyHeroVideo({ src, poster, alt }: CaseStudyHeroVideoProps) {
+  const rootRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
+  const shouldLoad = useLazyMediaLoad(rootRef);
 
   const syncPlayingState = useCallback(() => {
     const video = videoRef.current;
@@ -30,6 +33,8 @@ export function CaseStudyHeroVideo({ src, poster, alt }: CaseStudyHeroVideoProps
   }, []);
 
   useEffect(() => {
+    if (!shouldLoad) return;
+
     const video = videoRef.current;
     if (!video) return;
 
@@ -46,7 +51,7 @@ export function CaseStudyHeroVideo({ src, poster, alt }: CaseStudyHeroVideoProps
       video.removeEventListener("pause", syncPlayingState);
       video.removeEventListener("ended", handleEnded);
     };
-  }, [syncPlayingState, handleEnded]);
+  }, [shouldLoad, syncPlayingState, handleEnded]);
 
   const handleReplay = () => {
     const video = videoRef.current;
@@ -69,15 +74,15 @@ export function CaseStudyHeroVideo({ src, poster, alt }: CaseStudyHeroVideoProps
   };
 
   return (
-    <div className="case-study-hero-video" data-cursor-static>
+    <div ref={rootRef} className="case-study-hero-video" data-cursor-static>
       <video
         ref={videoRef}
         className="case-study-hero-video__media"
-        src={src}
+        src={shouldLoad ? src : undefined}
         poster={poster}
         muted
         playsInline
-        preload="metadata"
+        preload={shouldLoad ? "metadata" : "none"}
         aria-label={alt}
       />
       <div className="case-study-hero-video__controls">

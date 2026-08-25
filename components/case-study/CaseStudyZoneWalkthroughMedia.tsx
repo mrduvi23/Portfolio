@@ -5,6 +5,7 @@ import { PauseIcon24 } from "@/components/icons/PauseIcon24";
 import { PlayIcon24 } from "@/components/icons/PlayIcon24";
 import { ReplayIcon24 } from "@/components/icons/ReplayIcon24";
 import { useAutoplayOnVisible } from "@/hooks/useAutoplayOnVisible";
+import { useLazyMediaLoad } from "@/hooks/useLazyMediaLoad";
 import { assets } from "@/lib/assets";
 import { useCallback, useEffect, useRef, useState, type PointerEvent } from "react";
 
@@ -55,6 +56,10 @@ export function CaseStudyZoneWalkthroughMedia() {
   const [useCanvas, setUseCanvas] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [controlsVisible, setControlsVisible] = useState(false);
+  const shouldLoad = useLazyMediaLoad(rootRef);
+  const activeSrc = useCanvas
+    ? assets.zoneWalkthroughSource
+    : assets.zoneWalkthrough;
 
   useEffect(() => {
     setUseCanvas(needsCanvasFallback());
@@ -88,10 +93,15 @@ export function CaseStudyZoneWalkthroughMedia() {
     };
   }, [useCanvas, syncPlayingState, handleEnded]);
 
-  useAutoplayOnVisible(rootRef, videoRef, { userPausedRef, refreshKey: useCanvas });
+  useAutoplayOnVisible(rootRef, videoRef, {
+    userPausedRef,
+    refreshKey: `${useCanvas}-${shouldLoad}`,
+    ready: shouldLoad,
+  });
 
   useEffect(() => {
     if (!useCanvas) return;
+    if (!shouldLoad) return;
 
     const video = videoRef.current;
     const canvas = canvasRef.current;
@@ -134,7 +144,7 @@ export function CaseStudyZoneWalkthroughMedia() {
       video.removeEventListener("loadeddata", start);
       cancelAnimationFrame(rafRef.current);
     };
-  }, [useCanvas]);
+  }, [useCanvas, shouldLoad]);
 
   const handleReplay = () => {
     const video = videoRef.current;
@@ -188,10 +198,10 @@ export function CaseStudyZoneWalkthroughMedia() {
           <video
             ref={videoRef}
             className="case-study-zone-walkthrough__source"
-            src={assets.zoneWalkthroughSource}
+            src={shouldLoad ? activeSrc : undefined}
             muted
             playsInline
-            preload="metadata"
+            preload={shouldLoad ? "metadata" : "none"}
             aria-hidden
           />
           <canvas
@@ -204,10 +214,10 @@ export function CaseStudyZoneWalkthroughMedia() {
         <video
           ref={videoRef}
           className="case-study-zone-walkthrough__media"
-          src={assets.zoneWalkthrough}
+          src={shouldLoad ? activeSrc : undefined}
           muted
           playsInline
-          preload="metadata"
+          preload={shouldLoad ? "metadata" : "none"}
           aria-label={label}
         />
       )}
