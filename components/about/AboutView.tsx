@@ -33,12 +33,12 @@ export function AboutView() {
           aria-hidden
         />
 
-        <div className="col-span-2 mt-6 flex w-full flex-col gap-4 min-[764px]:col-span-6 min-[764px]:col-start-7 min-[764px]:mt-0 min-[764px]:self-center min-[764px]:grid min-[764px]:grid-cols-6 min-[764px]:gap-y-4">
+        <div className="col-span-2 mt-6 flex w-full flex-col gap-16 min-[764px]:col-span-6 min-[764px]:col-start-7 min-[764px]:mt-0 min-[764px]:self-center min-[764px]:grid min-[764px]:grid-cols-6 min-[764px]:gap-y-16">
           <h1 className="type-h1 w-full min-w-0 text-[var(--color-heading)] min-[764px]:col-span-6">
             {about.headline}
           </h1>
 
-          <p className="type-body min-w-0 w-full text-pretty min-[764px]:col-span-4 min-[764px]:col-start-2">
+          <p className="type-body min-w-0 w-[80%] self-end text-pretty min-[764px]:w-auto min-[764px]:self-auto min-[764px]:col-span-4 min-[764px]:col-start-2">
             {about.bio}
           </p>
         </div>
@@ -89,24 +89,6 @@ export function AboutView() {
           </div>
         </div>
       </PageGrid>
-
-      <section className="flex flex-col gap-10">
-        <PageGrid>
-          <h2 className="col-span-2 type-h2 text-pretty text-[var(--color-heading)] min-[764px]:col-span-12">
-            Clients I worked with
-          </h2>
-        </PageGrid>
-        <PageGrid>
-          <div className="col-span-2 grid grid-cols-2 gap-x-4 gap-y-8 min-[764px]:col-span-12 min-[764px]:grid-cols-4 min-[764px]:gap-y-10">
-            {about.clients.map((client) => (
-              <div key={client.name} className="flex flex-col gap-2">
-                <p className="type-h5 text-[var(--color-heading)]">{client.name}</p>
-                <p className="type-body text-pretty">{client.category}</p>
-              </div>
-            ))}
-          </div>
-        </PageGrid>
-      </section>
 
       <section className="relative left-1/2 flex w-screen max-w-[100vw] -translate-x-1/2 flex-col bg-[oklch(0.252_0_0)] pt-32 pb-32">
         <div className="mx-auto flex w-full max-w-[var(--page-max)] flex-col gap-32 px-[var(--page-pad-x-sm)] min-[764px]:px-[var(--page-pad-x)]">

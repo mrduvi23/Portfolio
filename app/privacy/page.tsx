@@ -12,7 +12,7 @@ import { contact, site } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Privacy & cookies",
-  description: "Privacy policy and cookie information for darreba.tech",
+  description: "Privacy policy and cookie information for darreba.space",
 };
 
 export default function PrivacyPage() {

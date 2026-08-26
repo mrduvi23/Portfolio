@@ -4,7 +4,7 @@ export const site = {
   defaultTitle: "David Arreba — Product designer",
   description:
     "Product designer focused on design systems and digital product craft.",
-  url: "https://darreba.tech",
+  url: "https://darreba.space",
 } as const;
 
 export const intro = {
@@ -26,7 +26,7 @@ export const projects = [
   {
     id: "infrared",
     slug: "zone",
-    title: "Redesigning an Intranet",
+    title: "Zone. Making it useful again",
     meta: "Product design",
     imageKey: "projectPhones" as const,
     variant: "photo" as const,

@@ -346,6 +346,14 @@ html[data-route-transition] .page-transition-content {
   font-weight: 500;
 }
 
+/** Case study section labels (Overview, Challenge, etc.) */
+.type-section-label {
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+
 .type-caption {
   font-size: 14px;
   line-height: 24px;

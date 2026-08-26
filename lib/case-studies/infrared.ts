@@ -4,7 +4,7 @@ import type { CaseStudyContent } from "@/lib/case-studies/types";
 export const infraredCaseStudy: CaseStudyContent = {
   slug: "zone",
   index: "[02]",
-  title: "Redesigning an Intranet",
+  title: "Zone. Making it useful again",
   heroImage: assets.projectPhones,
   heroImageAlt: "CBRE Zone intranet redesign",
   meta: [

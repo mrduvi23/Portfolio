@@ -81,9 +81,9 @@ function CaseStudySectionHeader({
         : "type-h2 text-pretty text-[var(--color-heading)]";
 
   return (
-    <header className="flex flex-col gap-2">
+    <header className="flex flex-col gap-3">
       {eyebrow ? (
-        <p className="type-body-medium text-[var(--color-body)]">{eyebrow}</p>
+        <p className="type-section-label text-[var(--color-body)]">{eyebrow}</p>
       ) : null}
       {title ? <TitleTag className={titleClass}>{title}</TitleTag> : null}
     </header>

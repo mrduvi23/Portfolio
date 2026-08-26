@@ -4,12 +4,12 @@ export const about = {
   bio: "Thanks to my experiences working at several technology consultancies, I've had the opportunity to work with major brands, helping them build design systems and experiences that inspire, engage, and leave a lasting impression.",
   employment: [
     {
-      period: "Aug 2025 - Now",
+      period: "Dec 2025 - Now",
       company: "Freelance",
       role: "Product Designer",
     },
     {
-      period: "Nov 2023 - Aug 2025",
+      period: "Nov 2023 - Dec 2025",
       company: "Redbility",
       role: "Ux Consultant",
     },
@@ -25,15 +25,6 @@ export const about = {
     },
   ],
   cvHref: "/about/David%20Arreba%20-%20CV.pdf",
-  clients: [
-    { name: "Inditex", category: "(Design Sistems)" },
-    { name: "Acciona", category: "(Design Sistems)" },
-    { name: "UCI", category: "(Design Sistems / Porduct Design)" },
-    { name: "AENA", category: "(Design Sistems / Porduct Design)" },
-    { name: "HLA Group", category: "(Product Design)" },
-    { name: "CBRE", category: "(Product Design)" },
-    { name: "Mitte", category: "(UI Design)" },
-  ],
   inspiration: {
     quote:
       "I draw inspiration from the world by focusing on those seemingly imperceptible details that often go unnoticed, letting them spark fresh ideas and new perspectives.",
