@@ -37,7 +37,7 @@ export default function RootLayout({
         <SmoothScroll />
         <SiteHeader />
         <PageTransition>
-          <div className="site-main flex min-h-0 flex-1 flex-col pt-20">{children}</div>
+          <div className="site-main flex min-h-0 flex-1 flex-col pt-16 min-[764px]:pt-20">{children}</div>
         </PageTransition>
         <CaseStudyIndexOutlet />
         <CustomCursor />

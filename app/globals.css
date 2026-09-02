@@ -361,3 +361,30 @@ html[data-route-transition] .page-transition-content {
   font-weight: 400;
   color: var(--color-body);
 }
+
+/* Mobile type scale — one step down. Labels, body, caption unchanged. */
+@media (max-width: 763px) {
+  .type-h1 {
+    font-size: 29px;
+  }
+
+  .type-h2 {
+    font-size: 26px;
+    line-height: 32px;
+  }
+
+  .type-h3 {
+    font-size: 23px;
+    line-height: 28px;
+  }
+
+  .type-h4 {
+    font-size: 20px;
+  }
+
+  .type-h5,
+  .type-quote {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
