@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useInspirationGallery } from "@/components/about/inspiration-gallery-context";
+import { useLazyMediaLoad } from "@/hooks/useLazyMediaLoad";
 import "./inspiration-gallery-card.css";
 
 const LOADER_VIDEO_SRC = "/loader/Header.MP4";
@@ -25,10 +26,12 @@ export function InspirationGalleryCard({
   galleryIndex = 0,
 }: InspirationGalleryCardProps) {
   const { layout, stream } = useInspirationGallery();
+  const rootRef = useRef<HTMLAnchorElement>(null);
   const sliceVideoRef = useRef<HTMLVideoElement>(null);
   const contentVideoRef = useRef<HTMLVideoElement>(null);
   const revealTimerRef = useRef<number | null>(null);
   const [isRevealed, setIsRevealed] = useState(false);
+  const shouldLoad = useLazyMediaLoad(rootRef);
   const cardRect = layout?.cards[galleryIndex];
 
   function scheduleReveal() {
@@ -37,7 +40,6 @@ export function InspirationGalleryCard({
     }
     revealTimerRef.current = window.setTimeout(() => {
       setIsRevealed(true);
-      revealTimerRef.current = null;
     }, COVER_MOTION_MS);
   }
 
@@ -70,22 +72,29 @@ export function InspirationGalleryCard({
       };
     }
 
+    if (!shouldLoad) {
+      video.removeAttribute("src");
+      video.srcObject = null;
+      return;
+    }
+
     video.srcObject = null;
     video.src = LOADER_VIDEO_SRC;
     video.loop = true;
     void video.play().catch(() => {});
-  }, [stream]);
+  }, [stream, shouldLoad]);
 
   useEffect(() => {
     const video = contentVideoRef.current;
-    if (!video) return;
+    if (!video || !shouldLoad) return;
 
     video.load();
     void video.play().catch(() => {});
-  }, [videoSrc]);
+  }, [videoSrc, shouldLoad]);
 
   return (
     <a
+      ref={rootRef}
       href={href}
       target="_blank"
       rel="noopener noreferrer"
@@ -117,12 +126,12 @@ export function InspirationGalleryCard({
         <video
           ref={contentVideoRef}
           className="inspiration-gallery-card__content-video"
-          src={videoSrc}
-          autoPlay
+          src={shouldLoad ? videoSrc : undefined}
+          autoPlay={shouldLoad}
           muted
           loop
           playsInline
-          preload="auto"
+          preload={shouldLoad ? "metadata" : "none"}
           draggable={false}
         />
         <p className="inspiration-gallery-card__label type-body">

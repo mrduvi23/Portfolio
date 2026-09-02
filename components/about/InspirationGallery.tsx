@@ -17,16 +17,19 @@ import {
   InspirationGalleryContext,
   type GalleryLayout,
 } from "@/components/about/inspiration-gallery-context";
+import { useLazyMediaLoad } from "@/hooks/useLazyMediaLoad";
 import "./inspiration-gallery.css";
 
 const LOADER_VIDEO_SRC = "/loader/Header.MP4";
 
 export function InspirationGallery({ children }: { children: ReactNode }) {
   const items = Children.toArray(children);
+  const rootRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const masterVideoRef = useRef<HTMLVideoElement>(null);
   const [layout, setLayout] = useState<GalleryLayout | null>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
+  const shouldLoad = useLazyMediaLoad(rootRef);
 
   const measure = useCallback(() => {
     const grid = gridRef.current;
@@ -67,6 +70,11 @@ export function InspirationGallery({ children }: { children: ReactNode }) {
   }, [measure, items.length]);
 
   useEffect(() => {
+    if (!shouldLoad) {
+      setStream(null);
+      return;
+    }
+
     const video = masterVideoRef.current;
     if (!video) return;
 
@@ -87,20 +95,20 @@ export function InspirationGallery({ children }: { children: ReactNode }) {
 
     video.addEventListener("playing", attachStream);
     return () => video.removeEventListener("playing", attachStream);
-  }, []);
+  }, [shouldLoad]);
 
   return (
     <InspirationGalleryContext.Provider value={{ layout, stream }}>
-      <div className="inspiration-gallery">
+      <div ref={rootRef} className="inspiration-gallery">
         <video
           ref={masterVideoRef}
           className="inspiration-gallery__master-video"
-          src={LOADER_VIDEO_SRC}
-          autoPlay
+          src={shouldLoad ? LOADER_VIDEO_SRC : undefined}
+          autoPlay={shouldLoad}
           muted
           loop
           playsInline
-          preload="auto"
+          preload={shouldLoad ? "metadata" : "none"}
           draggable={false}
         />
 
