@@ -9,7 +9,7 @@ import {
   useRef,
 } from "react";
 
-const AXIS_LOCK_PX = 8;
+const AXIS_LOCK_PX = 6;
 
 type Axis = "x" | "y";
 
@@ -17,7 +17,6 @@ type DragState = {
   pointerId: number;
   startX: number;
   startY: number;
-  lastY: number;
   startScroll: number;
   axis: Axis | null;
 };
@@ -33,8 +32,8 @@ function releaseCapture(el: HTMLDivElement | null, pointerId: number) {
 
 /**
  * Grab-to-pan for overflow-x media.
- * Mouse/pen lock to X immediately. Touch waits for axis, then either pans
- * the scroller or forwards vertical movement to the page (Lenis).
+ * Mouse/pen lock to X immediately. Touch waits for axis: horizontal pans the
+ * scroller; vertical is left to native scroll (touch-action: pan-y on the scroller).
  */
 export function useOverflowXPointerPan(
   scrollerRef: RefObject<HTMLDivElement | null>,
@@ -94,7 +93,6 @@ export function useOverflowXPointerPan(
         pointerId: event.pointerId,
         startX: event.clientX,
         startY: event.clientY,
-        lastY: event.clientY,
         startScroll: el.scrollLeft,
         axis: event.pointerType === "touch" ? null : "x",
       };
@@ -123,31 +121,14 @@ export function useOverflowXPointerPan(
         if (Math.abs(dx) >= Math.abs(dy)) {
           lockToX(event, drag);
         } else {
-          drag.axis = "y";
-          try {
-            el.setPointerCapture(event.pointerId);
-          } catch {
-            /* ignore if capture unavailable */
-          }
+          // Vertical intent: release so native pan-y / Lenis can scroll the page.
+          dragRef.current = null;
+          return;
         }
       }
 
       if (drag.axis === "x") {
-        el.scrollLeft =
-          drag.startScroll - (event.clientX - drag.startX);
-        return;
-      }
-
-      const deltaY = event.clientY - drag.lastY;
-      drag.lastY = event.clientY;
-      const lenis = getLenisInstance();
-      if (lenis) {
-        lenis.scrollTo(lenis.scroll - deltaY, {
-          immediate: true,
-          force: true,
-        });
-      } else {
-        window.scrollBy(0, -deltaY);
+        el.scrollLeft = drag.startScroll - (event.clientX - drag.startX);
       }
     },
     [lockToX, scrollerRef],
@@ -158,7 +139,7 @@ export function useOverflowXPointerPan(
     if (!el) return;
 
     const onTouchMove = (event: TouchEvent) => {
-      if (!dragRef.current?.axis || !event.cancelable) return;
+      if (dragRef.current?.axis !== "x" || !event.cancelable) return;
       event.preventDefault();
     };
 

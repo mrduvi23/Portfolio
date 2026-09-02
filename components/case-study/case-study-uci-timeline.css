@@ -49,8 +49,8 @@
   overflow-y: hidden;
   overscroll-behavior-x: contain;
   cursor: grab;
-  /* JS owns the gesture (axis lock). Native pan-y was cancelling the drag. */
-  touch-action: none;
+  /* pan-y keeps page scroll native; JS handles horizontal pan after axis lock. */
+  touch-action: pan-y pinch-zoom;
   user-select: none;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -87,7 +87,7 @@
   max-width: none !important;
   min-width: var(--uci-timeline-image-w) !important;
   -webkit-user-drag: none;
-  touch-action: none;
+  pointer-events: none;
 }
 
 /* Custom scrollbar — collapsed 4px, expands to 8px on hover */
