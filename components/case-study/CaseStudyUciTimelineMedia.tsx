@@ -1,6 +1,7 @@
 "use client";
 
 import "@/components/case-study/case-study-uci-timeline.css";
+import { useOverflowXPointerPan } from "@/hooks/useOverflowXPointerPan";
 import { assets } from "@/lib/assets";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -47,12 +48,6 @@ export function CaseStudyUciTimelineMedia() {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const railRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const imageDragRef = useRef({
-    active: false,
-    pointerId: -1,
-    startX: 0,
-    startScroll: 0,
-  });
   const scrollbarDragRef = useRef({
     active: false,
     pointerId: -1,
@@ -127,8 +122,10 @@ export function CaseStudyUciTimelineMedia() {
     if (!el) return;
 
     const onWheel = (event: WheelEvent) => {
-      if (Math.abs(event.deltaX) > 0 || event.shiftKey) {
-        event.preventDefault();
+      const horizontal =
+        event.shiftKey || Math.abs(event.deltaX) >= Math.abs(event.deltaY);
+      if (horizontal) {
+        event.stopPropagation();
       }
     };
 
@@ -148,62 +145,7 @@ export function CaseStudyUciTimelineMedia() {
     };
   }, [updateThumb]);
 
-  const handleImagePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (event.button !== 0) return;
-    const el = scrollerRef.current;
-    if (!el) return;
-
-    imageDragRef.current = {
-      active: true,
-      pointerId: event.pointerId,
-      startX: event.clientX,
-      startScroll: el.scrollLeft,
-    };
-
-    try {
-      el.setPointerCapture(event.pointerId);
-    } catch {
-      /* ignore if capture unavailable */
-    }
-    el.classList.add("is-dragging");
-  };
-
-  const handleImagePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (
-      !imageDragRef.current.active ||
-      event.pointerId !== imageDragRef.current.pointerId
-    ) {
-      return;
-    }
-
-    const el = scrollerRef.current;
-    if (!el) return;
-
-    el.scrollLeft =
-      imageDragRef.current.startScroll - (event.clientX - imageDragRef.current.startX);
-  };
-
-  const endImageDrag = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (
-      !imageDragRef.current.active ||
-      event.pointerId !== imageDragRef.current.pointerId
-    ) {
-      return;
-    }
-
-    const el = scrollerRef.current;
-    imageDragRef.current.active = false;
-
-    if (el?.hasPointerCapture(event.pointerId)) {
-      try {
-        el.releasePointerCapture(event.pointerId);
-      } catch {
-        /* ignore */
-      }
-    }
-
-    el?.classList.remove("is-dragging");
-  };
+  const imagePan = useOverflowXPointerPan(scrollerRef);
 
   const handleScrollbarPointerDown = (
     event: React.PointerEvent<HTMLDivElement>,
@@ -303,10 +245,7 @@ export function CaseStudyUciTimelineMedia() {
       <div
         ref={scrollerRef}
         className="uci-timeline-media__scroller"
-        onPointerDown={handleImagePointerDown}
-        onPointerMove={handleImagePointerMove}
-        onPointerUp={endImageDrag}
-        onPointerCancel={endImageDrag}
+        {...imagePan}
       >
         <div className="uci-timeline-media__track">
           <Image

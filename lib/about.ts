@@ -24,7 +24,7 @@ export const about = {
       role: "UX/UI Designer",
     },
   ],
-  cvHref: "/about/David%20Arreba%20-%20CV.pdf",
+  cvHref: "/about/David%20Arreba%20-%20CV.pdf?v=20260902",
   inspiration: {
     quote:
       "I draw inspiration from the world by focusing on those seemingly imperceptible details that often go unnoticed, letting them spark fresh ideas and new perspectives.",

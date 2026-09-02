@@ -28,24 +28,24 @@ function navBar(
 export const uciNamingNavBarStacks: UciNamingNavBarImage[][][] = [
   [
     [
-      navBar("telefonica", "Telefónica", "Telefonica.png", 810, 110),
-      navBar("santander", "Santander", "Santander.png", 810, 128),
-      navBar("bankinter", "Bankinter", "Bankinter.png", 810, 115),
-      navBar("sanitas", "Sanitas", "Sanitas.png", 810, 100),
+      navBar("telefonica", "Telefónica", "Telefonica.webp", 810, 110),
+      navBar("santander", "Santander", "Santander.webp", 810, 128),
+      navBar("bankinter", "Bankinter", "Bankinter.webp", 810, 115),
+      navBar("sanitas", "Sanitas", "Sanitas.webp", 810, 100),
     ],
     [
-      navBar("repsol", "Repsol", "Repsol.png", 810, 114),
-      navBar("ing", "ING", "ING.png", 810, 267),
-      navBar("bnp", "BNP Paribas", "BNP.png", 810, 135),
+      navBar("repsol", "Repsol", "Repsol.webp", 810, 114),
+      navBar("ing", "ING", "ING.webp", 810, 267),
+      navBar("bnp", "BNP Paribas", "BNP.webp", 810, 135),
     ],
   ],
   [
     [
-      navBar("ferrovial", "Ferrovial", "ferrovial.png", 810, 115),
-      navBar("sabadell", "Banco Sabadell", "Sabadell.png", 810, 105),
-      navBar("mapfre", "MAPFRE", "Mafre.png", 810, 93),
+      navBar("ferrovial", "Ferrovial", "ferrovial.webp", 810, 115),
+      navBar("sabadell", "Banco Sabadell", "Sabadell.webp", 810, 105),
+      navBar("mapfre", "MAPFRE", "Mafre.webp", 810, 93),
     ],
-    [navBar("endesa", "Endesa", "Endesa.png", 810, 424)],
+    [navBar("endesa", "Endesa", "Endesa.webp", 810, 424)],
   ],
 ];
 

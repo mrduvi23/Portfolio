@@ -18,7 +18,10 @@ export const metadata: Metadata = {
   },
   description: site.description,
   icons: {
-    icon: [{ url: "/favicon.png", type: "image/png" }],
+    icon: [
+      { url: "/favicon.webp", type: "image/webp" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
   },
 };
 

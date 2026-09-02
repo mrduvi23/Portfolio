@@ -554,8 +554,8 @@ function CaseStudyFeatureGrid({
 }) {
   const gridClass =
     block.layout === "insights"
-      ? "grid grid-cols-1 gap-4 min-[764px]:grid-cols-2 min-[1280px]:grid-cols-3"
-      : "grid grid-cols-1 gap-4 min-[764px]:grid-cols-2";
+      ? "grid grid-cols-2 gap-4 min-[1280px]:grid-cols-3"
+      : "grid grid-cols-2 gap-4";
 
   return (
     <div className={gridClass}>
