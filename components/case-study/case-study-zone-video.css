@@ -35,9 +35,10 @@
   -webkit-user-drag: none;
 }
 
-/* News export includes thin grey side bars — crop a bit further in. */
-.case-study-zone-video--news {
-  --zone-video-scale: 1.08;
+/* News export includes thin grey side bars — crop slightly in. */
+.case-study-zone-video--news .case-study-zone-video__media {
+  width: 106%;
+  height: 106%;
 }
 
 .case-study-zone-video__controls {
