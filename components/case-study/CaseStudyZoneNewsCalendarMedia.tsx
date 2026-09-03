@@ -10,7 +10,7 @@ export function CaseStudyZoneNewsCalendarMedia() {
   return (
     <div className="case-study-zone-video-pair">
       <CaseStudyZoneVideo
-        className="case-study-zone-video--square"
+        className="case-study-zone-video--square case-study-zone-video--news"
         src={assets.zoneNews}
         label="Zone app news feed on mobile"
       />

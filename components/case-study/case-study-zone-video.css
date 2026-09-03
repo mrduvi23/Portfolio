@@ -24,8 +24,8 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 102%;
-  height: 102%;
+  width: calc(102% * var(--zone-video-scale, 1));
+  height: calc(102% * var(--zone-video-scale, 1));
   transform: translate(-50%, -50%);
   display: block;
   object-fit: cover;
@@ -33,6 +33,11 @@
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
+}
+
+/* News export includes thin grey side bars — crop a bit further in. */
+.case-study-zone-video--news {
+  --zone-video-scale: 1.08;
 }
 
 .case-study-zone-video__controls {
