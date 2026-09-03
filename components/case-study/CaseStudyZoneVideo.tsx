@@ -13,10 +13,6 @@ type CaseStudyZoneVideoProps = {
   className?: string;
 };
 
-function isAnimatedWebpSrc(src: string) {
-  return /\.webp(?:$|\?)/i.test(src);
-}
-
 export function CaseStudyZoneVideo({
   src,
   label,
@@ -27,8 +23,6 @@ export function CaseStudyZoneVideo({
   const userPausedRef = useRef(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [controlsVisible, setControlsVisible] = useState(false);
-  const [webpSrc, setWebpSrc] = useState<string | null>(null);
-  const usesWebp = isAnimatedWebpSrc(src);
 
   const syncPlayingState = useCallback(() => {
     const video = videoRef.current;
@@ -44,8 +38,6 @@ export function CaseStudyZoneVideo({
   }, []);
 
   useEffect(() => {
-    if (usesWebp) return;
-
     const video = videoRef.current;
     if (!video) return;
 
@@ -58,71 +50,19 @@ export function CaseStudyZoneVideo({
       video.removeEventListener("pause", syncPlayingState);
       video.removeEventListener("ended", handleEnded);
     };
-  }, [usesWebp, syncPlayingState, handleEnded]);
+  }, [syncPlayingState, handleEnded]);
 
   useAutoplayOnVisible(rootRef, videoRef, { userPausedRef });
 
-  useEffect(() => {
-    if (!usesWebp) return;
-
-    const root = rootRef.current;
-    if (!root) return;
-
-    const show = () => {
-      if (userPausedRef.current) return;
-      setWebpSrc(src);
-      setIsPlaying(true);
-    };
-
-    const hide = () => {
-      setWebpSrc(null);
-      setIsPlaying(false);
-    };
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry) return;
-        if (entry.isIntersecting) show();
-        else hide();
-      },
-      { root: null, rootMargin: "0px 0px -10% 0px", threshold: 0.35 },
-    );
-
-    observer.observe(root);
-    return () => observer.disconnect();
-  }, [src, usesWebp]);
-
   const handleReplay = () => {
-    userPausedRef.current = false;
-
-    if (usesWebp) {
-      const base = src.split("?")[0];
-      setWebpSrc(`${base}?t=${Date.now()}`);
-      setIsPlaying(true);
-      return;
-    }
-
     const video = videoRef.current;
     if (!video) return;
+    userPausedRef.current = false;
     video.currentTime = 0;
     void video.play();
   };
 
   const handleTogglePlay = () => {
-    if (usesWebp) {
-      if (isPlaying) {
-        userPausedRef.current = true;
-        setWebpSrc(null);
-        setIsPlaying(false);
-        return;
-      }
-
-      userPausedRef.current = false;
-      setWebpSrc(src);
-      setIsPlaying(true);
-      return;
-    }
-
     const video = videoRef.current;
     if (!video) return;
 
@@ -162,34 +102,22 @@ export function CaseStudyZoneVideo({
       onPointerUp={handleFramePointerUp}
     >
       <div className="case-study-zone-video__media-wrap">
-        {usesWebp ? (
-          webpSrc ? (
-            <img
-              src={webpSrc}
-              className="case-study-zone-video__media"
-              alt=""
-              aria-hidden
-              draggable={false}
-            />
-          ) : null
-        ) : (
-          <video
-            ref={videoRef}
-            className="case-study-zone-video__media"
-            src={src}
-            muted
-            playsInline
-            preload="metadata"
-            aria-label={label}
-          />
-        )}
+        <video
+          ref={videoRef}
+          className="case-study-zone-video__media"
+          src={src}
+          muted
+          playsInline
+          preload="metadata"
+          aria-label={label}
+        />
       </div>
       <div className="case-study-zone-video__controls">
         <button
           type="button"
           className="case-study-zone-video__control"
           onClick={handleReplay}
-          aria-label="Replay animation"
+          aria-label="Replay video"
         >
           <ReplayIcon24 />
         </button>
@@ -197,7 +125,7 @@ export function CaseStudyZoneVideo({
           type="button"
           className="case-study-zone-video__control"
           onClick={handleTogglePlay}
-          aria-label={isPlaying ? "Pause animation" : "Play animation"}
+          aria-label={isPlaying ? "Pause video" : "Play video"}
         >
           {isPlaying ? <PauseIcon24 /> : <PlayIcon24 />}
         </button>
