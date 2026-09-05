@@ -49,8 +49,8 @@
   overflow-y: hidden;
   overscroll-behavior-x: contain;
   cursor: grab;
-  /* pan-y keeps page scroll native. Horizontal pan is JS (touchmove after axis lock). */
-  touch-action: pan-y pinch-zoom;
+  /* JS owns the gesture so one finger-down can 1:1 pan-x (or page-scroll on Y). */
+  touch-action: none;
   user-select: none;
   scrollbar-width: none;
   -ms-overflow-style: none;

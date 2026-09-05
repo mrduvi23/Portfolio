@@ -9,7 +9,9 @@ import {
   useRef,
 } from "react";
 
-const AXIS_LOCK_PX = 6;
+const AXIS_LOCK_PX = 8;
+/** dy must beat dx by this factor to lock vertical; otherwise prefer X. */
+const VERTICAL_LOCK_RATIO = 1.2;
 
 type Axis = "x" | "y";
 
@@ -18,7 +20,8 @@ type DragState = {
   pointerType: string;
   startX: number;
   startY: number;
-  startScroll: number;
+  startScrollX: number;
+  startScrollY: number;
   axis: Axis | null;
 };
 
@@ -32,21 +35,27 @@ function releaseCapture(el: HTMLDivElement | null, pointerId: number) {
 }
 
 function resolveAxis(dx: number, dy: number): Axis | null {
-  if (Math.max(Math.abs(dx), Math.abs(dy)) < AXIS_LOCK_PX) return null;
-  return Math.abs(dx) >= Math.abs(dy) ? "x" : "y";
+  const ax = Math.abs(dx);
+  const ay = Math.abs(dy);
+  if (Math.max(ax, ay) < AXIS_LOCK_PX) return null;
+  return ay > ax * VERTICAL_LOCK_RATIO ? "y" : "x";
+}
+
+function pageScrollY() {
+  const lenis = getLenisInstance();
+  if (lenis && typeof lenis.scroll === "number") return lenis.scroll;
+  return window.scrollY;
 }
 
 /**
  * Grab-to-pan for overflow-x media.
  *
- * Mouse/pen lock to X immediately via pointer events.
+ * Mouse/pen: pointer events, lock to X immediately.
  *
- * Touch keeps `touch-action: pan-y` so vertical page scroll stays native.
- * Horizontal pan is driven from non-passive `touchmove` after axis lock —
- * not from `pointermove`. With `pan-y`, the browser fires `pointercancel`
- * as soon as it considers native scroll; pointer events then stop, but
- * touch events continue. Treating cancel as "end drag" is what made
- * horizontal swipe feel broken.
+ * Touch: native touch listeners only (pointer handlers ignore touch).
+ * `touch-action: none` plus preventDefault on touchmove lets JS own the
+ * whole gesture so one finger-down maps 1:1 to scrollLeft until lift.
+ * A clearly vertical gesture forwards 1:1 to Lenis / the page.
  */
 export function useOverflowXPointerPan(
   scrollerRef: RefObject<HTMLDivElement | null>,
@@ -60,47 +69,34 @@ export function useOverflowXPointerPan(
     getLenisInstance()?.start();
   }, []);
 
-  const lockToX = useCallback(
-    (pointerId: number, pointerType: string) => {
-      const el = scrollerRef.current;
-      const drag = dragRef.current;
-      if (!el || !drag) return;
-
-      drag.axis = "x";
-
-      // Capture only for mouse/pen so the drag can leave the element.
-      // Touch capture plus pan-y triggers pointercancel; touch events
-      // already stay targeted to the touchstart element for the gesture.
-      if (pointerType !== "touch") {
-        try {
-          el.setPointerCapture(pointerId);
-        } catch {
-          /* ignore if capture unavailable */
-        }
-      }
-
-      el.classList.add("is-dragging");
-
-      if (pointerType === "touch") {
-        const lenis = getLenisInstance();
-        if (lenis) {
-          lenis.stop();
-          stoppedLenisRef.current = true;
-        }
-      }
-    },
-    [scrollerRef],
-  );
+  const stopLenis = useCallback(() => {
+    const lenis = getLenisInstance();
+    if (!lenis || stoppedLenisRef.current) return;
+    lenis.stop();
+    stoppedLenisRef.current = true;
+  }, []);
 
   const applyPanX = useCallback(
     (clientX: number) => {
       const drag = dragRef.current;
       const el = scrollerRef.current;
       if (!drag || drag.axis !== "x" || !el) return;
-      el.scrollLeft = drag.startScroll - (clientX - drag.startX);
+      el.scrollLeft = drag.startScrollX - (clientX - drag.startX);
     },
     [scrollerRef],
   );
+
+  const applyPanY = useCallback((clientY: number) => {
+    const drag = dragRef.current;
+    if (!drag || drag.axis !== "y") return;
+    const next = drag.startScrollY - (clientY - drag.startY);
+    const lenis = getLenisInstance();
+    if (lenis) {
+      lenis.scrollTo(next, { immediate: true, force: true });
+    } else {
+      window.scrollTo(0, next);
+    }
+  }, []);
 
   const endDrag = useCallback(
     (pointerId?: number) => {
@@ -117,54 +113,49 @@ export function useOverflowXPointerPan(
     [resumeLenis, scrollerRef],
   );
 
-  const abandonIfVertical = useCallback((dx: number, dy: number) => {
-    const axis = resolveAxis(dx, dy);
-    if (axis === "y") {
-      dragRef.current = null;
-      return true;
-    }
-    return false;
-  }, []);
-
   const onPointerDown = useCallback(
     (event: ReactPointerEvent<HTMLDivElement>) => {
+      if (event.pointerType === "touch") return;
       if (event.button !== 0) return;
       const el = scrollerRef.current;
       if (!el) return;
 
-      const drag: DragState = {
+      dragRef.current = {
         pointerId: event.pointerId,
         pointerType: event.pointerType,
         startX: event.clientX,
         startY: event.clientY,
-        startScroll: el.scrollLeft,
-        axis: event.pointerType === "touch" ? null : "x",
+        startScrollX: el.scrollLeft,
+        startScrollY: pageScrollY(),
+        axis: "x",
       };
-      dragRef.current = drag;
 
-      if (drag.axis === "x") {
-        lockToX(event.pointerId, event.pointerType);
+      try {
+        el.setPointerCapture(event.pointerId);
+      } catch {
+        /* ignore if capture unavailable */
       }
+      el.classList.add("is-dragging");
     },
-    [lockToX, scrollerRef],
+    [scrollerRef],
   );
 
   const onPointerMove = useCallback(
     (event: ReactPointerEvent<HTMLDivElement>) => {
+      if (event.pointerType === "touch") return;
       const drag = dragRef.current;
       if (!drag || event.pointerId !== drag.pointerId) return;
-
-      if (drag.axis === null) {
-        const dx = event.clientX - drag.startX;
-        const dy = event.clientY - drag.startY;
-        if (abandonIfVertical(dx, dy)) return;
-        if (resolveAxis(dx, dy) !== "x") return;
-        lockToX(event.pointerId, event.pointerType);
-      }
-
       applyPanX(event.clientX);
     },
-    [abandonIfVertical, applyPanX, lockToX],
+    [applyPanX],
+  );
+
+  const onPointerUp = useCallback(
+    (event: ReactPointerEvent<HTMLDivElement>) => {
+      if (event.pointerType === "touch") return;
+      endDrag(event.pointerId);
+    },
+    [endDrag],
   );
 
   useEffect(() => {
@@ -177,11 +168,12 @@ export function useOverflowXPointerPan(
       if (!touch) return;
 
       dragRef.current = {
-        pointerId: dragRef.current?.pointerId ?? 1,
+        pointerId: 1,
         pointerType: "touch",
         startX: touch.clientX,
         startY: touch.clientY,
-        startScroll: el.scrollLeft,
+        startScrollX: el.scrollLeft,
+        startScrollY: pageScrollY(),
         axis: null,
       };
     };
@@ -193,24 +185,27 @@ export function useOverflowXPointerPan(
       const touch = event.touches[0];
       if (!touch) return;
 
+      if (event.cancelable) event.preventDefault();
+
       if (drag.axis === null) {
-        const dx = touch.clientX - drag.startX;
-        const dy = touch.clientY - drag.startY;
-        if (abandonIfVertical(dx, dy)) return;
-        if (resolveAxis(dx, dy) !== "x") return;
-        lockToX(drag.pointerId, "touch");
+        const axis = resolveAxis(
+          touch.clientX - drag.startX,
+          touch.clientY - drag.startY,
+        );
+        if (!axis) return;
+
+        drag.axis = axis;
+        el.classList.add("is-dragging");
+        if (axis === "x") stopLenis();
       }
 
-      if (drag.axis === "x") {
-        if (event.cancelable) event.preventDefault();
-        applyPanX(touch.clientX);
-      }
+      if (drag.axis === "x") applyPanX(touch.clientX);
+      else applyPanY(touch.clientY);
     };
 
-    const onTouchEnd = () => {
-      if (dragRef.current?.pointerType === "touch") {
-        endDrag();
-      }
+    const onTouchEnd = (event: TouchEvent) => {
+      if (event.touches.length > 0) return;
+      if (dragRef.current?.pointerType === "touch") endDrag();
     };
 
     el.addEventListener("touchstart", onTouchStart, { passive: true });
@@ -224,34 +219,13 @@ export function useOverflowXPointerPan(
       el.removeEventListener("touchcancel", onTouchEnd);
       resumeLenis();
     };
-  }, [abandonIfVertical, applyPanX, endDrag, lockToX, resumeLenis, scrollerRef]);
-
-  const onPointerUp = useCallback(
-    (event: ReactPointerEvent<HTMLDivElement>) => {
-      if (event.pointerType === "touch") return;
-      endDrag(event.pointerId);
-    },
-    [endDrag],
-  );
-
-  const onPointerCancel = useCallback(
-    (event: ReactPointerEvent<HTMLDivElement>) => {
-      // Touch + pan-y: the UA cancels pointers when it considers native
-      // scroll. Keep the drag; touchmove continues and owns the pan.
-      if (event.pointerType === "touch") {
-        releaseCapture(scrollerRef.current, event.pointerId);
-        return;
-      }
-      endDrag(event.pointerId);
-    },
-    [endDrag, scrollerRef],
-  );
+  }, [applyPanX, applyPanY, endDrag, resumeLenis, scrollerRef, stopLenis]);
 
   return {
     onPointerDown,
     onPointerMove,
     onPointerUp,
-    onPointerCancel,
+    onPointerCancel: onPointerUp,
     onLostPointerCapture: onPointerUp,
   };
 }
