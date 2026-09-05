@@ -29,14 +29,16 @@ export function InspirationGalleryCard({
   const contentVideoRef = useRef<HTMLVideoElement>(null);
   const revealTimerRef = useRef<number | null>(null);
   const [isRevealed, setIsRevealed] = useState(false);
+  const [canOpen, setCanOpen] = useState(false);
   const cardRect = layout?.cards[galleryIndex];
 
   function scheduleReveal() {
+    setIsRevealed(true);
     if (revealTimerRef.current !== null) {
       window.clearTimeout(revealTimerRef.current);
     }
     revealTimerRef.current = window.setTimeout(() => {
-      setIsRevealed(true);
+      setCanOpen(true);
       revealTimerRef.current = null;
     }, COVER_MOTION_MS);
   }
@@ -47,6 +49,7 @@ export function InspirationGalleryCard({
       revealTimerRef.current = null;
     }
     setIsRevealed(false);
+    setCanOpen(false);
   }
 
   useEffect(() => {
@@ -113,7 +116,13 @@ export function InspirationGalleryCard({
       onFocus={scheduleReveal}
       onBlur={resetReveal}
       onClick={(event) => {
-        if (!isRevealed) {
+        if (!canOpen) {
+          event.preventDefault();
+          scheduleReveal();
+        }
+      }}
+      onTouchEnd={(event) => {
+        if (!canOpen) {
           event.preventDefault();
           scheduleReveal();
         }
