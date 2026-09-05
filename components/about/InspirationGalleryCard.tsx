@@ -74,15 +74,20 @@ export function InspirationGalleryCard({
     video.src = LOADER_VIDEO_SRC;
     video.loop = true;
     void video.play().catch(() => {});
-  }, [stream]);
+  }, [stream, cardRect]);
 
   useEffect(() => {
     const video = contentVideoRef.current;
     if (!video) return;
 
+    if (!isRevealed) {
+      video.pause();
+      return;
+    }
+
     video.load();
     void video.play().catch(() => {});
-  }, [videoSrc]);
+  }, [isRevealed, videoSrc]);
 
   return (
     <a
@@ -110,6 +115,7 @@ export function InspirationGalleryCard({
       onClick={(event) => {
         if (!isRevealed) {
           event.preventDefault();
+          scheduleReveal();
         }
       }}
     >
@@ -118,11 +124,10 @@ export function InspirationGalleryCard({
           ref={contentVideoRef}
           className="inspiration-gallery-card__content-video"
           src={videoSrc}
-          autoPlay
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           draggable={false}
         />
         <p className="inspiration-gallery-card__label type-body">
@@ -131,26 +136,33 @@ export function InspirationGalleryCard({
       </div>
 
       <div className="inspiration-gallery-card__cover">
-        {layout && cardRect ? (
-          <div
-            className="inspiration-gallery-card__video-slice"
-            style={{
-              width: layout.width,
-              height: layout.height,
-              left: -cardRect.x,
-              top: -cardRect.y,
-            }}
-          >
-            <video
-              ref={sliceVideoRef}
-              className="inspiration-gallery-card__video"
-              muted
-              loop
-              playsInline
-              draggable={false}
-            />
-          </div>
-        ) : null}
+        <div
+          className={
+            layout && cardRect
+              ? "inspiration-gallery-card__video-slice"
+              : "inspiration-gallery-card__video-fill"
+          }
+          style={
+            layout && cardRect
+              ? {
+                  width: layout.width,
+                  height: layout.height,
+                  left: -cardRect.x,
+                  top: -cardRect.y,
+                }
+              : undefined
+          }
+        >
+          <video
+            ref={sliceVideoRef}
+            className="inspiration-gallery-card__video"
+            muted
+            loop
+            playsInline
+            preload="auto"
+            draggable={false}
+          />
+        </div>
         <span className="inspiration-gallery-card__mark type-h5">?</span>
       </div>
     </a>
