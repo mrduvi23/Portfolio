@@ -25,7 +25,7 @@ export type CaseStudyMediaHeights = {
 
 export type CaseStudyMediaBlock = {
   type: "media";
-  variant: "image" | "placeholder-light" | "placeholder-dark" | "graphic" | "layered-sketch" | "kickoff-board" | "timeline-scroll" | "content-typology" | "starting-point" | "architecture" | "article-patterns" | "ia-board" | "navigation-collage" | "zone-old-design" | "zone-moodboard" | "zone-walkthrough" | "zone-news-calendar" | "users-board" | "benchmarking-grid" | "benchmarking-logos";
+  variant: "image" | "placeholder-light" | "placeholder-dark" | "graphic" | "layered-sketch" | "kickoff-board" | "timeline-scroll" | "content-typology" | "starting-point" | "architecture" | "article-patterns" | "ia-board" | "navigation-collage" | "zone-old-design" | "zone-moodboard" | "zone-survey-charts" | "zone-walkthrough" | "zone-news-calendar" | "users-board" | "benchmarking-grid" | "benchmarking-logos";
   src?: string;
   alt?: string;
   graphicId?: CaseStudyGraphicId;

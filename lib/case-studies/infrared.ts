@@ -133,7 +133,7 @@ export const infraredCaseStudy: CaseStudyContent = {
           type: "paragraph",
           text: "The survey results added another layer of quantitative data on top of those findings.",
         },
-        { type: "media", variant: "placeholder-light" },
+        { type: "media", variant: "zone-survey-charts" },
         {
           type: "paragraph",
           text: "We also ran a visual research session to build a moodboard and get an early sense of the direction we wanted the app to look and feel.",
