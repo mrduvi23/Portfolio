@@ -57,9 +57,9 @@ const TIME_TO_FIND: SurveyItem[] = [
 ];
 
 const TIME_FAILURE: SurveyItem[] = [
-  { label: "Never", value: 4, tone: "mint" },
-  { label: "Rarely", value: 12, tone: "neon" },
-  { label: "Sometimes", value: 38, tone: "leaf" },
+  { label: "Never", value: 4, tone: "neon" },
+  { label: "Rarely", value: 12, tone: "leaf" },
+  { label: "Sometimes", value: 38, tone: "pine" },
   { label: "Frequently", value: 35, tone: "teal" },
   { label: "Almost always", value: 11, tone: "blue" },
 ];
@@ -125,7 +125,6 @@ function StackedBar({
             key={item.label}
             className={`zone-survey__stack-seg zone-survey__tone-${item.tone}`}
             style={{ width: `${item.value}%` }}
-            title={`${item.label}: ${item.value}%`}
           />
         ))}
       </div>
