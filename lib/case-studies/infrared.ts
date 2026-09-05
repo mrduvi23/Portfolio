@@ -198,7 +198,7 @@ export const infraredCaseStudy: CaseStudyContent = {
           type: "paragraph",
           text: "Once the app launched, we gave users a couple of months to get familiar with it before going back to measure impact. After two months, we ran another internal survey and the results were encouraging.",
         },
-        { type: "media", variant: "placeholder-light" },
+        { type: "media", variant: "zone-survey-impact" },
         {
           type: "paragraph",
           text: "Simple design improvements like adding a calendar or letting users save dashboards to a favorites folder were the features users praised most. Usage of the app increased and so did its acceptance within the company.",

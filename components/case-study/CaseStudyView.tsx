@@ -250,7 +250,11 @@ function CaseStudyMedia({ block }: { block: Extract<CaseStudyBlock, { type: "med
   }
 
   if (block.variant === "zone-survey-charts") {
-    return <CaseStudyZoneSurveyCharts />;
+    return <CaseStudyZoneSurveyCharts wave="research" />;
+  }
+
+  if (block.variant === "zone-survey-impact") {
+    return <CaseStudyZoneSurveyCharts wave="impact" />;
   }
 
   if (block.variant === "zone-walkthrough") {
