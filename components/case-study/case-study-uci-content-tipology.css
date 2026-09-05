@@ -25,7 +25,8 @@
   gap: var(--uci-ct-inset);
   position: relative;
   width: 100%;
-  overflow: hidden;
+  /* clip (not hidden) so iOS can native-scroll the inner overflow-x scroller */
+  overflow: clip;
   border: 1px solid var(--color-card-inset-border);
   background: var(--color-primitives-grey-10);
   box-sizing: border-box;
@@ -48,9 +49,10 @@
   overflow-x: auto;
   overflow-y: hidden;
   overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
   cursor: grab;
-  /* JS owns the gesture so one finger-down can 1:1 pan-x (or page-scroll on Y). */
-  touch-action: none;
+  /* Native iOS overflow-x; JS grab-to-pan is mouse/pen only. */
+  touch-action: pan-x pinch-zoom;
   user-select: none;
   scrollbar-width: none;
   -ms-overflow-style: none;
