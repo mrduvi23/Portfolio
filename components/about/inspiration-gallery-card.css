@@ -46,7 +46,7 @@
   color: var(--color-primitives-white);
 }
 
-.inspiration-gallery-card:hover .inspiration-gallery-card__label {
+.inspiration-gallery-card--revealed .inspiration-gallery-card__label {
   opacity: 1;
   transform: translateY(0);
   transition-delay: var(--inspiration-label-delay), var(--inspiration-label-delay);
@@ -60,21 +60,26 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  background-color: var(--color-primitives-white);
   transform: translateY(0);
   transition: transform var(--inspiration-cover-duration) var(--inspiration-cover-bezier);
   will-change: transform;
 }
 
-.inspiration-gallery-card:hover .inspiration-gallery-card__cover,
 .inspiration-gallery-card--revealed .inspiration-gallery-card__cover {
   transform: translateY(-100%);
   pointer-events: none;
 }
 
-.inspiration-gallery-card__video-slice {
+.inspiration-gallery-card__video-slice,
+.inspiration-gallery-card__video-fill {
   position: absolute;
   pointer-events: none;
   user-select: none;
+}
+
+.inspiration-gallery-card__video-fill {
+  inset: 0;
 }
 
 .inspiration-gallery-card__video {
@@ -93,13 +98,27 @@
   user-select: none;
 }
 
+/* Desktop mouse only — iOS reports hover:hover and can :hover cards while scrolling. */
+@media (min-width: 764px) and (hover: hover) and (pointer: fine) {
+  .inspiration-gallery-card:hover .inspiration-gallery-card__label {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: var(--inspiration-label-delay), var(--inspiration-label-delay);
+  }
+
+  .inspiration-gallery-card:hover .inspiration-gallery-card__cover {
+    transform: translateY(-100%);
+    pointer-events: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .inspiration-gallery-card__cover,
   .inspiration-gallery-card__label {
     transition: none;
   }
 
-  .inspiration-gallery-card:hover .inspiration-gallery-card__label {
+  .inspiration-gallery-card--revealed .inspiration-gallery-card__label {
     opacity: 1;
     transform: translateY(0);
   }

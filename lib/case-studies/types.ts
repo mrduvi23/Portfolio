@@ -70,7 +70,7 @@ export type CaseStudyHeadingBlock = {
   id?: string;
   text: string;
   level: "h3" | "h4";
-  /** Extra top spacing before this heading (64px total with section block gap). */
+  /** Section-sized break before this heading (80px total with the within-section gap). */
   spacingTop?: "section";
 };
 
@@ -138,9 +138,9 @@ export type CaseStudySection = {
   eyebrow?: string;
   title?: string;
   titleLevel?: "h2" | "h3" | "h4";
-  /** 64px from the previous section (reduces default 80px section gap). */
+  /** Kept for content data; layout uses the default section rhythm (80px). */
   spacingTop?: "section";
-  /** Tighter spacing (64px) when consecutive sections share the same group. */
+  /** Consecutive sections in the same group share section-to-section rhythm. */
   group?: "strategies" | "analysis";
   blocks: CaseStudyBlock[];
 };

@@ -28,15 +28,18 @@ export function InspirationGalleryCard({
   const sliceVideoRef = useRef<HTMLVideoElement>(null);
   const contentVideoRef = useRef<HTMLVideoElement>(null);
   const revealTimerRef = useRef<number | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
   const [isRevealed, setIsRevealed] = useState(false);
+  const [canOpen, setCanOpen] = useState(false);
   const cardRect = layout?.cards[galleryIndex];
 
   function scheduleReveal() {
+    setIsRevealed(true);
     if (revealTimerRef.current !== null) {
       window.clearTimeout(revealTimerRef.current);
     }
     revealTimerRef.current = window.setTimeout(() => {
-      setIsRevealed(true);
+      setCanOpen(true);
       revealTimerRef.current = null;
     }, COVER_MOTION_MS);
   }
@@ -47,6 +50,7 @@ export function InspirationGalleryCard({
       revealTimerRef.current = null;
     }
     setIsRevealed(false);
+    setCanOpen(false);
   }
 
   useEffect(() => {
@@ -74,15 +78,20 @@ export function InspirationGalleryCard({
     video.src = LOADER_VIDEO_SRC;
     video.loop = true;
     void video.play().catch(() => {});
-  }, [stream]);
+  }, [stream, cardRect]);
 
   useEffect(() => {
     const video = contentVideoRef.current;
     if (!video) return;
 
+    if (!isRevealed) {
+      video.pause();
+      return;
+    }
+
     video.load();
     void video.play().catch(() => {});
-  }, [videoSrc]);
+  }, [isRevealed, videoSrc]);
 
   return (
     <a
@@ -103,14 +112,31 @@ export function InspirationGalleryCard({
           "--inspiration-label-delay": `${LABEL_DELAY_MS}ms`,
         } as CSSProperties
       }
-      onMouseEnter={scheduleReveal}
-      onMouseLeave={resetReveal}
+      onPointerEnter={(event) => {
+        if (event.pointerType === "mouse") scheduleReveal();
+      }}
+      onPointerLeave={(event) => {
+        if (event.pointerType === "mouse") resetReveal();
+      }}
       onFocus={scheduleReveal}
       onBlur={resetReveal}
       onClick={(event) => {
-        if (!isRevealed) {
+        if (!canOpen) {
           event.preventDefault();
+          scheduleReveal();
         }
+      }}
+      onTouchStart={(event) => {
+        touchStartYRef.current = event.changedTouches[0]?.clientY ?? null;
+      }}
+      onTouchEnd={(event) => {
+        if (canOpen) return;
+        const startY = touchStartYRef.current;
+        const endY = event.changedTouches[0]?.clientY ?? startY ?? 0;
+        touchStartYRef.current = null;
+        if (startY !== null && Math.abs(endY - startY) > 12) return;
+        event.preventDefault();
+        scheduleReveal();
       }}
     >
       <div className="inspiration-gallery-card__media">
@@ -118,11 +144,10 @@ export function InspirationGalleryCard({
           ref={contentVideoRef}
           className="inspiration-gallery-card__content-video"
           src={videoSrc}
-          autoPlay
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           draggable={false}
         />
         <p className="inspiration-gallery-card__label type-body">
@@ -131,26 +156,34 @@ export function InspirationGalleryCard({
       </div>
 
       <div className="inspiration-gallery-card__cover">
-        {layout && cardRect ? (
-          <div
-            className="inspiration-gallery-card__video-slice"
-            style={{
-              width: layout.width,
-              height: layout.height,
-              left: -cardRect.x,
-              top: -cardRect.y,
-            }}
-          >
+        <div
+          className={
+            layout && cardRect
+              ? "inspiration-gallery-card__video-slice"
+              : "inspiration-gallery-card__video-fill"
+          }
+          style={
+            layout && cardRect
+              ? {
+                  width: layout.width,
+                  height: layout.height,
+                  left: -cardRect.x,
+                  top: -cardRect.y,
+                }
+              : undefined
+          }
+        >
             <video
-              ref={sliceVideoRef}
-              className="inspiration-gallery-card__video"
-              muted
-              loop
-              playsInline
-              draggable={false}
-            />
-          </div>
-        ) : null}
+            ref={sliceVideoRef}
+            className="inspiration-gallery-card__video"
+            src={LOADER_VIDEO_SRC}
+            muted
+            loop
+            playsInline
+            preload="auto"
+            draggable={false}
+          />
+        </div>
         <span className="inspiration-gallery-card__mark type-h5">?</span>
       </div>
     </a>
