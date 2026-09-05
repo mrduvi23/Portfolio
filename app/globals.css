@@ -346,6 +346,11 @@ html[data-route-transition] .page-transition-content {
   color: var(--color-body);
 }
 
+/** Same metrics as .type-body, heading color. Beats .type-body in the cascade. */
+.type-heading-color {
+  color: var(--color-heading);
+}
+
 /** Body scale, medium — project card titles only */
 .type-body-medium {
   font-size: 16px;

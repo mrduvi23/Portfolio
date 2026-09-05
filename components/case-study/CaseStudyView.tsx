@@ -778,7 +778,7 @@ function MetaValue({ value }: { value: string }) {
   const lines = value.split("\n");
 
   return (
-    <p className="type-body whitespace-pre-line text-[var(--color-heading)]">
+    <p className="type-body type-heading-color whitespace-pre-line">
       {lines.map((line, i) => (
         <span key={line}>
           {line}
