@@ -49,7 +49,7 @@
   overflow-y: hidden;
   overscroll-behavior-x: contain;
   cursor: grab;
-  /* pan-y keeps page scroll native; JS handles horizontal pan after axis lock. */
+  /* pan-y keeps page scroll native. Horizontal pan is JS (touchmove after axis lock). */
   touch-action: pan-y pinch-zoom;
   user-select: none;
   scrollbar-width: none;
@@ -72,7 +72,13 @@
   box-sizing: content-box;
 }
 
-/* Next.js Image wrapper */
+/* Next.js Image wrapper — no pointer hit so the scroller owns the gesture. */
+.uci-timeline-media__track,
+.uci-timeline-media__track > span,
+.uci-timeline-media__image {
+  pointer-events: none;
+}
+
 .uci-timeline-media__track > span {
   display: block !important;
   width: var(--uci-timeline-image-w) !important;
@@ -87,7 +93,6 @@
   max-width: none !important;
   min-width: var(--uci-timeline-image-w) !important;
   -webkit-user-drag: none;
-  pointer-events: none;
 }
 
 /* Custom scrollbar — collapsed 4px, expands to 8px on hover */

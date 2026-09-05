@@ -245,6 +245,7 @@ export function CaseStudyUciTimelineMedia() {
       <div
         ref={scrollerRef}
         className="uci-timeline-media__scroller"
+        data-lenis-prevent-horizontal
         {...imagePan}
       >
         <div className="uci-timeline-media__track">
