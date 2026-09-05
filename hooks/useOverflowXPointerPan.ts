@@ -171,6 +171,21 @@ export function useOverflowXPointerPan(
     const el = scrollerRef.current;
     if (!el) return;
 
+    const onTouchStart = (event: TouchEvent) => {
+      if (event.touches.length !== 1) return;
+      const touch = event.touches[0];
+      if (!touch) return;
+
+      dragRef.current = {
+        pointerId: dragRef.current?.pointerId ?? 1,
+        pointerType: "touch",
+        startX: touch.clientX,
+        startY: touch.clientY,
+        startScroll: el.scrollLeft,
+        axis: null,
+      };
+    };
+
     const onTouchMove = (event: TouchEvent) => {
       const drag = dragRef.current;
       if (!drag || drag.pointerType !== "touch") return;
@@ -198,10 +213,12 @@ export function useOverflowXPointerPan(
       }
     };
 
+    el.addEventListener("touchstart", onTouchStart, { passive: true });
     el.addEventListener("touchmove", onTouchMove, { passive: false });
     el.addEventListener("touchend", onTouchEnd);
     el.addEventListener("touchcancel", onTouchEnd);
     return () => {
+      el.removeEventListener("touchstart", onTouchStart);
       el.removeEventListener("touchmove", onTouchMove);
       el.removeEventListener("touchend", onTouchEnd);
       el.removeEventListener("touchcancel", onTouchEnd);
