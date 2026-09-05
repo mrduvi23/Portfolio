@@ -61,7 +61,7 @@ export const contact = {
   location: "Dublin, Ireland",
   linkedInLabel: "LinkedIn",
   githubLabel: "GitHub",
-  linkedInHref: "https://www.linkedin.com/",
+  linkedInHref: "https://www.linkedin.com/in/david-arreba",
   githubHref: "https://github.com/",
 } as const;
 
