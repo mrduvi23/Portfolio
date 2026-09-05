@@ -76,6 +76,14 @@
   --page-pad-x-sm: 16px;
   --page-gutter: 16px;
 
+  /**
+   * Vertical rhythm — page chrome only (not framed case-study media).
+   * tight 20 / section 80 / page 128
+   */
+  --spacing-tight: 20px;
+  --spacing-section: 80px;
+  --spacing-page: 128px;
+
   --color-warning-10: oklch(0.991 0.009 55);
   --color-warning-20: oklch(0.983 0.017 55);
   --color-warning-30: oklch(0.967 0.042 55);
@@ -366,6 +374,7 @@ html[data-route-transition] .page-transition-content {
 @media (max-width: 763px) {
   .type-h1 {
     font-size: 29px;
+    line-height: 36px;
   }
 
   .type-h2 {
@@ -380,6 +389,7 @@ html[data-route-transition] .page-transition-content {
 
   .type-h4 {
     font-size: 20px;
+    line-height: 28px;
   }
 
   .type-h5,
@@ -387,4 +397,12 @@ html[data-route-transition] .page-transition-content {
     font-size: 18px;
     line-height: 24px;
   }
+}
+
+/**
+ * Section-sized break inside a tight stack (20 + 60 = 80).
+ * Used when a heading needs section rhythm without leaving the within-section gap.
+ */
+@utility mt-section-break {
+  margin-top: calc(var(--spacing-section) - var(--spacing-tight));
 }

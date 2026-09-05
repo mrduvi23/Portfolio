@@ -170,7 +170,7 @@ function CaseStudySectionBlocks({ blocks }: { blocks: CaseStudyBlock[] }) {
 
     if (block.type === "paragraph" && next?.type === "externalLink") {
       rendered.push(
-        <div key={`paragraph-link-${index}`} className="flex flex-col gap-6">
+        <div key={`paragraph-link-${index}`} className="flex flex-col gap-tight">
           <CaseStudyParagraph text={block.text} desktopSuffix={block.desktopSuffix} />
           <CaseStudyExternalLink href={next.href} label={next.label} />
         </div>,
@@ -382,7 +382,7 @@ function CaseStudyProsCons({
 
 function CaseStudyImpactQuotes({ items }: { items: string[] }) {
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-tight">
       {items.map((text) => (
         <figure key={text} className="flex gap-4">
           <div
@@ -414,7 +414,7 @@ function CaseStudyHeading({
     level === "h4"
       ? "type-h4 text-pretty text-[var(--color-heading)]"
       : "type-h3 text-pretty text-[var(--color-heading)]";
-  const spacingClass = spacingTop === "section" ? "mt-11" : "";
+  const spacingClass = spacingTop === "section" ? "mt-section-break" : "";
 
   return (
     <Tag id={id} className={`${className} ${spacingClass} ${id ? "scroll-mt-28" : ""}`.trim()}>
@@ -433,7 +433,7 @@ function CaseStudyParagraph({
   const paragraphs = text.split("\n\n");
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-tight">
       {paragraphs.map((paragraph, index) => {
         const isLast = index === paragraphs.length - 1;
         return (
@@ -487,7 +487,7 @@ function CaseStudyMediaText({
           <p className="type-h5 text-[var(--color-heading)]">{block.heading}</p>
         ) : null}
         {block.text ? (
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-tight">
             {block.text.split("\n\n").map((paragraph) => (
               <p
                 key={paragraph}
@@ -686,20 +686,17 @@ function CaseStudyBlockView({ block }: { block: CaseStudyBlock }) {
 }
 
 function CaseStudySectionView({ section }: { section: CaseStudySection }) {
-  const sectionSpacingClass =
-    section.spacingTop === "section" ? "-mt-4" : "";
-
   return (
     <section
       id={section.navId}
-      className={`flex scroll-mt-28 flex-col gap-5 ${sectionSpacingClass}`.trim()}
+      className="flex scroll-mt-28 flex-col gap-tight"
     >
       <CaseStudySectionHeader
         eyebrow={section.eyebrow}
         title={section.title}
         titleLevel={section.titleLevel}
       />
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-tight">
         <CaseStudySectionBlocks blocks={section.blocks} />
       </div>
     </section>
@@ -748,13 +745,13 @@ function CaseStudyContentBlocks({
   ];
 
   return (
-    <div className="flex flex-col gap-20">
+    <div className="flex flex-col gap-section">
       {blocks.map((block) => {
         if (block.kind === "group") {
           return (
             <div
               key={block.sections[0]?.title ?? block.sections[0]?.eyebrow}
-              className="flex flex-col gap-16"
+              className="flex flex-col gap-section"
             >
               {block.sections.map((section) => (
                 <CaseStudySectionView
@@ -781,7 +778,7 @@ function MetaValue({ value }: { value: string }) {
   const lines = value.split("\n");
 
   return (
-    <p className="text-base leading-6 font-normal whitespace-pre-line text-[var(--color-heading)]">
+    <p className="type-body whitespace-pre-line text-[var(--color-heading)]">
       {lines.map((line, i) => (
         <span key={line}>
           {line}
