@@ -44,7 +44,8 @@ export function AboutView() {
         </div>
       </PageGrid>
 
-      <PageGrid className="gap-y-tight min-[764px]:items-baseline min-[764px]:gap-y-0">
+      {/* Mobile: page 128 + section 80 = 208 between bio and Employment. Desktop stays gap-page. */}
+      <PageGrid className="gap-y-tight max-[763px]:mt-section min-[764px]:items-baseline min-[764px]:gap-y-0">
         <div className="col-span-2 min-[764px]:col-span-5">
           <h2 className="type-h2 text-pretty text-[var(--color-heading)]">
             Employment history
