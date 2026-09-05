@@ -14,7 +14,8 @@ import { Fragment } from "react";
 export function AboutView() {
   return (
     <div className="flex flex-col gap-page">
-      <PageGrid className="gap-y-tight min-[764px]:items-center min-[764px]:gap-y-0">
+      <div className="flex flex-col gap-page max-[763px]:gap-chapter">
+        <PageGrid className="gap-y-tight min-[764px]:items-center min-[764px]:gap-y-0">
         <div className="col-span-2 w-full min-[764px]:col-span-5 min-[764px]:col-start-1">
           <div className="relative aspect-[341/433] w-full min-[764px]:aspect-[571/723]">
             <Image
@@ -44,8 +45,7 @@ export function AboutView() {
         </div>
       </PageGrid>
 
-      {/* Mobile: page 128 + section 80 = 208 between bio and Employment. Desktop stays gap-page. */}
-      <PageGrid className="gap-y-tight max-[763px]:mt-section min-[764px]:items-baseline min-[764px]:gap-y-0">
+      <PageGrid className="gap-y-tight min-[764px]:items-baseline min-[764px]:gap-y-0">
         <div className="col-span-2 min-[764px]:col-span-5">
           <h2 className="type-h2 text-pretty text-[var(--color-heading)]">
             Employment history
@@ -90,6 +90,7 @@ export function AboutView() {
           </div>
         </div>
       </PageGrid>
+      </div>
 
       <section className="relative left-1/2 flex w-screen max-w-[100vw] -translate-x-1/2 flex-col bg-[oklch(0.252_0_0)] pt-page pb-page">
         <div className="mx-auto flex w-full max-w-[var(--page-max)] flex-col gap-page px-[var(--page-pad-x-sm)] min-[764px]:px-[var(--page-pad-x)]">

@@ -28,6 +28,7 @@ export function InspirationGalleryCard({
   const sliceVideoRef = useRef<HTMLVideoElement>(null);
   const contentVideoRef = useRef<HTMLVideoElement>(null);
   const revealTimerRef = useRef<number | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
   const [isRevealed, setIsRevealed] = useState(false);
   const [canOpen, setCanOpen] = useState(false);
   const cardRect = layout?.cards[galleryIndex];
@@ -111,8 +112,12 @@ export function InspirationGalleryCard({
           "--inspiration-label-delay": `${LABEL_DELAY_MS}ms`,
         } as CSSProperties
       }
-      onMouseEnter={scheduleReveal}
-      onMouseLeave={resetReveal}
+      onPointerEnter={(event) => {
+        if (event.pointerType === "mouse") scheduleReveal();
+      }}
+      onPointerLeave={(event) => {
+        if (event.pointerType === "mouse") resetReveal();
+      }}
       onFocus={scheduleReveal}
       onBlur={resetReveal}
       onClick={(event) => {
@@ -121,11 +126,17 @@ export function InspirationGalleryCard({
           scheduleReveal();
         }
       }}
+      onTouchStart={(event) => {
+        touchStartYRef.current = event.changedTouches[0]?.clientY ?? null;
+      }}
       onTouchEnd={(event) => {
-        if (!canOpen) {
-          event.preventDefault();
-          scheduleReveal();
-        }
+        if (canOpen) return;
+        const startY = touchStartYRef.current;
+        const endY = event.changedTouches[0]?.clientY ?? startY ?? 0;
+        touchStartYRef.current = null;
+        if (startY !== null && Math.abs(endY - startY) > 12) return;
+        event.preventDefault();
+        scheduleReveal();
       }}
     >
       <div className="inspiration-gallery-card__media">
@@ -162,9 +173,10 @@ export function InspirationGalleryCard({
               : undefined
           }
         >
-          <video
+            <video
             ref={sliceVideoRef}
             className="inspiration-gallery-card__video"
+            src={LOADER_VIDEO_SRC}
             muted
             loop
             playsInline

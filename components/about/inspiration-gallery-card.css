@@ -98,7 +98,8 @@
   user-select: none;
 }
 
-@media (hover: hover) and (pointer: fine) {
+/* Desktop mouse only — iOS reports hover:hover and can :hover cards while scrolling. */
+@media (min-width: 764px) and (hover: hover) and (pointer: fine) {
   .inspiration-gallery-card:hover .inspiration-gallery-card__label {
     opacity: 1;
     transform: translateY(0);

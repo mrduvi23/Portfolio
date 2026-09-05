@@ -79,10 +79,12 @@
   /**
    * Vertical rhythm — page chrome only (not framed case-study media).
    * tight 20 / section 80 / page 128
+   * chapter = page + section (208)
    */
   --spacing-tight: 20px;
   --spacing-section: 80px;
   --spacing-page: 128px;
+  --spacing-chapter: calc(var(--spacing-page) + var(--spacing-section));
 
   --color-warning-10: oklch(0.991 0.009 55);
   --color-warning-20: oklch(0.983 0.017 55);
