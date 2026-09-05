@@ -250,6 +250,8 @@ export function CaseStudyUciContentTypologyMedia() {
       <div
         ref={scrollerRef}
         className={`${BLOCK}__scroller`}
+        data-lenis-prevent-horizontal
+        data-lenis-prevent-touch
         {...imagePan}
       >
         <div className={`${BLOCK}__track`}>
