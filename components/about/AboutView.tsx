@@ -13,8 +13,9 @@ import { Fragment } from "react";
 
 export function AboutView() {
   return (
-    <div className="flex flex-col gap-32">
-      <PageGrid className="min-[764px]:items-center">
+    <div className="flex flex-col gap-page">
+      <div className="flex flex-col gap-page max-[763px]:gap-chapter">
+        <PageGrid className="gap-y-tight min-[764px]:items-center min-[764px]:gap-y-0">
         <div className="col-span-2 w-full min-[764px]:col-span-5 min-[764px]:col-start-1">
           <div className="relative aspect-[341/433] w-full min-[764px]:aspect-[571/723]">
             <Image
@@ -33,7 +34,7 @@ export function AboutView() {
           aria-hidden
         />
 
-        <div className="col-span-2 mt-6 flex w-full flex-col gap-16 min-[764px]:col-span-6 min-[764px]:col-start-7 min-[764px]:mt-0 min-[764px]:self-center min-[764px]:grid min-[764px]:grid-cols-6 min-[764px]:gap-y-16">
+        <div className="col-span-2 flex w-full flex-col gap-16 min-[764px]:col-span-6 min-[764px]:col-start-7 min-[764px]:self-center min-[764px]:grid min-[764px]:grid-cols-6 min-[764px]:gap-y-16">
           <h1 className="type-h1 w-full min-w-0 text-[var(--color-heading)] min-[764px]:col-span-6">
             {about.headline}
           </h1>
@@ -44,13 +45,13 @@ export function AboutView() {
         </div>
       </PageGrid>
 
-      <PageGrid className="min-[764px]:items-baseline">
+      <PageGrid className="gap-y-tight min-[764px]:items-baseline min-[764px]:gap-y-0">
         <div className="col-span-2 min-[764px]:col-span-5">
           <h2 className="type-h2 text-pretty text-[var(--color-heading)]">
             Employment history
           </h2>
         </div>
-        <div className="col-span-2 mt-8 min-[764px]:col-span-7 min-[764px]:col-start-6 min-[764px]:mt-0">
+        <div className="col-span-2 min-[764px]:col-span-7 min-[764px]:col-start-6">
           <div className="grid grid-cols-[max-content_1fr] items-baseline gap-x-10 gap-y-10 min-[764px]:hidden">
             {about.employment.map((job, index) => (
               <Fragment key={`${job.period}-${job.company}-mobile`}>
@@ -89,9 +90,10 @@ export function AboutView() {
           </div>
         </div>
       </PageGrid>
+      </div>
 
-      <section className="relative left-1/2 flex w-screen max-w-[100vw] -translate-x-1/2 flex-col bg-[oklch(0.252_0_0)] pt-32 pb-32">
-        <div className="mx-auto flex w-full max-w-[var(--page-max)] flex-col gap-32 px-[var(--page-pad-x-sm)] min-[764px]:px-[var(--page-pad-x)]">
+      <section className="relative left-1/2 flex w-screen max-w-[100vw] -translate-x-1/2 flex-col bg-[oklch(0.252_0_0)] pt-page pb-page">
+        <div className="mx-auto flex w-full max-w-[var(--page-max)] flex-col gap-page px-[var(--page-pad-x-sm)] min-[764px]:px-[var(--page-pad-x)]">
           <PageGrid>
             <InspirationQuote>{about.inspiration.quote}</InspirationQuote>
           </PageGrid>
@@ -115,14 +117,14 @@ export function AboutView() {
         </div>
       </section>
 
-      <section className="flex flex-col gap-16">
+      <section className="flex flex-col gap-section">
         <PageGrid>
           <h2 className="col-span-2 type-h2 w-full text-pretty text-[var(--color-heading)] min-[764px]:col-span-7 min-[764px]:col-start-5">
             {about.contact.headline}
           </h2>
         </PageGrid>
 
-        <PageGrid className="gap-y-16 min-[764px]:items-start min-[764px]:gap-y-0">
+        <PageGrid className="gap-y-section min-[764px]:items-start min-[764px]:gap-y-0">
           <div className="col-span-2 order-2 flex flex-col gap-4 min-[764px]:order-1 min-[764px]:col-span-4 min-[764px]:col-start-1">
             <p className="type-label text-[var(--color-heading)]">
               {about.contact.location}

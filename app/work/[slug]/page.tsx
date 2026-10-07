@@ -40,9 +40,9 @@ function CaseStudyPlaceholder({
   meta: string;
 }) {
   return (
-    <PageGrid className="gap-y-6">
+    <PageGrid className="gap-y-tight">
       <p
-        className={`${span2of2_12of12} text-sm text-[var(--color-text-muted)]`}
+        className={`${span2of2_12of12} type-caption text-[var(--color-text-muted)]`}
       >
         <TransitionLink href="/" className="underline underline-offset-4">
           Work

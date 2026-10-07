@@ -121,7 +121,7 @@ export default function HomePage() {
           </p>
         </PageGrid>
 
-        <PageGrid className="mt-4 gap-y-10">
+        <PageGrid className="mt-tight gap-y-10">
           {projects.map((p) => (
             <ProjectCard key={p.id} {...p} />
           ))}

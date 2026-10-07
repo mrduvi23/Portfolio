@@ -86,6 +86,7 @@ export function InspirationGallery({ children }: { children: ReactNode }) {
     }
 
     video.addEventListener("playing", attachStream);
+    void video.play().catch(() => {});
     return () => video.removeEventListener("playing", attachStream);
   }, []);
 

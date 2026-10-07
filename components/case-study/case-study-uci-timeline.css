@@ -23,7 +23,8 @@
       var(--uci-timeline-scroll-gap) + var(--uci-timeline-scrollbar) +
       var(--uci-timeline-inset-bottom)
   );
-  overflow: hidden;
+  /* clip (not hidden) so iOS can native-scroll the inner overflow-x scroller */
+  overflow: clip;
   border: 1px solid var(--color-card-inset-border);
   background: var(--color-primitives-grey-10);
   box-sizing: border-box;
@@ -48,9 +49,10 @@
   overflow-x: auto;
   overflow-y: hidden;
   overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
   cursor: grab;
-  /* JS owns the gesture (axis lock). Native pan-y was cancelling the drag. */
-  touch-action: none;
+  /* Native iOS overflow-x; JS grab-to-pan is mouse/pen only. */
+  touch-action: pan-x pinch-zoom;
   user-select: none;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -72,7 +74,13 @@
   box-sizing: content-box;
 }
 
-/* Next.js Image wrapper */
+/* Next.js Image wrapper — no pointer hit so the scroller owns the gesture. */
+.uci-timeline-media__track,
+.uci-timeline-media__track > span,
+.uci-timeline-media__image {
+  pointer-events: none;
+}
+
 .uci-timeline-media__track > span {
   display: block !important;
   width: var(--uci-timeline-image-w) !important;
@@ -87,7 +95,6 @@
   max-width: none !important;
   min-width: var(--uci-timeline-image-w) !important;
   -webkit-user-drag: none;
-  touch-action: none;
 }
 
 /* Custom scrollbar — collapsed 4px, expands to 8px on hover */

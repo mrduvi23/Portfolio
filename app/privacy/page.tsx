@@ -19,9 +19,9 @@ export default function PrivacyPage() {
   return (
     <>
       <PageMain className={pageContentTopOffset}>
-        <PageGrid className="gap-y-6">
+        <PageGrid className="gap-y-tight">
           <p
-            className={`${span2of2_12of12} text-sm text-[var(--color-text-muted)]`}
+            className={`${span2of2_12of12} type-caption text-[var(--color-text-muted)]`}
           >
             <TransitionLink href="/" className="underline underline-offset-4">
               Work
@@ -35,7 +35,7 @@ export default function PrivacyPage() {
             Privacy & cookies
           </h1>
           <div
-            className={`${span2of2_12of12} type-body max-w-prose space-y-4 text-[var(--color-body)]`}
+            className={`${span2of2_12of12} type-body max-w-prose flex flex-col gap-tight text-[var(--color-body)]`}
           >
             <p>
               This site is operated by {site.name}. This page is a placeholder
