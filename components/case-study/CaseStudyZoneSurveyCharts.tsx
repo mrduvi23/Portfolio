@@ -183,10 +183,23 @@ const DONUT_STROKE = 14;
 const DONUT_R = (DONUT_SIZE - DONUT_STROKE) / 2;
 const DONUT_C = 2 * Math.PI * DONUT_R;
 
-function toneClass(tone: Tone, kind: "fill" | "swatch") {
-  return kind === "fill"
-    ? `zone-survey__bar-fill zone-survey__bar-fill--${tone}`
-    : `zone-survey__swatch zone-survey__tone-${tone}`;
+function swatchClass(tone: Tone) {
+  return `zone-survey__swatch zone-survey__tone-${tone}`;
+}
+
+/** Share → fill. The boundary belongs to the upper band: 20 is 20–40. */
+const BAR_FILL_RANGES = [
+  { min: 80, token: "80" },
+  { min: 60, token: "60" },
+  { min: 40, token: "40" },
+  { min: 20, token: "20" },
+  { min: 0, token: "0" },
+] as const;
+
+function barFillClass(value: number) {
+  const range =
+    BAR_FILL_RANGES.find((step) => value >= step.min) ?? BAR_FILL_RANGES[BAR_FILL_RANGES.length - 1];
+  return `zone-survey__bar-fill zone-survey__bar-fill--${range.token}`;
 }
 
 function ZoneWordmark() {
@@ -237,7 +250,7 @@ function HorizontalBars({
           <span className="zone-survey__bar-value">{item.value}%</span>
           <div className="zone-survey__bar-track" aria-hidden>
             <div
-              className={toneClass(item.tone, "fill")}
+              className={barFillClass(item.value)}
               style={{ width: `${item.value}%` }}
             />
           </div>
@@ -275,7 +288,7 @@ function StackedBar({
       <ul className="zone-survey__legend">
         {items.map((item) => (
           <li key={item.label} className="zone-survey__legend-item">
-            <span className={toneClass(item.tone, "swatch")} aria-hidden />
+            <span className={swatchClass(item.tone)} aria-hidden />
             <span className="zone-survey__legend-label">{item.label}</span>
             <span className="zone-survey__legend-value">{item.value}%</span>
           </li>
@@ -334,7 +347,7 @@ function UsageDonut({
       <ul className="zone-survey__legend" aria-labelledby={labelledBy}>
         {items.map((item) => (
           <li key={item.label} className="zone-survey__legend-item">
-            <span className={toneClass(item.tone, "swatch")} aria-hidden />
+            <span className={swatchClass(item.tone)} aria-hidden />
             <span className="zone-survey__legend-label">{item.label}</span>
             <span className="zone-survey__legend-value">{item.value}%</span>
           </li>
