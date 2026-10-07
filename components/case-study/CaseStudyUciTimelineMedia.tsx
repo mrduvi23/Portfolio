@@ -3,7 +3,7 @@
 import "@/components/case-study/case-study-uci-timeline.css";
 import { useOverflowXPointerPan } from "@/hooks/useOverflowXPointerPan";
 import { assets } from "@/lib/assets";
-import Image from "next/image";
+import { LoadingImage as Image } from "@/components/media/MediaLoader";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const TIMELINE_NATURAL = { width: 6528, height: 1710 } as const;

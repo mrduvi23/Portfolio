@@ -3,7 +3,7 @@
 import "@/components/case-study/case-study-uci-content-tipology.css";
 import { useOverflowXPointerPan } from "@/hooks/useOverflowXPointerPan";
 import { assets } from "@/lib/assets";
-import Image from "next/image";
+import { LoadingImage as Image } from "@/components/media/MediaLoader";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const IMAGE_NATURAL = { width: 3178, height: 1712 } as const;

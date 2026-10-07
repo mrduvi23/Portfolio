@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { LoadingImage as Image } from "@/components/media/MediaLoader";
 import { LockIcon } from "@/components/icons/LockIcon";
 import { TransitionLink } from "@/components/TransitionLink";
 import { assets } from "@/lib/assets";

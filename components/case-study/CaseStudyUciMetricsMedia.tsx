@@ -2,7 +2,7 @@
 
 import "@/components/case-study/case-study-uci-metrics.css";
 import { assets } from "@/lib/assets";
-import Image from "next/image";
+import { LoadingImage as Image } from "@/components/media/MediaLoader";
 import { useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 
 const DESIGN_COL_W = 453;

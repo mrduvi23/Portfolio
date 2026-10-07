@@ -3,7 +3,7 @@
 import "@/components/case-study/case-study-uci-podcast.css";
 import { useCaseStudyParallaxLayer } from "@/hooks/useCaseStudyParallaxLayer";
 import { assets } from "@/lib/assets";
-import Image from "next/image";
+import { LoadingImage as Image } from "@/components/media/MediaLoader";
 import { useRef } from "react";
 
 const IMAGE_NATURAL = { width: 1680, height: 818 } as const;

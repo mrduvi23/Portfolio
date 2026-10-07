@@ -1,6 +1,6 @@
 import "@/components/case-study/case-study-uci-design-system.css";
 import { assets } from "@/lib/assets";
-import Image from "next/image";
+import { LoadingImage as Image } from "@/components/media/MediaLoader";
 
 const IMAGE_NATURAL = { width: 1895, height: 2479 } as const;
 

@@ -2,7 +2,7 @@
 
 import "@/components/case-study/case-study-zone-moodboard.css";
 import { assets } from "@/lib/assets";
-import Image from "next/image";
+import { LoadingImage as Image } from "@/components/media/MediaLoader";
 
 const IMAGE_NATURAL = { width: 1844, height: 792 } as const;
 

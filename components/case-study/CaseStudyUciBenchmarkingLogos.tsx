@@ -1,6 +1,6 @@
 import "@/components/case-study/case-study-uci-benchmarking-logos.css";
 import { uciBenchmarkingLogos } from "@/lib/case-studies/uci-benchmarking-logos";
-import Image from "next/image";
+import { LoadingImage as Image } from "@/components/media/MediaLoader";
 
 export function CaseStudyUciBenchmarkingLogos() {
   return (

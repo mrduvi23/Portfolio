@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useInspirationGallery } from "@/components/about/inspiration-gallery-context";
+import { MediaLoadingPortal } from "@/components/media/MediaLoader";
 import "./inspiration-gallery-card.css";
 
 const LOADER_VIDEO_SRC = "/loader/Header.MP4";
@@ -150,6 +151,7 @@ export function InspirationGalleryCard({
           preload="metadata"
           draggable={false}
         />
+        <MediaLoadingPortal mediaRef={contentVideoRef} />
         <p className="inspiration-gallery-card__label type-body">
           {label}
         </p>
@@ -183,6 +185,7 @@ export function InspirationGalleryCard({
             preload="auto"
             draggable={false}
           />
+          <MediaLoadingPortal mediaRef={sliceVideoRef} />
         </div>
         <span className="inspiration-gallery-card__mark type-h5">?</span>
       </div>

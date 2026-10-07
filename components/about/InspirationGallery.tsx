@@ -13,6 +13,7 @@ import {
   type ReactNode,
 } from "react";
 import { InspirationGalleryCard } from "@/components/about/InspirationGalleryCard";
+import { MediaLoadingPortal } from "@/components/media/MediaLoader";
 import {
   InspirationGalleryContext,
   type GalleryLayout,
@@ -104,6 +105,7 @@ export function InspirationGallery({ children }: { children: ReactNode }) {
           preload="auto"
           draggable={false}
         />
+        <MediaLoadingPortal mediaRef={masterVideoRef} />
 
         <div
           ref={gridRef}
