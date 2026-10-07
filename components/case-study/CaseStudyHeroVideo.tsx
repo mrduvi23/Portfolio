@@ -4,6 +4,7 @@ import "@/components/case-study/case-study-hero-video.css";
 import { PauseIcon24 } from "@/components/icons/PauseIcon24";
 import { PlayIcon24 } from "@/components/icons/PlayIcon24";
 import { ReplayIcon24 } from "@/components/icons/ReplayIcon24";
+import { MediaLoadingPortal } from "@/components/media/MediaLoader";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 type CaseStudyHeroVideoProps = {
@@ -80,6 +81,7 @@ export function CaseStudyHeroVideo({ src, poster, alt }: CaseStudyHeroVideoProps
         preload="metadata"
         aria-label={alt}
       />
+      <MediaLoadingPortal mediaRef={videoRef} />
       <div className="case-study-hero-video__controls">
         <button
           type="button"

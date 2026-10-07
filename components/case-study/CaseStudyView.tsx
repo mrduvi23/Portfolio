@@ -38,7 +38,7 @@ import "@/components/case-study/graphics/mds-ecosystem.css";
 import "@/components/case-study/graphics/base-design-system.css";
 import "@/components/case-study/graphics/compo-experience-only.css";
 import "@/components/case-study/graphics/white-label.css";
-import Image from "next/image";
+import { LoadingImage as Image } from "@/components/media/MediaLoader";
 import {
   caseStudyContentSpan,
   PageGrid,

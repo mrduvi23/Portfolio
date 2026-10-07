@@ -1,7 +1,7 @@
 "use client";
 
 import { useCaseStudyParallaxLayer } from "@/hooks/useCaseStudyParallaxLayer";
-import Image from "next/image";
+import { LoadingImage as Image } from "@/components/media/MediaLoader";
 import { useRef } from "react";
 
 const OVERSCAN = 0.07;

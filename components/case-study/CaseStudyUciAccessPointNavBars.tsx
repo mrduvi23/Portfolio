@@ -8,7 +8,7 @@ import {
   UCI_NAMING_NAVBAR_REF_GAP,
   uciAllNavBarImages,
 } from "@/lib/case-studies/uci-naming-navbars";
-import Image from "next/image";
+import { LoadingImage as Image } from "@/components/media/MediaLoader";
 import { useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 
 const ACCESS_POINT_PARALLAX = {

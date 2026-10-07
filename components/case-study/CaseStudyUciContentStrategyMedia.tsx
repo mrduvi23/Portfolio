@@ -1,6 +1,6 @@
 import "@/components/case-study/case-study-uci-content-strategy.css";
 import { assets } from "@/lib/assets";
-import Image from "next/image";
+import { LoadingImage as Image } from "@/components/media/MediaLoader";
 
 const IMAGES = {
   homepage: { width: 362, height: 820 },

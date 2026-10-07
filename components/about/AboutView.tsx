@@ -8,7 +8,7 @@ import { PageGrid } from "@/components/PageLayout";
 import { ScrambleAppear } from "@/components/ScrambleAppear";
 import { assets } from "@/lib/assets";
 import { about } from "@/lib/about";
-import Image from "next/image";
+import { LoadingImage as Image } from "@/components/media/MediaLoader";
 import { Fragment } from "react";
 
 export function AboutView() {

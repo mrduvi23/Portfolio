@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { CaseStudyIndexOutlet } from "@/components/case-study/CaseStudyIndexOutlet";
 import { CustomCursor } from "@/components/CustomCursor";
 import { LoaderGateScript } from "@/components/LoaderGateScript";
+import { MediaLoaderBoot } from "@/components/media/MediaLoaderBoot";
 import { PageTransition } from "@/components/PageTransition";
 import { SessionLoader } from "@/components/SessionLoader";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -34,6 +35,7 @@ export default function RootLayout({
     <html lang="en" className={`${satoshi.variable} antialiased`}>
       <head>
         <LoaderGateScript />
+        <MediaLoaderBoot />
       </head>
       <body className="flex min-h-screen flex-col font-sans">
         <SessionLoader />

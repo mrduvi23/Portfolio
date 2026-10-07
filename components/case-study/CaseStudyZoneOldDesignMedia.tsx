@@ -3,7 +3,7 @@
 import "@/components/case-study/case-study-zone-old-design.css";
 import { useCaseStudyParallaxLayer } from "@/hooks/useCaseStudyParallaxLayer";
 import { assets } from "@/lib/assets";
-import Image from "next/image";
+import { LoadingImage as Image } from "@/components/media/MediaLoader";
 import { useRef } from "react";
 
 const IMAGE_NATURAL = { width: 2674, height: 1304 } as const;

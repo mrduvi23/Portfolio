@@ -2,7 +2,7 @@
 
 import { useCaseStudyParallaxLayer } from "@/hooks/useCaseStudyParallaxLayer";
 import { assets } from "@/lib/assets";
-import Image from "next/image";
+import { LoadingImage as Image } from "@/components/media/MediaLoader";
 import { useRef } from "react";
 import "@/components/case-study/ds-brands-audit-media.css";
 

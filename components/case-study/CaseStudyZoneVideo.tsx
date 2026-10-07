@@ -4,6 +4,7 @@ import "@/components/case-study/case-study-zone-video.css";
 import { PauseIcon24 } from "@/components/icons/PauseIcon24";
 import { PlayIcon24 } from "@/components/icons/PlayIcon24";
 import { ReplayIcon24 } from "@/components/icons/ReplayIcon24";
+import { MediaLoadingPortal } from "@/components/media/MediaLoader";
 import { useAutoplayOnVisible } from "@/hooks/useAutoplayOnVisible";
 import { useCallback, useEffect, useRef, useState, type PointerEvent } from "react";
 
@@ -111,6 +112,7 @@ export function CaseStudyZoneVideo({
           preload="metadata"
           aria-label={label}
         />
+        <MediaLoadingPortal mediaRef={videoRef} />
       </div>
       <div className="case-study-zone-video__controls">
         <button

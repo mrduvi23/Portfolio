@@ -8,7 +8,7 @@ import {
   type UciNavigationImage,
 } from "@/lib/case-studies/uci-navigation-layers";
 import { useCaseStudyParallaxLayer } from "@/hooks/useCaseStudyParallaxLayer";
-import Image from "next/image";
+import { LoadingImage as Image } from "@/components/media/MediaLoader";
 import { useRef } from "react";
 
 const PARALLAX_OVERSCAN = 0.07;
