@@ -22,6 +22,7 @@ import { CaseStudyUciKickoffBoard } from "@/components/case-study/CaseStudyUciKi
 import { CaseStudyUciSketchMedia } from "@/components/case-study/CaseStudyUciSketchMedia";
 import { CaseStudyZoneOldDesignMedia } from "@/components/case-study/CaseStudyZoneOldDesignMedia";
 import { CaseStudyZoneMoodboardMedia } from "@/components/case-study/CaseStudyZoneMoodboardMedia";
+import { CaseStudyZoneSurveyCharts } from "@/components/case-study/CaseStudyZoneSurveyCharts";
 import { CaseStudyZoneWalkthroughMedia } from "@/components/case-study/CaseStudyZoneWalkthroughMedia";
 import { CaseStudyZoneNewsCalendarMedia } from "@/components/case-study/CaseStudyZoneNewsCalendarMedia";
 import { CaseStudyZonePhoneClip } from "@/components/case-study/CaseStudyZonePhoneClip";
@@ -246,6 +247,14 @@ function CaseStudyMedia({ block }: { block: Extract<CaseStudyBlock, { type: "med
 
   if (block.variant === "zone-moodboard") {
     return <CaseStudyZoneMoodboardMedia />;
+  }
+
+  if (block.variant === "zone-survey-charts") {
+    return <CaseStudyZoneSurveyCharts wave="research" />;
+  }
+
+  if (block.variant === "zone-survey-impact") {
+    return <CaseStudyZoneSurveyCharts wave="impact" />;
   }
 
   if (block.variant === "zone-walkthrough") {
