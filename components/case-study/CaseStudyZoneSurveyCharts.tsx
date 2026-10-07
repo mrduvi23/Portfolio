@@ -21,7 +21,7 @@ const zoneCalibre = localFont({
 });
 
 const zoneFinancier = localFont({
-  src: "../../public/fonts/zone/TestFinancierDisplay-Regular.otf",
+  src: "../../public/fonts/zone/FinancierDisplay-Regular.ttf",
   weight: "400",
   style: "normal",
   variable: "--font-zs-financier",

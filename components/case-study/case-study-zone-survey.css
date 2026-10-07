@@ -3,7 +3,7 @@
  * Faces are loaded with next/font in CaseStudyZoneSurveyCharts.tsx from:
  *   public/fonts/zone/Calibre-Regular.otf
  *   public/fonts/zone/Calibre-Medium.otf
- *   public/fonts/zone/TestFinancierDisplay-Regular.otf
+ *   public/fonts/zone/FinancierDisplay-Regular.ttf
  * --font-zs-calibre and --font-zs-financier are set on the figure only.
  */
 
@@ -139,10 +139,7 @@
   letter-spacing: 0.17px;
 }
 
-/* Test Financier Display has no "%" glyph — keep the unit in Calibre. */
 .zone-survey__figure-unit {
-  font-family: var(--zs-font-ui);
-  font-weight: 400;
   font-size: 16px;
   line-height: 16px;
   letter-spacing: 0;
