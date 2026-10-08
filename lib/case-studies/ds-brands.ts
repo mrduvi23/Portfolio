@@ -239,8 +239,8 @@ export const dsBrandsCaseStudy: CaseStudyContent = {
         {
           type: "impactQuotes",
           items: [
-            "Designers working on Compo Experience reduced their working time by a third thanks to Figma's automatic theme switching.",
-            "For developers, the impact was even greater, cutting their time by a fifth.",
+            "Designers working on Compo Experience reduced their working time by a fifth thanks to Figma's automatic theme switching.",
+            "For developers, the impact was even greater, cutting their time by a third. Both were measured with internal tools.",
           ],
         },
       ],
