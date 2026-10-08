@@ -9,7 +9,7 @@ export const infraredCaseStudy: CaseStudyContent = {
   heroImageAlt: "CBRE Zone intranet redesign",
   meta: [
     { label: "Role", value: "Product Designer" },
-    { label: "Duration", value: "Jan · Apr 2023" },
+    { label: "Duration", value: "Jun · Oct 2022" },
     {
       label: "Team",
       value:
