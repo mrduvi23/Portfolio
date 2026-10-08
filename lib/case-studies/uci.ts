@@ -10,7 +10,7 @@ export const uciCaseStudy: CaseStudyContent = {
   heroVideo: assets.uciHeroVideo,
   meta: [
     { label: "Role", value: "Product Designer" },
-    { label: "Duration", value: "Jan · Apr 2023" },
+    { label: "Duration", value: "Jan · Apr 2024" },
     {
       label: "Team",
       value: "Communication Team\n2 Product Designers\n3 Developers",
