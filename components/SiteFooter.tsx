@@ -64,12 +64,6 @@ export function SiteFooter() {
           >
             {contact.linkedInLabel}
           </TransitionLink>
-          <TransitionLink
-            className="transition-opacity duration-200 hover:opacity-70"
-            href="/privacy"
-          >
-            Privacy & cookies
-          </TransitionLink>
         </div>
       </div>
     </footer>
