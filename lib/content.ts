@@ -8,7 +8,7 @@ export const site = {
 } as const;
 
 export const intro = {
-  headline: "Hi, I am David, a product designer starting to code",
+  headline: "Hi, I am David, a product designer that builds with AI",
   body: "With four years of experience, specialized in design systems, I keep studying and training to stay up to date in this field.",
 } as const;
 
@@ -60,9 +60,7 @@ export const contact = {
   email: "davidarrebacorral@gmail.com",
   location: "Dublin, Ireland",
   linkedInLabel: "LinkedIn",
-  githubLabel: "GitHub",
   linkedInHref: "https://www.linkedin.com/in/david-arreba",
-  githubHref: "https://github.com/",
 } as const;
 
 export function getProjectBySlug(slug: string) {

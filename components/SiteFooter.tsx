@@ -66,14 +66,6 @@ export function SiteFooter() {
           </TransitionLink>
           <TransitionLink
             className="transition-opacity duration-200 hover:opacity-70"
-            href={contact.githubHref}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {contact.githubLabel}
-          </TransitionLink>
-          <TransitionLink
-            className="transition-opacity duration-200 hover:opacity-70"
             href="/privacy"
           >
             Privacy & cookies
