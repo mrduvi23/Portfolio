@@ -35,7 +35,7 @@ export const assets = {
   uciNavAnchorMenus03: "/work/uci/Navigation/AnchorMenus_03.webp",
   zoneOldDesign: "/work/zone/ZoneOldDesign.webp",
   zoneMoodboard: "/work/zone/Moodboard.webp",
-  zoneWalkthrough: "/work/zone/AppCbreWalkthrough.webm?v=6",
+  zoneWalkthrough: "/work/zone/AppCbreWalkthrough.webm?v=7",
   zoneNews: "/work/zone/NewsZone.webm?v=6",
   zoneCalendar: "/work/zone/CalendarZone.webm?v=6",
   zoneWorkspace: "/work/zone/WorkspaceZone.webm?v=6",
