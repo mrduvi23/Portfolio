@@ -418,6 +418,8 @@ export function SessionLoader() {
             <img
               src={LOADER_POSTER_SRC}
               alt=""
+              width={1920}
+              height={1080}
               draggable={false}
               className="pointer-events-none h-full w-full select-none object-cover"
             />
