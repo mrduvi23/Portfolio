@@ -20,7 +20,11 @@ export const span1of2_6of12 =
 export const caseStudyContentSpan =
   "col-span-2 min-[764px]:col-start-2 min-[764px]:col-span-10 min-[1024px]:col-start-3 min-[1024px]:col-span-8" as const;
 
-/** Nav bottom → first page content: 64px below 1280px, page rhythm (128px) from 1280px. */
+/**
+ * Nav bottom → first page content: 64px below 1280px, page rhythm (128px) from 1280px.
+ * This is the gap under the bar, not the bar itself. Bar clearance is
+ * `.site-main` padding (`--site-header-height`).
+ */
 export const pageContentTopOffset = "pt-16 min-[1280px]:pt-page";
 
 /** Last page content → footer: section rhythm (80px) below 1280px, page rhythm (128px) from 1280px. */

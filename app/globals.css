@@ -67,6 +67,22 @@
   --cursor-dot: #bfbfbf;
   --cursor-ring-stroke: #191919;
   --cursor-ring-fill: color-mix(in srgb, #fdfdfd 5%, transparent);
+
+  /**
+   * Fixed navbar bar height.
+   * bp-xs (0–763) and desktop (bp-md/lg/xl, ≥1025px): 64px.
+   * bp-sm tablet (764–1024px): 80px — see the media query below.
+   * .site-main padding-top uses the same token so content clearance
+   * tracks the bar. The gap under the bar is pageContentTopOffset.
+   */
+  --site-header-height: 64px;
+  /**
+   * Anchor clearance (scroll-margin / index scroll). Was 112px against
+   * the 80px bar (32px of air under the bar). Desktop shortens the bar
+   * by 16px, so this drops to 96px from 1025px. Mobile and tablet stay
+   * at 112px.
+   */
+  --site-header-scroll-offset: 112px;
 }
 
 @theme {
@@ -185,6 +201,19 @@ html[data-route-transition] .page-transition-content {
   background-color: var(--cursor-ring-fill);
 }
 
+/* Tablet keeps the taller bar. Desktop (≥1025px) uses the 64px root value. */
+@media (min-width: 764px) and (max-width: 1024px) {
+  :root {
+    --site-header-height: 80px;
+  }
+}
+
+@media (min-width: 1025px) {
+  :root {
+    --site-header-scroll-offset: 96px;
+  }
+}
+
 /* Fixed nav — hide/show on scroll (see useNavbarScrollVisibility) */
 .site-header {
   position: fixed;
@@ -208,6 +237,21 @@ html[data-route-transition] .page-transition-content {
   transform: translate3d(0, -100%, 0);
   transition-delay: 0.2s;
   pointer-events: none;
+}
+
+.site-header__bar {
+  height: var(--site-header-height);
+  min-height: var(--site-header-height);
+  max-height: var(--site-header-height);
+}
+
+/* Clears the fixed bar. The page gap below the bar is separate. */
+.site-main {
+  padding-top: var(--site-header-height);
+}
+
+.scroll-mt-header {
+  scroll-margin-top: var(--site-header-scroll-offset);
 }
 
 .page-shell {
