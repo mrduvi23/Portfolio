@@ -6,8 +6,8 @@ import { flattenCaseStudyNavIds } from "@/lib/case-studies/nav-utils";
 import type { CaseStudyNavItem } from "@/lib/case-studies/types";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-/** Fallback if --site-header-scroll-offset is missing. Matches the pre-desktop value. */
-const SCROLL_OFFSET_FALLBACK = 112;
+/** Fallback if --site-header-scroll-offset is missing. Matches the 96px token. */
+const SCROLL_OFFSET_FALLBACK = 96;
 /** Safety net if Lenis onComplete never fires. */
 const SCROLL_LOCK_MAX_MS = 2000;
 /** Scroll beyond this → treat as restored / intentional position, not fresh top entry. */
