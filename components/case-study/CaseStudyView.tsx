@@ -426,7 +426,7 @@ function CaseStudyHeading({
   const spacingClass = spacingTop === "section" ? "mt-section-break" : "";
 
   return (
-    <Tag id={id} className={`${className} ${spacingClass} ${id ? "scroll-mt-28" : ""}`.trim()}>
+    <Tag id={id} className={`${className} ${spacingClass} ${id ? "scroll-mt-header" : ""}`.trim()}>
       {text}
     </Tag>
   );
@@ -698,7 +698,7 @@ function CaseStudySectionView({ section }: { section: CaseStudySection }) {
   return (
     <section
       id={section.navId}
-      className="flex scroll-mt-28 flex-col gap-tight"
+      className="flex scroll-mt-header flex-col gap-tight"
     >
       <CaseStudySectionHeader
         eyebrow={section.eyebrow}

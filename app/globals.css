@@ -67,6 +67,18 @@
   --cursor-dot: #bfbfbf;
   --cursor-ring-stroke: #191919;
   --cursor-ring-fill: color-mix(in srgb, #fdfdfd 5%, transparent);
+
+  /**
+   * Fixed navbar bar height. 64px at every breakpoint.
+   * .site-main padding-top uses the same token so content clearance
+   * tracks the bar. The gap under the bar is pageContentTopOffset.
+   */
+  --site-header-height: 64px;
+  /**
+   * Anchor clearance (scroll-margin / index scroll). 96px at every
+   * breakpoint: the 64px bar plus 32px of air under it.
+   */
+  --site-header-scroll-offset: 96px;
 }
 
 @theme {
@@ -208,6 +220,21 @@ html[data-route-transition] .page-transition-content {
   transform: translate3d(0, -100%, 0);
   transition-delay: 0.2s;
   pointer-events: none;
+}
+
+.site-header__bar {
+  height: var(--site-header-height);
+  min-height: var(--site-header-height);
+  max-height: var(--site-header-height);
+}
+
+/* Clears the fixed bar. The page gap below the bar is separate. */
+.site-main {
+  padding-top: var(--site-header-height);
+}
+
+.scroll-mt-header {
+  scroll-margin-top: var(--site-header-scroll-offset);
 }
 
 .page-shell {

@@ -113,7 +113,7 @@ export function SiteHeader() {
       className="site-header border-b border-[var(--color-border)] bg-[var(--color-bg)]"
       data-scroll-state={scrollVisible ? "visible" : "hidden"}
     >
-      <div className="page-shell flex h-16 min-h-16 max-h-16 shrink-0 items-center justify-between min-[764px]:h-20 min-[764px]:min-h-20 min-[764px]:max-h-20">
+      <div className="site-header__bar page-shell flex shrink-0 items-center justify-between">
         <NavLogoLink />
 
         <nav

@@ -6,18 +6,25 @@ import { flattenCaseStudyNavIds } from "@/lib/case-studies/nav-utils";
 import type { CaseStudyNavItem } from "@/lib/case-studies/types";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-/** Matches Lenis scrollTo offset and section scroll-mt (navbar clearance). */
-const SCROLL_OFFSET = -112;
-const ACTIVATION_LINE_OFFSET = 112;
+/** Fallback if --site-header-scroll-offset is missing. Matches the 96px token. */
+const SCROLL_OFFSET_FALLBACK = 96;
 /** Safety net if Lenis onComplete never fires. */
 const SCROLL_LOCK_MAX_MS = 2000;
 /** Scroll beyond this → treat as restored / intentional position, not fresh top entry. */
 const SCROLL_RESTORED_THRESHOLD = 24;
 
-const SPY_IO: IntersectionObserverInit = {
-  rootMargin: "-112px 0px -55% 0px",
-  threshold: [0, 0.01, 0.1, 0.25, 0.5, 0.75, 1],
-};
+const SPY_THRESHOLDS = [0, 0.01, 0.1, 0.25, 0.5, 0.75, 1];
+
+/** Same token as `.scroll-mt-header` (navbar clearance + the air under the bar). */
+function readSiteHeaderScrollOffset(): number {
+  if (typeof document === "undefined") return SCROLL_OFFSET_FALLBACK;
+  const value = Number.parseFloat(
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--site-header-scroll-offset",
+    ),
+  );
+  return Number.isFinite(value) ? value : SCROLL_OFFSET_FALLBACK;
+}
 
 function getScrollY(): number {
   if (typeof window === "undefined") return 0;
@@ -30,10 +37,13 @@ function hasMeaningfulScroll(): boolean {
   return getScrollY() > SCROLL_RESTORED_THRESHOLD;
 }
 
-function pickActiveByScrollPosition(ids: string[]): string | null {
+function pickActiveByScrollPosition(
+  ids: string[],
+  activationOffset: number,
+): string | null {
   if (ids.length === 0) return null;
 
-  const activationLine = getScrollY() + ACTIVATION_LINE_OFFSET;
+  const activationLine = getScrollY() + activationOffset;
   const positioned = ids
     .map((id) => {
       const element = document.getElementById(id);
@@ -61,6 +71,8 @@ function pickActiveByScrollPosition(ids: string[]): string | null {
 export function useCaseStudyIndexSpy(nav: CaseStudyNavItem[]) {
   const [activeId, setActiveId] = useState<string | null>(nav[0]?.id ?? null);
   const [hovering, setHovering] = useState(false);
+  const [scrollOffset, setScrollOffset] = useState(SCROLL_OFFSET_FALLBACK);
+  const scrollOffsetRef = useRef(SCROLL_OFFSET_FALLBACK);
   const scrollLockRef = useRef<string | null>(null);
   const selectedIdRef = useRef<string | null>(null);
   const pinFirstSectionRef = useRef(true);
@@ -101,7 +113,7 @@ export function useCaseStudyIndexSpy(nav: CaseStudyNavItem[]) {
       return bestId;
     }
 
-    return pickActiveByScrollPosition(ids);
+    return pickActiveByScrollPosition(ids, scrollOffsetRef.current);
   }, [nav]);
 
   const applyActiveState = useCallback(() => {
@@ -165,7 +177,7 @@ export function useCaseStudyIndexSpy(nav: CaseStudyNavItem[]) {
       const lenis = getLenisInstance();
       if (lenis) {
         lenis.scrollTo(target, {
-          offset: SCROLL_OFFSET,
+          offset: -scrollOffsetRef.current,
           onComplete: scheduleRelease,
         });
         return;
@@ -179,6 +191,17 @@ export function useCaseStudyIndexSpy(nav: CaseStudyNavItem[]) {
     },
     [clearScrollLock, releaseScrollLock, enableSpy],
   );
+
+  useEffect(() => {
+    const sync = () => {
+      const next = readSiteHeaderScrollOffset();
+      scrollOffsetRef.current = next;
+      setScrollOffset((prev) => (prev === next ? prev : next));
+    };
+    sync();
+    window.addEventListener("resize", sync);
+    return () => window.removeEventListener("resize", sync);
+  }, []);
 
   useEffect(() => {
     pinFirstSectionRef.current = !hasMeaningfulScroll();
@@ -201,7 +224,10 @@ export function useCaseStudyIndexSpy(nav: CaseStudyNavItem[]) {
         );
       }
       applyActiveState();
-    }, SPY_IO);
+    }, {
+      rootMargin: `-${scrollOffset}px 0px -55% 0px`,
+      threshold: SPY_THRESHOLDS,
+    });
 
     for (const el of elements) observer.observe(el);
 
@@ -253,7 +279,7 @@ export function useCaseStudyIndexSpy(nav: CaseStudyNavItem[]) {
       window.clearTimeout(stopRestorePoll);
       clearScrollLock();
     };
-  }, [nav, applyActiveState, clearScrollLock, clearSelectedId, enableSpy]);
+  }, [nav, applyActiveState, clearScrollLock, clearSelectedId, enableSpy, scrollOffset]);
 
   return {
     activeId,
