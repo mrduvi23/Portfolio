@@ -46,6 +46,10 @@ type FieldConfig = {
   multiline?: boolean;
 };
 
+const MAX_NAME = 100;
+const MAX_EMAIL = 254;
+const MAX_MESSAGE = 5000;
+
 const FIELDS: FieldConfig[] = [
   { id: "name", label: "Name", placeholder: "Enter your name" },
   {
@@ -79,16 +83,22 @@ function validate(values: FormValues): Partial<Record<FieldKey, string>> {
 
   if (!values.name.trim()) {
     errors.name = "Please enter your name.";
+  } else if (values.name.trim().length > MAX_NAME) {
+    errors.name = "Name is too long.";
   }
 
   if (!values.email.trim()) {
     errors.email = "Please enter your email.";
+  } else if (values.email.trim().length > MAX_EMAIL) {
+    errors.email = "Email is too long.";
   } else if (!isValidEmail(values.email.trim())) {
     errors.email = "Please enter a valid email address.";
   }
 
   if (!values.message.trim()) {
     errors.message = "Please enter a message.";
+  } else if (values.message.trim().length > MAX_MESSAGE) {
+    errors.message = "Message is too long.";
   }
 
   return errors;
@@ -100,6 +110,7 @@ type ContactFieldProps = {
   placeholder: string;
   type?: "text" | "email";
   multiline?: boolean;
+  maxLength?: number;
   value: string;
   error?: string;
   onChange: (value: string) => void;
@@ -111,6 +122,7 @@ function ContactField({
   placeholder,
   type = "text",
   multiline = false,
+  maxLength,
   value,
   error,
   onChange,
@@ -133,6 +145,7 @@ function ContactField({
             id={id}
             name={id}
             rows={4}
+            maxLength={maxLength}
             value={value}
             placeholder={placeholder}
             aria-invalid={Boolean(error)}
@@ -145,6 +158,7 @@ function ContactField({
             id={id}
             name={id}
             type={type}
+            maxLength={maxLength}
             value={value}
             placeholder={placeholder}
             aria-invalid={Boolean(error)}
@@ -230,6 +244,13 @@ export function ContactForm() {
         <ContactField
           key={field.id}
           {...field}
+          maxLength={
+            field.id === "name"
+              ? MAX_NAME
+              : field.id === "email"
+                ? MAX_EMAIL
+                : MAX_MESSAGE
+          }
           value={values[field.id]}
           error={errors[field.id]}
           onChange={(value) => updateField(field.id, value)}
